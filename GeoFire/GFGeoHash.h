@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 #define GF_DEFAULT_PRECISION 10
+#define GF_MAX_PRECISION 22
 
 @interface GFGeoHash : NSObject
 
@@ -25,12 +26,5 @@
 + (GFGeoHash *)newWithString:(NSString *)string;
 
 + (BOOL)isValidGeoHash:(NSString *)hash;
-
-- (GFGeoHash *)neighborWest;
-- (GFGeoHash *)neighborEast;
-- (GFGeoHash *)neighborNorth;
-- (GFGeoHash *)neighborSouth;
-
-- (NSSet *)neighbors;
 
 @end

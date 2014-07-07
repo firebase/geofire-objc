@@ -23,6 +23,11 @@
 		FBA358F2196573A700A86282 /* GFGeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA358F0196573A700A86282 /* GFGeoHash.m */; };
 		FBA358F51965797C00A86282 /* GFGeoHashTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA358F41965797C00A86282 /* GFGeoHashTest.m */; };
 		FBA3590E1965CAE800A86282 /* GFQuery+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = FBA3590C1965CAE800A86282 /* GFQuery+Private.h */; };
+		FBA35912196A978100A86282 /* GFGeoHashQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FBA35910196A978100A86282 /* GFGeoHashQuery.h */; };
+		FBA35913196A978100A86282 /* GFGeoHashQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA35911196A978100A86282 /* GFGeoHashQuery.m */; };
+		FBA35919196AA43100A86282 /* GFBase32Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = FBA35917196AA43100A86282 /* GFBase32Utils.h */; };
+		FBA3591A196AA43100A86282 /* GFBase32Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA35918196AA43100A86282 /* GFBase32Utils.m */; };
+		FBA3591C196AAB6500A86282 /* GFGeoHashQueryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA3591B196AAB6500A86282 /* GFGeoHashQueryTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +72,11 @@
 		FBA358F0196573A700A86282 /* GFGeoHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFGeoHash.m; sourceTree = "<group>"; };
 		FBA358F41965797C00A86282 /* GFGeoHashTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFGeoHashTest.m; sourceTree = "<group>"; };
 		FBA3590C1965CAE800A86282 /* GFQuery+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GFQuery+Private.h"; sourceTree = "<group>"; };
+		FBA35910196A978100A86282 /* GFGeoHashQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFGeoHashQuery.h; sourceTree = "<group>"; };
+		FBA35911196A978100A86282 /* GFGeoHashQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFGeoHashQuery.m; sourceTree = "<group>"; };
+		FBA35917196AA43100A86282 /* GFBase32Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFBase32Utils.h; sourceTree = "<group>"; };
+		FBA35918196AA43100A86282 /* GFBase32Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFBase32Utils.m; sourceTree = "<group>"; };
+		FBA3591B196AAB6500A86282 /* GFGeoHashQueryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFGeoHashQueryTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,8 +142,12 @@
 				FBA358EB1965683400A86282 /* GFQuery.h */,
 				FBA3590C1965CAE800A86282 /* GFQuery+Private.h */,
 				FBA358EC1965683400A86282 /* GFQuery.m */,
+				FBA35917196AA43100A86282 /* GFBase32Utils.h */,
+				FBA35918196AA43100A86282 /* GFBase32Utils.m */,
 				FBA358EF196573A700A86282 /* GFGeoHash.h */,
 				FBA358F0196573A700A86282 /* GFGeoHash.m */,
+				FBA35910196A978100A86282 /* GFGeoHashQuery.h */,
+				FBA35911196A978100A86282 /* GFGeoHashQuery.m */,
 				FBA358C219655FED00A86282 /* Supporting Files */,
 			);
 			path = GeoFire;
@@ -150,6 +164,7 @@
 		FBA358D519655FED00A86282 /* GeoFireTests */ = {
 			isa = PBXGroup;
 			children = (
+				FBA3591B196AAB6500A86282 /* GFGeoHashQueryTest.m */,
 				FBA358F41965797C00A86282 /* GFGeoHashTest.m */,
 				FBA358D619655FED00A86282 /* Supporting Files */,
 			);
@@ -175,7 +190,9 @@
 				FBA3590E1965CAE800A86282 /* GFQuery+Private.h in Headers */,
 				FBA358F1196573A700A86282 /* GFGeoHash.h in Headers */,
 				FBA358ED1965683400A86282 /* GFQuery.h in Headers */,
+				FBA35912196A978100A86282 /* GFGeoHashQuery.h in Headers */,
 				FBA358E61965606200A86282 /* GeoFire.h in Headers */,
+				FBA35919196AA43100A86282 /* GFBase32Utils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +285,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA358F2196573A700A86282 /* GFGeoHash.m in Sources */,
+				FBA3591A196AA43100A86282 /* GFBase32Utils.m in Sources */,
+				FBA35913196A978100A86282 /* GFGeoHashQuery.m in Sources */,
 				FBA358C719655FED00A86282 /* GeoFire.m in Sources */,
 				FBA358EE1965683400A86282 /* GFQuery.m in Sources */,
 			);
@@ -278,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA358F51965797C00A86282 /* GFGeoHashTest.m in Sources */,
+				FBA3591C196AAB6500A86282 /* GFGeoHashQueryTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +356,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-Wno-gnu";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -366,6 +387,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_CFLAGS = "-Wno-gnu";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

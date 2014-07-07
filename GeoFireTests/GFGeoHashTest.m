@@ -24,18 +24,6 @@ do { \
 
 #define TEST_HASH(__lat, __long, __hash) TEST_HASH_PREC(__lat, __long, 10, __hash)
 
-#define TEST_NEIGHBOR(__orig, __direction, __neighbor) \
-do { \
-    GFGeoHash *__neighborHash = [GFGeoHash newWithString:__orig].neighbor##__direction; \
-    if (__neighbor == nil) { \
-       XCTAssertNil(__neighborHash, @"Neighbor should be nil!"); \
-    } else { \
-       XCTAssertEqualObjects(__neighbor, \
-                             __neighborHash.geoHashValue, \
-                             @"Hashes don't match"); \
-    } \
-} while(0)
-
 
 - (void)testHashValues
 {
@@ -69,24 +57,6 @@ do { \
     TEST_HASH_PREC(78.216667, 15.55, 1, @"u");
     TEST_HASH_PREC(-54.933333, -67.616667, 7, @"4qpzmre");
     TEST_HASH_PREC(-54, -67, 9, @"4w2kg3s54");
-}
-
-- (void)testNeighboringHashes
-{
-    TEST_NEIGHBOR(@"000000000000", North, @"000000000001");
-    TEST_NEIGHBOR(@"000000000000", South, @"pbpbpbpbpbp");
-    TEST_NEIGHBOR(@"000000000000", East, @"000000000002");
-    TEST_NEIGHBOR(@"000000000000", West, @"bpbpbpbpbpb");
-
-    TEST_NEIGHBOR(@"d62dtu", North, @"d62dtv");
-    TEST_NEIGHBOR(@"d62dtu", South, @"d62dtg");
-    TEST_NEIGHBOR(@"d62dtu", East, @"d62dwh");
-    TEST_NEIGHBOR(@"d62dtu", West, @"d62dts");
-
-    TEST_NEIGHBOR(@"5", North, @"7");
-    TEST_NEIGHBOR(@"5", South, nil);
-    TEST_NEIGHBOR(@"5", East, @"h");
-    TEST_NEIGHBOR(@"5", West, @"4");
 }
 
 - (void)testHashInvalidArguments
