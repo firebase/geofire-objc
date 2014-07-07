@@ -23,13 +23,12 @@ typedef void (^GFLocationBlock) (CLLocation *location);
 
 + (GeoFire *)newWithFirebase:(Firebase *)firebase;
 
-/*
-- (void)setCoordinate:(CLLocationCoordinate2D)coordinate
-               forKey:(NSString *)key;
+- (void)setLocation:(CLLocationCoordinate2D)location
+             forKey:(NSString *)key;
 
-- (void)setCoordinate:(CLLocationCoordinate2D)coordinate
-               forKey:(NSString *)key
-  withCompletionBlock:(GFCompletionBlock)block;
+- (void)setLocation:(CLLocationCoordinate2D)location
+             forKey:(NSString *)key
+withCompletionBlock:(GFCompletionBlock)block;
 
 - (void)removeKey:(NSString *)key;
 
@@ -39,8 +38,7 @@ typedef void (^GFLocationBlock) (CLLocation *location);
 - (void)observeCoordinateOnceForKey:(NSString *)key
                           withBlock:(GFLocationBlock)block;
 
-- (GFQuery *)queryAtCoordinate:(CLLocationCoordinate2D)coordinate
-                    withRadius:(double)radius;
- */
+- (GFQuery *)queryAtLocation:(CLLocationCoordinate2D)location
+                  withRadius:(double)radius;
 
 @end

@@ -16,7 +16,7 @@ typedef enum {
     GFEventTypeKeyMoved
 } GFEventType;
 
-typedef void (^GFQueryResultBlock) (NSString *key, CLLocationCoordinate2D location, double distance);
+typedef void (^GFQueryResultBlock) (NSString *key, CLLocation *location);
 
 @interface GFQuery : NSObject
 
@@ -26,8 +26,8 @@ typedef void (^GFQueryResultBlock) (NSString *key, CLLocationCoordinate2D locati
 
 /* TODO: cancel queries */
 
-- (void)observeEventType:(GFEventType)eventType withBlock:(GFQueryResultBlock)block;
-
-- (void)cancel;
+- (FirebaseHandle)observeEventType:(GFEventType)eventType withBlock:(GFQueryResultBlock)block;
+- (void)removeObserverWithFirebaseHandle:(FirebaseHandle)handle;
+- (void)removeAllObservers;
 
 @end

@@ -191,6 +191,11 @@
     return [self.startValue hash]*31 + [self.endValue hash];
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    return self;
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"GFGeoHashQuery: %@-%@", self.startValue, self.endValue];

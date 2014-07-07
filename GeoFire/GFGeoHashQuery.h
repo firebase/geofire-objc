@@ -11,7 +11,7 @@
 
 #import "GFGeoHash.h"
 
-@interface GFGeoHashQuery : NSObject
+@interface GFGeoHashQuery : NSObject<NSCopying>
 
 @property (nonatomic, strong, readonly) NSString *startValue;
 @property (nonatomic, strong, readonly) NSString *endValue;

@@ -77,6 +77,7 @@
 		FBA35917196AA43100A86282 /* GFBase32Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFBase32Utils.h; sourceTree = "<group>"; };
 		FBA35918196AA43100A86282 /* GFBase32Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFBase32Utils.m; sourceTree = "<group>"; };
 		FBA3591B196AAB6500A86282 /* GFGeoHashQueryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFGeoHashQueryTest.m; sourceTree = "<group>"; };
+		FBBC43C2196ADB0100C0CAA5 /* GeoFire+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GeoFire+Private.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				FBA358C419655FED00A86282 /* GeoFire.h */,
+				FBBC43C2196ADB0100C0CAA5 /* GeoFire+Private.h */,
 				FBA358C619655FED00A86282 /* GeoFire.m */,
 				FBA358EB1965683400A86282 /* GFQuery.h */,
 				FBA3590C1965CAE800A86282 /* GFQuery+Private.h */,
@@ -484,6 +486,7 @@
 				FBA358E119655FED00A86282 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FBA358E219655FED00A86282 /* Build configuration list for PBXNativeTarget "GeoFireTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +495,7 @@
 				FBA358E419655FED00A86282 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
