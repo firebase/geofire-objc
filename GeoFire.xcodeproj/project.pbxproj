@@ -6,6 +6,21 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		FB8C87EF196AF8100061AC0F /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = FB8C87F0196AF8100061AC0F /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+				FB8C87F5196AF82D0061AC0F /* ShellScript */,
+			);
+			dependencies = (
+				FB8C87F4196AF8180061AC0F /* PBXTargetDependency */,
+			);
+			name = Framework;
+			productName = Framework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		FBA358C019655FED00A86282 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358BF19655FED00A86282 /* Foundation.framework */; };
 		FBA358C519655FED00A86282 /* GeoFire.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBA358C419655FED00A86282 /* GeoFire.h */; };
@@ -17,7 +32,7 @@
 		FBA358DA19655FED00A86282 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FBA358D819655FED00A86282 /* InfoPlist.strings */; };
 		FBA358E61965606200A86282 /* GeoFire.h in Headers */ = {isa = PBXBuildFile; fileRef = FBA358C419655FED00A86282 /* GeoFire.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBA358EA1965659A00A86282 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358E91965659A00A86282 /* CoreLocation.framework */; };
-		FBA358ED1965683400A86282 /* GFQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FBA358EB1965683400A86282 /* GFQuery.h */; };
+		FBA358ED1965683400A86282 /* GFQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FBA358EB1965683400A86282 /* GFQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBA358EE1965683400A86282 /* GFQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA358EC1965683400A86282 /* GFQuery.m */; };
 		FBA358F1196573A700A86282 /* GFGeoHash.h in Headers */ = {isa = PBXBuildFile; fileRef = FBA358EF196573A700A86282 /* GFGeoHash.h */; };
 		FBA358F2196573A700A86282 /* GFGeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA358F0196573A700A86282 /* GFGeoHash.m */; };
@@ -31,6 +46,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		FB8C87F3196AF8180061AC0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FBA358B419655FED00A86282 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FBA358BB19655FED00A86282;
+			remoteInfo = GeoFire;
+		};
 		FBA358D219655FED00A86282 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FBA358B419655FED00A86282 /* Project object */;
@@ -104,6 +126,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FB8C87EC196AF5810061AC0F /* API */ = {
+			isa = PBXGroup;
+			children = (
+				FBA358C419655FED00A86282 /* GeoFire.h */,
+				FBA358EB1965683400A86282 /* GFQuery.h */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
+		FB8C87ED196AF5960061AC0F /* Implementation */ = {
+			isa = PBXGroup;
+			children = (
+				FBBC43C2196ADB0100C0CAA5 /* GeoFire+Private.h */,
+				FBA358C619655FED00A86282 /* GeoFire.m */,
+				FBA3590C1965CAE800A86282 /* GFQuery+Private.h */,
+				FBA358EC1965683400A86282 /* GFQuery.m */,
+				FBA35917196AA43100A86282 /* GFBase32Utils.h */,
+				FBA35918196AA43100A86282 /* GFBase32Utils.m */,
+				FBA358EF196573A700A86282 /* GFGeoHash.h */,
+				FBA358F0196573A700A86282 /* GFGeoHash.m */,
+				FBA35910196A978100A86282 /* GFGeoHashQuery.h */,
+				FBA35911196A978100A86282 /* GFGeoHashQuery.m */,
+			);
+			name = Implementation;
+			sourceTree = "<group>";
+		};
 		FBA358B319655FED00A86282 = {
 			isa = PBXGroup;
 			children = (
@@ -138,18 +186,8 @@
 		FBA358C119655FED00A86282 /* GeoFire */ = {
 			isa = PBXGroup;
 			children = (
-				FBA358C419655FED00A86282 /* GeoFire.h */,
-				FBBC43C2196ADB0100C0CAA5 /* GeoFire+Private.h */,
-				FBA358C619655FED00A86282 /* GeoFire.m */,
-				FBA358EB1965683400A86282 /* GFQuery.h */,
-				FBA3590C1965CAE800A86282 /* GFQuery+Private.h */,
-				FBA358EC1965683400A86282 /* GFQuery.m */,
-				FBA35917196AA43100A86282 /* GFBase32Utils.h */,
-				FBA35918196AA43100A86282 /* GFBase32Utils.m */,
-				FBA358EF196573A700A86282 /* GFGeoHash.h */,
-				FBA358F0196573A700A86282 /* GFGeoHash.m */,
-				FBA35910196A978100A86282 /* GFGeoHashQuery.h */,
-				FBA35911196A978100A86282 /* GFGeoHashQuery.m */,
+				FB8C87ED196AF5960061AC0F /* Implementation */,
+				FB8C87EC196AF5810061AC0F /* API */,
 				FBA358C219655FED00A86282 /* Supporting Files */,
 			);
 			path = GeoFire;
@@ -190,8 +228,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA3590E1965CAE800A86282 /* GFQuery+Private.h in Headers */,
-				FBA358F1196573A700A86282 /* GFGeoHash.h in Headers */,
 				FBA358ED1965683400A86282 /* GFQuery.h in Headers */,
+				FBA358F1196573A700A86282 /* GFGeoHash.h in Headers */,
 				FBA35912196A978100A86282 /* GFGeoHashQuery.h in Headers */,
 				FBA358E61965606200A86282 /* GeoFire.h in Headers */,
 				FBA35919196AA43100A86282 /* GFBase32Utils.h in Headers */,
@@ -209,6 +247,7 @@
 				FBA358B919655FED00A86282 /* Frameworks */,
 				FBA358BA19655FED00A86282 /* CopyFiles */,
 				FBA358E51965605000A86282 /* Headers */,
+				FB8C87EE196AF7270061AC0F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -266,6 +305,7 @@
 			targets = (
 				FBA358BB19655FED00A86282 /* GeoFire */,
 				FBA358CB19655FED00A86282 /* GeoFireTests */,
+				FB8C87EF196AF8100061AC0F /* Framework */,
 			);
 		};
 /* End PBXProject section */
@@ -280,6 +320,35 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FB8C87EE196AF7270061AC0F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nexport FRAMEWORK_LOCN=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework\"\n\n# Create the path to the real Headers die\nmkdir -p \"${FRAMEWORK_LOCN}/Versions/A/Headers\"\n\n# Create the required symlinks\n/bin/ln -sfh A \"${FRAMEWORK_LOCN}/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${FRAMEWORK_LOCN}/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \\\n             \"${FRAMEWORK_LOCN}/${PRODUCT_NAME}\"\n\n# Copy the public headers into the framework\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \\\n           \"${FRAMEWORK_LOCN}/Versions/A/Headers\"";
+		};
+		FB8C87F5196AF82D0061AC0F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\n# If we're already inside this script then die\nif [ -n \"$RW_MULTIPLATFORM_BUILD_IN_PROGRESS\" ]; then\n  exit 0\nfi\nexport RW_MULTIPLATFORM_BUILD_IN_PROGRESS=1\n\nRW_FRAMEWORK_NAME=${PROJECT_NAME}\nRW_INPUT_STATIC_LIB=\"lib${PROJECT_NAME}.a\"\nRW_FRAMEWORK_LOCATION=\"${BUILT_PRODUCTS_DIR}/${RW_FRAMEWORK_NAME}.framework\"\n\nfunction build_static_library {\n    # Will rebuild the static library as specified\n    #     build_static_library sdk\n    xcrun xcodebuild -project \"${PROJECT_FILE_PATH}\" \\\n    -target \"${TARGET_NAME}\" \\\n    -configuration \"${CONFIGURATION}\" \\\n    -sdk \"${1}\" \\\n    ONLY_ACTIVE_ARCH=NO \\\n    BUILD_DIR=\"${BUILD_DIR}\" \\\n    OBJROOT=\"${OBJROOT}\" \\\n    BUILD_ROOT=\"${BUILD_ROOT}\" \\\n    SYMROOT=\"${SYMROOT}\" $ACTION\n}\n\nfunction make_fat_library {\n    # Will smash 2 static libs together\n    #     make_fat_library in1 in2 out\n    xcrun lipo -create \"${1}\" \"${2}\" -output \"${3}\"\n}\n\n# 1 - Extract the platform (iphoneos/iphonesimulator) from the SDK name\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]; then\n  RW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\n  echo \"Could not find platform name from SDK_NAME: $SDK_NAME\"\n  exit 1\nfi\n\n# 2 - Extract the version from the SDK\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]; then\n  RW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\n  echo \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\n  exit 1\nfi\n\n# 3 - Determine the other platform\nif [ \"$RW_SDK_PLATFORM\" == \"iphoneos\" ]; then\n  RW_OTHER_PLATFORM=iphonesimulator\nelse\n  RW_OTHER_PLATFORM=iphoneos\nfi\n\n# 4 - Find the build directory\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$RW_SDK_PLATFORM$ ]]; then\n  RW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${RW_OTHER_PLATFORM}\"\nelse\n  echo \"Could not find other platform build directory.\"\n  exit 1\nfi\n\n# Build the other platform.\nbuild_static_library \"${RW_OTHER_PLATFORM}${RW_SDK_VERSION}\"\n\n# If we're currently building for iphonesimulator, then need to rebuild\n#   to ensure that we get both i386 and x86_64\nif [ \"$RW_SDK_PLATFORM\" == \"iphonesimulator\" ]; then\n  build_static_library \"${SDK_NAME}\"\nfi\n\n# Join the 2 static libs into 1 and push into the .framework\nmake_fat_library \"${BUILT_PRODUCTS_DIR}/${RW_INPUT_STATIC_LIB}\" \\\n                 \"${RW_OTHER_BUILT_PRODUCTS_DIR}/${RW_INPUT_STATIC_LIB}\" \\\n                 \"${RW_FRAMEWORK_LOCATION}/Versions/A/${RW_FRAMEWORK_NAME}\"\n\n# Ensure that the framework is present in both platform's build directories\ncp -a \"${RW_FRAMEWORK_LOCATION}/Versions/A/${RW_FRAMEWORK_NAME}\" \\\n      \"${RW_OTHER_BUILT_PRODUCTS_DIR}/${RW_FRAMEWORK_NAME}.framework/Versions/A/${RW_FRAMEWORK_NAME}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FBA358B819655FED00A86282 /* Sources */ = {
@@ -306,6 +375,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		FB8C87F4196AF8180061AC0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FBA358BB19655FED00A86282 /* GeoFire */;
+			targetProxy = FB8C87F3196AF8180061AC0F /* PBXContainerItemProxy */;
+		};
 		FBA358D319655FED00A86282 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FBA358BB19655FED00A86282 /* GeoFire */;
@@ -325,6 +399,20 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		FB8C87F1196AF8100061AC0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		FB8C87F2196AF8100061AC0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		FBA358DD19655FED00A86282 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -398,6 +486,8 @@
 		FBA358E019655FED00A86282 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/GeoFire.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -409,13 +499,17 @@
 				GCC_WARN_PEDANTIC = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 			};
 			name = Debug;
 		};
 		FBA358E119655FED00A86282 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/GeoFire.dst;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -427,7 +521,9 @@
 				GCC_WARN_PEDANTIC = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 			};
 			name = Release;
 		};
@@ -470,6 +566,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FB8C87F0196AF8100061AC0F /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FB8C87F1196AF8100061AC0F /* Debug */,
+				FB8C87F2196AF8100061AC0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		FBA358B719655FED00A86282 /* Build configuration list for PBXProject "GeoFire" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
