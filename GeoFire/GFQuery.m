@@ -37,8 +37,7 @@
 
 @interface GFQuery ()
 
-@property (nonatomic, readwrite) CLLocation *center;
-@property (nonatomic, readwrite) double radius;
+@property (nonatomic, strong) CLLocation *centerLocation;
 @property (nonatomic, strong) NSMutableDictionary *locationInfos;
 @property (nonatomic, strong) Firebase *firebase;
 @property (nonatomic, strong) NSSet *queries;
@@ -60,24 +59,23 @@
     self = [super init];
     if (self != nil) {
         self->_firebase = firebase;
-        self->_location = location;
+        self->_centerLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
         self->_radius = radius;
-        self->_firebaseHandles = [NSMutableDictionary dictionary];
-        self->_locationInfos = [NSMutableDictionary dictionary];
         self.currentHandle = 1;
+        [self reset];
     }
     return self;
 }
 
 - (FQuery *)firebaseForGeoHashQuery:(GFGeoHashQuery *)query
 {
-    return [[[self.firebase childByAppendingPath:@"l/"] queryStartingAtPriority:query.startValue]
+    return [[[self.firebase childByAppendingPath:@"l"] queryStartingAtPriority:query.startValue]
             queryEndingAtPriority:query.endValue];
 }
 
 - (BOOL)locationIsInQuery:(CLLocation *)location
 {
-    return [location distanceFromLocation:self.center] <= self.radius;
+    return [location distanceFromLocation:self.centerLocation] <= self.radius;
 }
 
 - (void)updateLocationInfo:(CLLocation *)location forKey:(NSString *)key
@@ -87,6 +85,7 @@
     if (info == nil) {
         isNew = YES;
         info = [[GFQueryLocationInfo alloc] init];
+        self.locationInfos[key] = info;
     }
     BOOL changedLocation = !(info.location.coordinate.latitude == location.coordinate.latitude &&
                              info.location.coordinate.longitude == location.coordinate.longitude);
@@ -96,20 +95,26 @@
     info.isInQuery = [self locationIsInQuery:location];
     info.geoHash = [GFGeoHash newWithLocation:location.coordinate];
 
-    if (isNew || (!wasInQuery && info.isInQuery)) {
-        [self.keyEnteredObservers enumerateKeysAndObjectsUsingBlock:^(id key, GFQueryResultBlock block, BOOL *stop) {
+    if ((isNew || !wasInQuery) && info.isInQuery) {
+        [self.keyEnteredObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
+                                                                      GFQueryResultBlock block,
+                                                                      BOOL *stop) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 block(key, info.location);
             });
         }];
-    } else if (changedLocation && info.isInQuery) {
-        [self.keyMovedObservers enumerateKeysAndObjectsUsingBlock:^(id key, GFQueryResultBlock block, BOOL *stop) {
+    } else if (!isNew && changedLocation && info.isInQuery) {
+        [self.keyMovedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
+                                                                    GFQueryResultBlock block,
+                                                                    BOOL *stop) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 block(key, info.location);
             });
         }];
     } else if (wasInQuery && !info.isInQuery) {
-        [self.keyExitedObservers enumerateKeysAndObjectsUsingBlock:^(id key, GFQueryResultBlock block, BOOL *stop) {
+        [self.keyExitedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
+                                                                     GFQueryResultBlock block,
+                                                                     BOOL *stop) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 block(key, info.location);
             });
@@ -146,68 +151,72 @@
     @synchronized(self) {
         GFQueryLocationInfo *info = self.locationInfos[snapshot.name];
         if (info) {
-            self.locationInfos[snapshot.name] = nil;
-            // TODO: notify observers;
+            [self.locationInfos removeObjectForKey:snapshot.name];
+            [self.keyExitedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
+                                                                         GFQueryResultBlock block,
+                                                                         BOOL *stop) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    block(snapshot.name, info.location);
+                });
+            }];
         }
     }
 }
 
 - (void)updateQueries
 {
-    @synchronized(self) {
-        NSSet *oldQueries = self.queries;
-        NSSet *newQueries = [GFGeoHashQuery queriesForLocation:self.location radius:self.radius];
-        NSMutableSet *toDelete = [NSMutableSet setWithSet:oldQueries];
-        [toDelete minusSet:newQueries];
-        NSMutableSet *toAdd = [NSMutableSet setWithSet:newQueries];
-        [toAdd minusSet:oldQueries];
-        [toDelete enumerateObjectsUsingBlock:^(GFGeoHashQuery *query, BOOL *stop) {
-            GFGeoHashQueryHandle *handle = self.firebaseHandles[query];
-            if (handle == nil) {
-                [NSException raise:NSInternalInconsistencyException
-                            format:@"Wanted to remove a geohash query that was not registered!"];
+    NSSet *oldQueries = self.queries;
+    NSSet *newQueries = [GFGeoHashQuery queriesForLocation:self.centerLocation.coordinate radius:self.radius];
+    NSMutableSet *toDelete = [NSMutableSet setWithSet:oldQueries];
+    [toDelete minusSet:newQueries];
+    NSMutableSet *toAdd = [NSMutableSet setWithSet:newQueries];
+    [toAdd minusSet:oldQueries];
+    [toDelete enumerateObjectsUsingBlock:^(GFGeoHashQuery *query, BOOL *stop) {
+        GFGeoHashQueryHandle *handle = self.firebaseHandles[query];
+        if (handle == nil) {
+            [NSException raise:NSInternalInconsistencyException
+                        format:@"Wanted to remove a geohash query that was not registered!"];
+        }
+        FQuery *queryFirebase = [self firebaseForGeoHashQuery:query];
+        [queryFirebase removeObserverWithHandle:handle.childAddedHandle];
+        [queryFirebase removeObserverWithHandle:handle.childChangedHandle];
+        [queryFirebase removeObserverWithHandle:handle.childRemovedHandle];
+        [self.firebaseHandles removeObjectForKey:handle];
+    }];
+    [toAdd enumerateObjectsUsingBlock:^(GFGeoHashQuery *query, BOOL *stop) {
+        GFGeoHashQueryHandle *handle = [[GFGeoHashQueryHandle alloc] init];
+        FQuery *queryFirebase = [self firebaseForGeoHashQuery:query];
+        handle.childAddedHandle = [queryFirebase observeEventType:FEventTypeChildAdded
+                                                        withBlock:^(FDataSnapshot *snapshot) {
+                                                            [self childAdded:snapshot];
+                                                        }];
+        handle.childChangedHandle = [queryFirebase observeEventType:FEventTypeChildChanged
+                                                          withBlock:^(FDataSnapshot *snapshot) {
+                                                              [self childChanged:snapshot];
+                                                          }];
+        handle.childRemovedHandle = [queryFirebase observeEventType:FEventTypeChildRemoved
+                                                          withBlock:^(FDataSnapshot *snapshot) {
+                                                              [self childRemoved:snapshot];
+                                                          }];
+        self.firebaseHandles[query] = handle;
+    }];
+    self.queries = newQueries;
+    [self.locationInfos enumerateKeysAndObjectsUsingBlock:^(id key, GFQueryLocationInfo *info, BOOL *stop) {
+        [self updateLocationInfo:info.location forKey:key];
+    }];
+    NSMutableArray *oldLocations = [NSMutableArray array];
+    [self.locationInfos enumerateKeysAndObjectsUsingBlock:^(id key, GFQueryLocationInfo *info, BOOL *stop) {
+        BOOL inQuery = NO;
+        for (GFGeoHashQuery *query in self.queries) {
+            if ([query containsGeoHash:info.geoHash]) {
+                inQuery = YES;
             }
-            FQuery *queryFirebase = [self firebaseForGeoHashQuery:query];
-            [queryFirebase removeObserverWithHandle:handle.childAddedHandle];
-            [queryFirebase removeObserverWithHandle:handle.childChangedHandle];
-            [queryFirebase removeObserverWithHandle:handle.childRemovedHandle];
-            [self.firebaseHandles removeObjectForKey:handle];
-        }];
-        [toAdd enumerateObjectsUsingBlock:^(GFGeoHashQuery *query, BOOL *stop) {
-            GFGeoHashQueryHandle *handle = [[GFGeoHashQueryHandle alloc] init];
-            FQuery *queryFirebase = [self firebaseForGeoHashQuery:query];
-            handle.childAddedHandle = [queryFirebase observeEventType:FEventTypeChildAdded
-                                                            withBlock:^(FDataSnapshot *snapshot) {
-                                                                [self childAdded:snapshot];
-                                                            }];
-            handle.childChangedHandle = [queryFirebase observeEventType:FEventTypeChildChanged
-                                                              withBlock:^(FDataSnapshot *snapshot) {
-                                                                  [self childChanged:snapshot];
-                                                              }];
-            handle.childRemovedHandle = [queryFirebase observeEventType:FEventTypeChildRemoved
-                                                              withBlock:^(FDataSnapshot *snapshot) {
-                                                                  [self childRemoved:snapshot];
-                                                              }];
-            self.firebaseHandles[query] = handle;
-        }];
-        self.queries = newQueries;
-        [self.locationInfos enumerateKeysAndObjectsUsingBlock:^(id key, id info, BOOL *stop) {
-            [self updateLocationInfo:info forKey:key];
-        }];
-        NSMutableArray *oldLocations = [NSMutableArray array];
-        [self.locationInfos enumerateKeysAndObjectsUsingBlock:^(id key, GFQueryLocationInfo *info, BOOL *stop) {
-            BOOL inQuery = NO;
-            for (GFGeoHashQuery *query in self.queries) {
-                if ([query containsGeoHash:info.geoHash]) {
-                    inQuery = YES;
-                }
-            }
-            if (!inQuery) {
-                [oldLocations addObject:key];
-            }
-        }];
-        [self.locationInfos removeObjectsForKeys:oldLocations];
-    }
+        }
+        if (!inQuery) {
+            [oldLocations addObject:key];
+        }
+    }];
+    [self.locationInfos removeObjectsForKeys:oldLocations];
 }
 
 - (void)reset
@@ -245,15 +254,23 @@
         [self.keyEnteredObservers removeObjectForKey:handle];
         [self.keyExitedObservers removeObjectForKey:handle];
         [self.keyMovedObservers removeObjectForKey:handle];
-        if (self.keyMovedObservers.count == 0 && self.keyExitedObservers.count == 0 && self.keyMovedObservers.count == 0) {
+        if ([self totalObserverCount] == 0) {
             [self reset];
         }
     }
 }
 
+- (NSUInteger)totalObserverCount
+{
+    return self.keyEnteredObservers.count + self.keyExitedObservers.count + self.keyMovedObservers.count;
+}
+
 - (FirebaseHandle)observeEventType:(GFEventType)eventType withBlock:(GFQueryResultBlock)block
 {
     @synchronized(self) {
+        if (block == nil) {
+            [NSException raise:NSInvalidArgumentException format:@"Block is not allowed to be nil!"];
+        }
         FirebaseHandle firebaseHandle = self.currentHandle;
         NSNumber *numberHandle = [NSNumber numberWithUnsignedInteger:firebaseHandle];
         self.currentHandle++;
@@ -296,6 +313,33 @@
             [self updateQueries];
         }
         return firebaseHandle;
+    }
+}
+
+- (void)setCenter:(CLLocationCoordinate2D)center
+{
+    @synchronized(self) {
+        self.centerLocation = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
+        if (self.queries != nil) {
+            [self updateQueries];
+        }
+    }
+}
+
+- (CLLocationCoordinate2D)center
+{
+    @synchronized(self) {
+        return self.centerLocation.coordinate;
+    }
+}
+
+- (void)setRadius:(double)radius
+{
+    @synchronized(self) {
+        self->_radius = radius;
+        if (self.queries != nil) {
+            [self updateQueries];
+        }
     }
 }
 

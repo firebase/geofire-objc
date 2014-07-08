@@ -15,7 +15,7 @@ static const char BASE_32_CHARS[] = "0123456789bcdefghjkmnpqrstuvwxyz";
 + (char)valueToBase32Character:(NSUInteger)value
 {
     if (value > 31) {
-        [NSException raise:NSInvalidArgumentException format:@"Not a valid base32 value: %d", value];
+        [NSException raise:NSInvalidArgumentException format:@"Not a valid base32 value: %lu", (unsigned long)value];
     }
     return BASE_32_CHARS[value];
 }

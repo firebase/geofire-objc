@@ -82,16 +82,28 @@ withCompletionBlock:^(NSError *error, Firebase *ref) {
 
 - (void)removeKey:(NSString *)key
 {
-    [self setLocationValue:nil withGeoHash:nil forKey:key withBlock:nil];
+    [self removeKey:key withCompletionBlock:nil];
+}
+
+- (void)removeKey:(NSString *)key withCompletionBlock:(GFCompletionBlock)block
+{
+    [self setLocationValue:nil withGeoHash:nil forKey:key withBlock:block];
 }
 
 + (CLLocation *)locationFromValue:(id)value
 {
     CLLocation *location = nil;
-    if ([value isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dictionary = (NSDictionary *)value;
-        id latNum = dictionary[@"0"];
-        id lngNum = dictionary[@"1"];
+    if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]) {
+        id latNum, lngNum;
+        if ([value isKindOfClass:[NSDictionary class]]) {
+            latNum = [value objectForKey:@"0"];
+            lngNum = [value objectForKey:@"1"];
+        } else if ([value isKindOfClass:[NSArray class]] && [value count] == 2) {
+            latNum = [value objectAtIndex:0];
+            lngNum = [value objectAtIndex:1];
+        } else {
+            return nil;
+        }
         if ([latNum isKindOfClass:[NSNumber class]] &&
             [lngNum isKindOfClass:[NSNumber class]]) {
             CLLocationDegrees lat = [latNum doubleValue];
@@ -110,7 +122,7 @@ withCompletionBlock:^(NSError *error, Firebase *ref) {
               @"1" : [NSNumber numberWithDouble:location.coordinate.longitude] };
 }
 
-- (void)observeCoordinateForKey:(NSString *)key withBlock:(GFLocationBlock)block
+- (void)observeLocationForKey:(NSString *)key withBlock:(GFLocationBlock)block
 {
     [[self firebaseForLocationKey:key] observeEventType:FEventTypeValue
                                               withBlock:^(FDataSnapshot *snapshot) {
@@ -118,7 +130,7 @@ withCompletionBlock:^(NSError *error, Firebase *ref) {
                                               }];
 }
 
-- (void)observeCoordinateOnceForKey:(NSString *)key withBlock:(GFLocationBlock)block
+- (void)observeLocationOnceForKey:(NSString *)key withBlock:(GFLocationBlock)block
 {
     [[self firebaseForLocationKey:key] observeSingleEventOfType:FEventTypeValue
                                                       withBlock:^(FDataSnapshot *snapshot) {
