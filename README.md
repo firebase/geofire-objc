@@ -27,7 +27,7 @@ and to create queries.
 
 #### Creating a new GeoFire instance
 
-To create a new GeoFire instance you need to attach it to a Firebase location.
+To create a new `GeoFire` instance you need to attach it to a Firebase location.
 
 ```objective-c
 Firebase *firebase = [[Firebase alloc] initWithUrl:@"https://<your-firebase>.firebaseio.com/"];
@@ -41,7 +41,8 @@ In GeoFire you can set and query locations by key. To set a location for a key
 simply call the `setLocation:forKey` method
 
 ```objective-c
-[geoFire setLocation:CLLocationCoordinate2DMake(37.7853889,-122.4056973) forKey:@"firebase-hq"];
+[geoFire setLocation:CLLocationCoordinate2DMake(37.7853889,-122.4056973)
+              forKey:@"firebase-hq"];
 ```
 
 Alternatively a callback can be passed passed which is called once the server
@@ -77,16 +78,18 @@ can always stay up-to-date automatically.
 
 ### Geo Queries
 
-Locations in an area can be queried with an GFQuery object. GFQuery objects are created with the GeoFire object
+Locations in an area can be queried with an `GFQuery` object. `GFQuery` objects are created with the `GeoFire` object
 
 ```objective-c
 // Query locations at [37.7832889, -122.4056973] with a radius of 1000 meters
-GFQuery query = [geoFire queryAtLocation:CLLocationCoordinate2DMake(37.7832889, -122.4056973) withRadius:1000];
+GFQuery query = [geoFire queryAtLocation:CLLocationCoordinate2DMake(37.7832889, -122.4056973)
+                              withRadius:1000];
 ```
 
 #### Receiving events for geo query
 
 There are 3 kind of events that can occur with a geo query:
+
 1. **Key Entered**: The location of a key now matches the search criteria
 2. **Key Exited**: The location of a key does not match the search criteria any more
 3. **Key Moved**: The location of a key changed and the location still matches the search criteria
@@ -103,7 +106,7 @@ To cancel one ore all callbacks for a geo query call `removeObserverWithFirebase
 
 #### Updating the search criteria
 
-To update the search criteria you can use the `center` and `radius` properties on the GFQuery object.
+To update the search criteria you can use the `center` and `radius` properties on the `GFQuery` object.
 
 ## Contributing
 
