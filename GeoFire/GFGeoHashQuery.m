@@ -151,11 +151,11 @@
     CLLocationDegrees longitudeDeltaSouth = [GFGeoHashQuery meters:radius toLongitudeDegreesAtLatitude:latitudeSouth];
     CLLocationDegrees longitudeDelta = fmax(longitudeDeltaNorth, longitudeDeltaSouth);
 
-    NSMutableSet *set = [NSMutableSet set];
+    NSMutableSet *queries = [NSMutableSet set];
     void (^addQuery)(CLLocationDegrees, CLLocationDegrees) = ^(CLLocationDegrees lat, CLLocationDegrees lng) {
         GFGeoHash *geoHash = [GFGeoHash newWithLocation:CLLocationCoordinate2DMake(lat, lng)
                                               precision:geoHashPrecision];
-        [set addObject:[GFGeoHashQuery geoHashQueryWithGeoHash:geoHash bits:queryBits]];
+        [queries addObject:[GFGeoHashQuery geoHashQueryWithGeoHash:geoHash bits:queryBits]];
     };
     addQuery(center.latitude, center.longitude);
     addQuery(center.latitude, [GFGeoHashQuery wrapLongitude:(center.longitude - longitudeDelta)]);
@@ -166,7 +166,71 @@
     addQuery(latitudeSouth, center.longitude);
     addQuery(latitudeSouth, [GFGeoHashQuery wrapLongitude:(center.longitude - longitudeDelta)]);
     addQuery(latitudeSouth, [GFGeoHashQuery wrapLongitude:(center.longitude + longitudeDelta)]);
-    return set;
+    // Join queries
+    BOOL didJoin;
+    do {
+        GFGeoHashQuery *query1 = nil;
+        GFGeoHashQuery *query2 = nil;
+        for (GFGeoHashQuery *query in queries) {
+            for (GFGeoHashQuery *other in queries) {
+                if (query != other && [query canJoinWith:other]) {
+                    query1 = query;
+                    query2 = other;
+                }
+            }
+        }
+        if (query1 != nil && query2 != nil) {
+            [queries removeObject:query1];
+            [queries removeObject:query2];
+            [queries addObject:[query1 joinWith:query2]];
+            didJoin = YES;
+        } else {
+            didJoin = NO;
+        }
+    } while (didJoin);
+
+    return queries;
+}
+
+- (BOOL)isPrefixTo:(GFGeoHashQuery *)other
+{
+    return ([self.endValue compare:other.startValue] != NSOrderedAscending &&
+            [self.startValue compare:other.startValue] == NSOrderedAscending &&
+            [self.endValue compare:other.endValue] == NSOrderedAscending);
+}
+
+- (BOOL)isSuperQueryOf:(GFGeoHashQuery *)other
+{
+    NSComparisonResult start = [self.startValue compare:other.startValue];
+    if (start == NSOrderedSame || start == NSOrderedAscending) {
+        NSComparisonResult end = [self.endValue compare:other.endValue];
+        return (end == NSOrderedSame || end == NSOrderedDescending);
+    } else {
+        return NO;
+    }
+}
+
+- (BOOL)canJoinWith:(GFGeoHashQuery *)other
+{
+    return [self isPrefixTo:other] ||
+           [other isPrefixTo:self] ||
+           [self isSuperQueryOf:other] ||
+           [other isSuperQueryOf:self];
+}
+
+- (GFGeoHashQuery *)joinWith:(GFGeoHashQuery *)other
+{
+    if ([self isPrefixTo:other]) {
+        return [[GFGeoHashQuery alloc] initWithStartValue:self.startValue endValue:other.endValue];
+    } else if ([other isPrefixTo:self]) {
+        return [[GFGeoHashQuery alloc] initWithStartValue:other.startValue endValue:self.endValue];
+    } else if ([self isSuperQueryOf:other]) {
+        return self;
+    } else if ([other isSuperQueryOf:self]) {
+        return other;
+    } else {
+        return nil;
+    }
 }
 
 - (BOOL)containsGeoHash:(GFGeoHash *)hash

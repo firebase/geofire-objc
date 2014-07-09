@@ -20,4 +20,7 @@
 
 - (BOOL)containsGeoHash:(GFGeoHash *)hash;
 
+- (BOOL)canJoinWith:(GFGeoHashQuery *)other;
+- (GFGeoHashQuery *)joinWith:(GFGeoHashQuery *)other;
+
 @end

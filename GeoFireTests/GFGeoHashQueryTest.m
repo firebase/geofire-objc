@@ -137,4 +137,40 @@
     }
 }
 
+#define Q(a,b) [GFGeoHashQuery newWithStartValue:a endValue:b]
+
+- (void)testCanJoin
+{
+    XCTAssertTrue([Q(@"abcd", @"abce") canJoinWith:Q(@"abce", @"abcf")]);
+    XCTAssertTrue([Q(@"abce", @"abcf") canJoinWith:Q(@"abcd", @"abce")]);
+    XCTAssertTrue([Q(@"abcd", @"abcf") canJoinWith:Q(@"abcd", @"abce")]);
+    XCTAssertTrue([Q(@"abcd", @"abcf") canJoinWith:Q(@"abce", @"abcf")]);
+    XCTAssertTrue([Q(@"abc", @"abd") canJoinWith:Q(@"abce", @"abcf")]);
+    XCTAssertTrue([Q(@"abce", @"abcf") canJoinWith:Q(@"abc", @"abd")]);
+    XCTAssertTrue([Q(@"abcd", @"abce~") canJoinWith:Q(@"abc", @"abd")]);
+    XCTAssertTrue([Q(@"abcd", @"abce~") canJoinWith:Q(@"abce", @"abcf")]);
+    XCTAssertTrue([Q(@"abcd", @"abcf") canJoinWith:Q(@"abce", @"abcg")]);
+
+    XCTAssertFalse([Q(@"abcd", @"abce") canJoinWith:Q(@"abcg", @"abch")]);
+    XCTAssertFalse([Q(@"abcd", @"abce") canJoinWith:Q(@"dce", @"dcf")]);
+    XCTAssertFalse([Q(@"abc", @"abd") canJoinWith:Q(@"dce", @"dcf")]);
+}
+
+- (void)testJoinQueries
+{
+    XCTAssertEqualObjects([Q(@"abcd", @"abce") joinWith:Q(@"abce", @"abcf")], Q(@"abcd",@"abcf"));
+    XCTAssertEqualObjects([Q(@"abce", @"abcf") joinWith:Q(@"abcd", @"abce")], Q(@"abcd",@"abcf"));
+    XCTAssertEqualObjects([Q(@"abcd", @"abcf") joinWith:Q(@"abcd", @"abce")], Q(@"abcd",@"abcf"));
+    XCTAssertEqualObjects([Q(@"abcd", @"abcf") joinWith:Q(@"abce", @"abcf")], Q(@"abcd",@"abcf"));
+    XCTAssertEqualObjects([Q(@"abc", @"abd") joinWith:Q(@"abce", @"abcf")], Q(@"abc",@"abd"));
+    XCTAssertEqualObjects([Q(@"abce", @"abcf") joinWith:Q(@"abc", @"abd")], Q(@"abc",@"abd"));
+    XCTAssertEqualObjects([Q(@"abcd", @"abce~") joinWith:Q(@"abc", @"abd")], Q(@"abc",@"abd"));
+    XCTAssertEqualObjects([Q(@"abcd", @"abce~") joinWith:Q(@"abce", @"abcf")], Q(@"abcd",@"abcf"));
+    XCTAssertEqualObjects([Q(@"abcd", @"abcf") joinWith:Q(@"abce", @"abcg")], Q(@"abcd",@"abcg"));
+
+    XCTAssertNil([Q(@"abcd", @"abce") joinWith:Q(@"abcg", @"abch")]);
+    XCTAssertNil([Q(@"abcd", @"abce") joinWith:Q(@"dce", @"dcf")]);
+    XCTAssertNil([Q(@"abc", @"abd") joinWith:Q(@"dce", @"dcf")]);
+}
+
 @end
