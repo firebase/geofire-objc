@@ -10,10 +10,12 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Firebase/Firebase.h>
 
+@class GeoFire;
+
 @interface GFQuery (Private)
 
-- (id)initWithFirebase:(Firebase *)firebase
-              location:(CLLocationCoordinate2D)location
-                radius:(double)radius;
+- (id)initWithGeoFire:(GeoFire *)geoFire
+             location:(CLLocationCoordinate2D)location
+               radius:(double)radius;
 
 @end

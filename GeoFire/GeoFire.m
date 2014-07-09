@@ -35,6 +35,7 @@
             [NSException raise:NSInvalidArgumentException format:@"Firebase was nil!"];
         }
         self->_firebase = firebase;
+        self->_callbackQueue = dispatch_get_main_queue();
     }
     return self;
 }
@@ -75,7 +76,9 @@ withCompletionBlock:(GFCompletionBlock)block
         andPriority:geoHash
 withCompletionBlock:^(NSError *error, Firebase *ref) {
         if (block != nil) {
-            block(error);
+            dispatch_async(self.callbackQueue, ^{
+                block(error);
+            });
         }
     }];
 }
@@ -126,7 +129,9 @@ withCompletionBlock:^(NSError *error, Firebase *ref) {
 {
     [[self firebaseForLocationKey:key] observeEventType:FEventTypeValue
                                               withBlock:^(FDataSnapshot *snapshot) {
-                                                  block([GeoFire locationFromValue:snapshot.value]);
+                                                  dispatch_async(self.callbackQueue, ^{
+                                                      block([GeoFire locationFromValue:snapshot.value]);
+                                                  });
                                               }];
 }
 
@@ -134,13 +139,15 @@ withCompletionBlock:^(NSError *error, Firebase *ref) {
 {
     [[self firebaseForLocationKey:key] observeSingleEventOfType:FEventTypeValue
                                                       withBlock:^(FDataSnapshot *snapshot) {
-                                                          block([GeoFire locationFromValue:snapshot.value]);
+                                                          dispatch_async(self.callbackQueue, ^{
+                                                              block([GeoFire locationFromValue:snapshot.value]);
+                                                          });
                                                       }];
 }
 
 - (GFQuery *)queryAtLocation:(CLLocationCoordinate2D)location withRadius:(double)radius
 {
-    return [[GFQuery alloc] initWithFirebase:self.firebase location:location radius:radius];
+    return [[GFQuery alloc] initWithGeoFire:self location:location radius:radius];
 }
 
 @end

@@ -30,6 +30,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <Firebase/Firebase.h>
 
+@class GeoFire;
+
 typedef enum {
     GFEventTypeKeyEntered,
     GFEventTypeKeyExited,
@@ -56,9 +58,9 @@ typedef void (^GFQueryResultBlock) (NSString *key, CLLocation *location);
 @property (nonatomic, readwrite) double radius;
 
 /**
- * The Firebase location of the GeoFire data location this GFQuery object uses
+ * The GeoFire this GFQuery object uses
  */
-@property (nonatomic, strong, readonly) Firebase *firebase;
+@property (nonatomic, strong, readonly) GeoFire *geoFire;
 
 /**
  * Add an observer for an event type.

@@ -8,6 +8,7 @@
 
 #import "GFQuery.h"
 #import "GFQuery+Private.h"
+#import "GeoFire.h"
 #import "GeoFire+Private.h"
 #import "GFGeoHashQuery.h"
 
@@ -39,7 +40,7 @@
 
 @property (nonatomic, strong) CLLocation *centerLocation;
 @property (nonatomic, strong) NSMutableDictionary *locationInfos;
-@property (nonatomic, strong) Firebase *firebase;
+@property (nonatomic, strong) GeoFire *geoFire;
 @property (nonatomic, strong) NSSet *queries;
 @property (nonatomic, strong) NSMutableDictionary *firebaseHandles;
 
@@ -52,13 +53,13 @@
 
 @implementation GFQuery
 
-- (id)initWithFirebase:(Firebase *)firebase
-              location:(CLLocationCoordinate2D)location
-                radius:(double)radius
+- (id)initWithGeoFire:(GeoFire *)geoFire
+             location:(CLLocationCoordinate2D)location
+               radius:(double)radius
 {
     self = [super init];
     if (self != nil) {
-        self->_firebase = firebase;
+        self->_geoFire = geoFire;
         self->_centerLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
         self->_radius = radius;
         self.currentHandle = 1;
@@ -69,7 +70,7 @@
 
 - (FQuery *)firebaseForGeoHashQuery:(GFGeoHashQuery *)query
 {
-    return [[[self.firebase childByAppendingPath:@"l"] queryStartingAtPriority:query.startValue]
+    return [[[self.geoFire.firebase childByAppendingPath:@"l"] queryStartingAtPriority:query.startValue]
             queryEndingAtPriority:query.endValue];
 }
 
@@ -99,7 +100,7 @@
         [self.keyEnteredObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
                                                                       GFQueryResultBlock block,
                                                                       BOOL *stop) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(self.geoFire.callbackQueue, ^{
                 block(key, info.location);
             });
         }];
@@ -107,7 +108,7 @@
         [self.keyMovedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
                                                                     GFQueryResultBlock block,
                                                                     BOOL *stop) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(self.geoFire.callbackQueue, ^{
                 block(key, info.location);
             });
         }];
@@ -115,7 +116,7 @@
         [self.keyExitedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
                                                                      GFQueryResultBlock block,
                                                                      BOOL *stop) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(self.geoFire.callbackQueue, ^{
                 block(key, info.location);
             });
         }];
@@ -155,7 +156,7 @@
             [self.keyExitedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
                                                                          GFQueryResultBlock block,
                                                                          BOOL *stop) {
-                dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_async(self.geoFire.callbackQueue, ^{
                     block(snapshot.name, info.location);
                 });
             }];
@@ -279,7 +280,7 @@
                 [self.keyEnteredObservers setObject:[block copy]
                                              forKey:numberHandle];
                 self.currentHandle++;
-                dispatch_async(dispatch_get_main_queue(), ^{
+                dispatch_async(self.geoFire.callbackQueue, ^{
                     @synchronized(self) {
                         [self.locationInfos enumerateKeysAndObjectsUsingBlock:^(NSString *key,
                                                                                 GFQueryLocationInfo *info,

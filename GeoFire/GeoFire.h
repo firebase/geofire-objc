@@ -45,6 +45,11 @@ typedef void (^GFLocationBlock) (CLLocation *location);
  */
 @property (nonatomic, strong, readonly) Firebase *firebase;
 
+/**
+ * The dispatch queue this GeoFire object and all it's GFQueries use for callbacks
+ */
+@property (nonatomic, strong) dispatch_queue_t callbackQueue;
+
 /** @name Creating new GeoFire's */
 
 /**

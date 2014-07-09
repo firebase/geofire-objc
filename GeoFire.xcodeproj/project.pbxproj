@@ -30,6 +30,8 @@
 		FB8C8838196D52500061AC0F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8837196D52500061AC0F /* CFNetwork.framework */; };
 		FB8C883A196D52550061AC0F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8839196D52550061AC0F /* Security.framework */; };
 		FB8C883C196D525E0061AC0F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */; };
+		FB8C8846196D55630061AC0F /* GeoFireTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C8845196D55630061AC0F /* GeoFireTest.m */; };
+		FB8C8849196D561D0061AC0F /* TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C8848196D561D0061AC0F /* TestHelpers.m */; };
 		FBA358C019655FED00A86282 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358BF19655FED00A86282 /* Foundation.framework */; };
 		FBA358C519655FED00A86282 /* GeoFire.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBA358C419655FED00A86282 /* GeoFire.h */; };
 		FBA358C719655FED00A86282 /* GeoFire.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA358C619655FED00A86282 /* GeoFire.m */; };
@@ -90,6 +92,9 @@
 		FB8C8837196D52500061AC0F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FB8C8839196D52550061AC0F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FB8C8845196D55630061AC0F /* GeoFireTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoFireTest.m; sourceTree = "<group>"; };
+		FB8C8847196D561D0061AC0F /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHelpers.h; sourceTree = "<group>"; };
+		FB8C8848196D561D0061AC0F /* TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHelpers.m; sourceTree = "<group>"; };
 		FBA358BC19655FED00A86282 /* libGeoFire.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGeoFire.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA358BF19655FED00A86282 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FBA358C319655FED00A86282 /* GeoFire-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GeoFire-Prefix.pch"; sourceTree = "<group>"; };
@@ -230,9 +235,12 @@
 		FBA358D519655FED00A86282 /* GeoFireTests */ = {
 			isa = PBXGroup;
 			children = (
+				FB8C8845196D55630061AC0F /* GeoFireTest.m */,
 				FBA3591B196AAB6500A86282 /* GFGeoHashQueryTest.m */,
 				FBA358F41965797C00A86282 /* GFGeoHashTest.m */,
 				FBA358D619655FED00A86282 /* Supporting Files */,
+				FB8C8847196D561D0061AC0F /* TestHelpers.h */,
+				FB8C8848196D561D0061AC0F /* TestHelpers.m */,
 			);
 			path = GeoFireTests;
 			sourceTree = "<group>";
@@ -394,7 +402,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA358F51965797C00A86282 /* GFGeoHashTest.m in Sources */,
+				FB8C8846196D55630061AC0F /* GeoFireTest.m in Sources */,
 				FBA3591C196AAB6500A86282 /* GFGeoHashQueryTest.m in Sources */,
+				FB8C8849196D561D0061AC0F /* TestHelpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,6 +583,12 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "GeoFireTests/GeoFireTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -590,6 +606,12 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoFire/GeoFire-Prefix.pch";
 				INFOPLIST_FILE = "GeoFireTests/GeoFireTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					XCTest,
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
 			};
