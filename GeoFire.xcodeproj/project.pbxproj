@@ -22,6 +22,14 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		FB8C8830196D51040061AC0F /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C882F196D51040061AC0F /* Firebase.framework */; };
+		FB8C8831196D51040061AC0F /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C882F196D51040061AC0F /* Firebase.framework */; };
+		FB8C8832196D52200061AC0F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358E91965659A00A86282 /* CoreLocation.framework */; };
+		FB8C8834196D522F0061AC0F /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8833196D522F0061AC0F /* libicucore.dylib */; };
+		FB8C8836196D52460061AC0F /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8835196D52460061AC0F /* libc++.dylib */; };
+		FB8C8838196D52500061AC0F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8837196D52500061AC0F /* CFNetwork.framework */; };
+		FB8C883A196D52550061AC0F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8839196D52550061AC0F /* Security.framework */; };
+		FB8C883C196D525E0061AC0F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */; };
 		FBA358C019655FED00A86282 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358BF19655FED00A86282 /* Foundation.framework */; };
 		FBA358C519655FED00A86282 /* GeoFire.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBA358C419655FED00A86282 /* GeoFire.h */; };
 		FBA358C719655FED00A86282 /* GeoFire.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA358C619655FED00A86282 /* GeoFire.m */; };
@@ -76,6 +84,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FB8C882F196D51040061AC0F /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = sdk/Firebase.framework; sourceTree = "<group>"; };
+		FB8C8833196D522F0061AC0F /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		FB8C8835196D52460061AC0F /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		FB8C8837196D52500061AC0F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		FB8C8839196D52550061AC0F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FBA358BC19655FED00A86282 /* libGeoFire.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGeoFire.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA358BF19655FED00A86282 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FBA358C319655FED00A86282 /* GeoFire-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GeoFire-Prefix.pch"; sourceTree = "<group>"; };
@@ -86,7 +100,6 @@
 		FBA358D019655FED00A86282 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		FBA358D719655FED00A86282 /* GeoFireTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GeoFireTests-Info.plist"; sourceTree = "<group>"; };
 		FBA358D919655FED00A86282 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		FBA358E71965648E00A86282 /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = ../../../../Downloads/Firebase.framework; sourceTree = "<group>"; };
 		FBA358E91965659A00A86282 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FBA358EB1965683400A86282 /* GFQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFQuery.h; sourceTree = "<group>"; };
 		FBA358EC1965683400A86282 /* GFQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFQuery.m; sourceTree = "<group>"; };
@@ -108,6 +121,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA358EA1965659A00A86282 /* CoreLocation.framework in Frameworks */,
+				FB8C8830196D51040061AC0F /* Firebase.framework in Frameworks */,
 				FBA358C019655FED00A86282 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,6 +130,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB8C883C196D525E0061AC0F /* SystemConfiguration.framework in Frameworks */,
+				FB8C883A196D52550061AC0F /* Security.framework in Frameworks */,
+				FB8C8838196D52500061AC0F /* CFNetwork.framework in Frameworks */,
+				FB8C8836196D52460061AC0F /* libc++.dylib in Frameworks */,
+				FB8C8834196D522F0061AC0F /* libicucore.dylib in Frameworks */,
+				FB8C8832196D52200061AC0F /* CoreLocation.framework in Frameworks */,
+				FB8C8831196D51040061AC0F /* Firebase.framework in Frameworks */,
 				FBA358CE19655FED00A86282 /* XCTest.framework in Frameworks */,
 				FBA358D119655FED00A86282 /* UIKit.framework in Frameworks */,
 				FBA358CF19655FED00A86282 /* Foundation.framework in Frameworks */,
@@ -174,8 +195,13 @@
 		FBA358BE19655FED00A86282 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */,
+				FB8C8839196D52550061AC0F /* Security.framework */,
+				FB8C8837196D52500061AC0F /* CFNetwork.framework */,
+				FB8C8835196D52460061AC0F /* libc++.dylib */,
+				FB8C8833196D522F0061AC0F /* libicucore.dylib */,
+				FB8C882F196D51040061AC0F /* Firebase.framework */,
 				FBA358E91965659A00A86282 /* CoreLocation.framework */,
-				FBA358E71965648E00A86282 /* Firebase.framework */,
 				FBA358BF19655FED00A86282 /* Foundation.framework */,
 				FBA358CD19655FED00A86282 /* XCTest.framework */,
 				FBA358D019655FED00A86282 /* UIKit.framework */,
@@ -490,8 +516,10 @@
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/GeoFire.dst;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					/Users/jonny/Downloads,
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/sdk",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoFire/GeoFire-Prefix.pch";
@@ -512,8 +540,10 @@
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/GeoFire.dst;
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					/Users/jonny/Downloads,
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/sdk",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoFire/GeoFire-Prefix.pch";
@@ -534,6 +564,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/sdk",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoFire/GeoFire-Prefix.pch";
@@ -554,6 +585,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(PROJECT_DIR)/sdk",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoFire/GeoFire-Prefix.pch";
@@ -573,6 +605,7 @@
 				FB8C87F2196AF8100061AC0F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FBA358B719655FED00A86282 /* Build configuration list for PBXProject "GeoFire" */ = {
 			isa = XCConfigurationList;
