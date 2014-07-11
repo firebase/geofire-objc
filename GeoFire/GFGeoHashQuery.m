@@ -123,9 +123,6 @@
     NSString *base = [hash substringToIndex:hash.length-1];
     NSUInteger lastValue = [GFBase32Utils base32CharacterToValue:(char)[hash characterAtIndex:hash.length-1]];
     NSUInteger significantBits = bits - (base.length*BITS_PER_BASE32_CHAR);
-    if (significantBits == 0) {
-        return [GFGeoHashQuery newWithStartValue:base endValue:[NSString stringWithFormat:@"%@~", hash]];
-    }
     NSUInteger unusedBits = (BITS_PER_BASE32_CHAR - significantBits);
     // delete unused bits
     NSUInteger startValue = (lastValue >> unusedBits) << unusedBits;

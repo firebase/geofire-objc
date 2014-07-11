@@ -60,6 +60,10 @@
     self = [super init];
     if (self != nil) {
         self->_geoFire = geoFire;
+        if (!CLLocationCoordinate2DIsValid(location)) {
+            [NSException raise:NSInvalidArgumentException
+                        format:@"Not a valid geo location: [%f,%f]", location.latitude, location.longitude];
+        }
         self->_centerLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
         self->_radius = radius;
         self.currentHandle = 1;
@@ -157,7 +161,7 @@
                                                                          GFQueryResultBlock block,
                                                                          BOOL *stop) {
                 dispatch_async(self.geoFire.callbackQueue, ^{
-                    block(snapshot.name, info.location);
+                    block(snapshot.name, nil);
                 });
             }];
         }
@@ -320,6 +324,10 @@
 - (void)setCenter:(CLLocationCoordinate2D)center
 {
     @synchronized(self) {
+        if (!CLLocationCoordinate2DIsValid(center)) {
+            [NSException raise:NSInvalidArgumentException
+                        format:@"Not a valid geo location: [%f,%f]", center.latitude, center.longitude];
+        }
         self.centerLocation = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
         if (self.queries != nil) {
             [self updateQueries];

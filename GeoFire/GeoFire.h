@@ -104,6 +104,7 @@ withCompletionBlock:(GFCompletionBlock)block;
 /**
  * Observes the location for a given key and calls the callback once for the initial location and subsequentially for
  * every update of the location.
+ * Calls the callback with nil if no location is specified.
  * @param key The key to observe the location for
  * @param block The block that is called for every update of the location
  */
