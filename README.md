@@ -81,9 +81,14 @@ can always stay up-to-date automatically.
 Locations in an area can be queried with an `GFQuery` object. `GFQuery` objects are created with the `GeoFire` object
 
 ```objective-c
+CLLocationCoordinate2D center = CLLocationCoordinate2DMake(37.7832889, -122.4056973);
 // Query locations at [37.7832889, -122.4056973] with a radius of 1000 meters
-GFQuery query = [geoFire queryAtLocation:CLLocationCoordinate2DMake(37.7832889, -122.4056973)
-                              withRadius:1000];
+GFCircleQuery *circleQuery = [geoFire queryAtLocation:center withRadius:1000];
+
+// Query location by region
+MKCoordinateSpan span = MKCoordinateSpanMake(0.001, 0.001);
+MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
+GFRegionQuery *regionQuery = [geoFire queryWithRegion:region];
 ```
 
 #### Receiving events for geo query
