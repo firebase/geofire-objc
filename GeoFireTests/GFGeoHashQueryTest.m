@@ -104,13 +104,13 @@
                           [GFGeoHashQuery newWithStartValue:@"64z" endValue:@"64~"]);
 }
 
-- (void)testPointsInGeoHash
+- (void)testPointsInCircleGeoQuery
 {
     for (NSUInteger i = 0; i < 1000; i++) {
         CLLocationDegrees centerLat = DBL_RAND()*160-80;
         CLLocationDegrees centerLong = DBL_RAND()*360 - 180;
         CLLocation *center = [[CLLocation alloc] initWithLatitude:centerLat longitude:centerLong];
-        double radius = DBL_RAND()*100000;
+        double radius = fmax(5, pow(DBL_RAND(),5)*100000);
         CLLocationDegrees degreeRadius = [GFGeoHashQuery meters:radius toLongitudeDegreesAtLatitude:centerLat]*2;
         NSSet *queries = [GFGeoHashQuery queriesForLocation:CLLocationCoordinate2DMake(centerLat, centerLong)
                                                      radius:radius];
@@ -133,6 +133,37 @@
                               @"Point (%f, %f) not contained in GeoHash query around (%f,%f) with radius %fm",
                               pointLat, pointLong, centerLat, centerLong, radius);
             }
+        }
+    }
+}
+
+- (void)testPointsInRegionGeoQueries
+{
+    for (NSUInteger i = 0; i < 1000; i++) {
+        CLLocationDegrees centerLat = DBL_RAND()*160-80;
+        CLLocationDegrees centerLong = DBL_RAND()*360 - 180;
+        CLLocation *center = [[CLLocation alloc] initWithLatitude:centerLat longitude:centerLong];
+        double latitudeDelta = fmax(0.00001, pow(DBL_RAND(),5)*(90-fabs(centerLat)));
+        double longitudeDelta = fmax(0.00001, pow(DBL_RAND(),5)*360);
+        MKCoordinateRegion region = MKCoordinateRegionMake(center.coordinate,
+                                                           MKCoordinateSpanMake(latitudeDelta, longitudeDelta));
+        NSSet *queries = [GFGeoHashQuery queriesForRegion:region];
+        BOOL (^inQuery)(CLLocationDegrees, CLLocationDegrees) = ^(CLLocationDegrees lat, CLLocationDegrees lng) {
+            __block BOOL inQueryFlag = NO;
+            [queries enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
+                if ([obj containsGeoHash:[GFGeoHash newWithLocation:CLLocationCoordinate2DMake(lat, lng)]]) {
+                    inQueryFlag = YES;
+                    *stop = YES;
+                };
+            }];
+            return inQueryFlag;
+        };
+        for (NSUInteger j = 0; j < 1000; j++) {
+            CLLocationDegrees pointLat = fmax(-89.9, fmin(89.9, centerLat + (DBL_RAND()*latitudeDelta - latitudeDelta/2)));
+            CLLocationDegrees pointLong = [GFGeoHashQuery wrapLongitude:(centerLong + (DBL_RAND()*longitudeDelta - longitudeDelta/2))];
+            XCTAssertTrue(inQuery(pointLat, pointLong),
+                          @"Point (%f, %f) not contained in GeoHash for region [%f +/ %f, %f +/ %f]",
+                          pointLat, pointLong, centerLat, latitudeDelta/2, centerLong, longitudeDelta/2);
         }
     }
 }

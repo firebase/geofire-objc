@@ -22,6 +22,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		FB3B32BF196FF07000E47633 /* GFCircleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FB3B32BD196FF07000E47633 /* GFCircleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FB3B32C4197001C500E47633 /* GFRegionQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FB3B32C1196FF27600E47633 /* GFRegionQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB8C8830196D51040061AC0F /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C882F196D51040061AC0F /* Firebase.framework */; };
 		FB8C8831196D51040061AC0F /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C882F196D51040061AC0F /* Firebase.framework */; };
 		FB8C8832196D52200061AC0F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358E91965659A00A86282 /* CoreLocation.framework */; };
@@ -88,6 +90,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FB3B32BD196FF07000E47633 /* GFCircleQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFCircleQuery.h; sourceTree = "<group>"; };
+		FB3B32C1196FF27600E47633 /* GFRegionQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GFRegionQuery.h; sourceTree = "<group>"; };
 		FB8C882F196D51040061AC0F /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = sdk/Firebase.framework; sourceTree = "<group>"; };
 		FB8C8833196D522F0061AC0F /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		FB8C8835196D52460061AC0F /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
@@ -162,6 +166,8 @@
 			children = (
 				FBA358C419655FED00A86282 /* GeoFire.h */,
 				FBA358EB1965683400A86282 /* GFQuery.h */,
+				FB3B32BD196FF07000E47633 /* GFCircleQuery.h */,
+				FB3B32C1196FF27600E47633 /* GFRegionQuery.h */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -271,6 +277,8 @@
 			files = (
 				FBA3590E1965CAE800A86282 /* GFQuery+Private.h in Headers */,
 				FBA358ED1965683400A86282 /* GFQuery.h in Headers */,
+				FB3B32BF196FF07000E47633 /* GFCircleQuery.h in Headers */,
+				FB3B32C4197001C500E47633 /* GFRegionQuery.h in Headers */,
 				FBA358F1196573A700A86282 /* GFGeoHash.h in Headers */,
 				FBA35912196A978100A86282 /* GFGeoHashQuery.h in Headers */,
 				FBA358E61965606200A86282 /* GeoFire.h in Headers */,

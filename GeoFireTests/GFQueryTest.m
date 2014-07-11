@@ -17,6 +17,7 @@
 @implementation GFQueryTest
 
 #define C(x,y) CLLocationCoordinate2DMake(x,y)
+#define S(x,y) MKCoordinateSpanMake(x,y)
 #define L(x,y) [[CLLocation alloc] initWithLatitude:x longitude:y]
 #define SETLOC(k,x,y) [self.geoFire setLocation:C(x,y) forKey:k]
 #define L2S(l) [NSString stringWithFormat:@"[%f, %f]", (l).coordinate.latitude, (l).coordinate.longitude]
@@ -118,7 +119,7 @@
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFQuery *query = [self.geoFire queryAtLocation:C(37,-122) withRadius:500];
+    GFCircleQuery *query = [self.geoFire queryAtLocation:C(37,-122) withRadius:500];
     __block NSMutableDictionary *actual = [NSMutableDictionary dictionary];
     [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
         if ([actual objectForKey:key] == nil) {
@@ -144,7 +145,7 @@
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFQuery *query = [self.geoFire queryAtLocation:C(37,-122) withRadius:500];
+    GFCircleQuery *query = [self.geoFire queryAtLocation:C(37,-122) withRadius:500];
     NSMutableSet *actual = [NSMutableSet set];
     __block NSUInteger count = 0;
     [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
@@ -173,7 +174,7 @@
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFQuery *query = [self.geoFire queryAtLocation:C(37,-122) withRadius:500];
+    GFCircleQuery *query = [self.geoFire queryAtLocation:C(37,-122) withRadius:500];
     __block NSUInteger count = 0;
     [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
         count++;
@@ -194,6 +195,23 @@
     [query removeAllObservers];
 }
 
+- (void)testNoExitedEventForLocationsOutsideOfQuery
+{
+    SETLOC(@"0", 37.0010001, -122.0010001);
+    GFRegionQuery *query = [self.geoFire queryWithRegion:MKCoordinateRegionMake(C(37,-122), S(0.002, 0.002))];
+    [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
+        XCTFail(@"Key outside of query entered");
+    }];
+    [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
+        XCTFail(@"Key outside of query exited");
+    }];
+    __block BOOL done = NO;
+    [self.geoFire removeKey:@"0" withCompletionBlock:^(NSError *error) {
+        done = YES;
+    }];
+    WAIT_FOR(done);
+}
+
 - (void)testRemoveSingleObserver
 {
     SETLOC(@"0", 0, 0);
@@ -201,7 +219,7 @@
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFQuery *query = [self.geoFire queryAtLocation:C(37,-122) withRadius:500];
+    GFCircleQuery *query = [self.geoFire queryAtLocation:C(37,-122) withRadius:500];
     __block NSUInteger keyEnteredEvents = 0;
     __block NSUInteger keyExitedEvents = 0;
     __block NSUInteger keyMovedEvents = 0;
@@ -255,7 +273,7 @@
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFQuery *query = [self.geoFire queryAtLocation:C(37,-122) withRadius:500];
+    GFCircleQuery *query = [self.geoFire queryAtLocation:C(37,-122) withRadius:500];
     __block BOOL shouldIgnore = YES;
     __block NSUInteger countEntered = 0;
     [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {

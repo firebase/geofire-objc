@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 #import "GFGeoHash.h"
 
@@ -17,6 +18,7 @@
 @property (nonatomic, strong, readonly) NSString *endValue;
 
 + (NSSet *)queriesForLocation:(CLLocationCoordinate2D)location radius:(double)radius;
++ (NSSet *)queriesForRegion:(MKCoordinateRegion)region;
 
 - (BOOL)containsGeoHash:(GFGeoHash *)hash;
 

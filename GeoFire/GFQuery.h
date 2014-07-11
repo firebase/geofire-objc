@@ -46,16 +46,8 @@ typedef void (^GFQueryResultBlock) (NSString *key, CLLocation *location);
 @interface GFQuery : NSObject
 
 /**
- * The center of the search area. Update this value to update the query. Events are triggered for any keys that move
- * in or out of the search area
+ * The region that is covered by this query
  */
-@property (nonatomic, readwrite) CLLocationCoordinate2D center;
-
-/**
- * The radius of the geo query. Update this value to update the query. Events are triggered for any keys that move
- * in or out of the search area
- */
-@property (nonatomic, readwrite) double radius;
 
 /**
  * The GeoFire this GFQuery object uses

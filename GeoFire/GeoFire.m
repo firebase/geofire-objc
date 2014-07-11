@@ -145,9 +145,14 @@ withCompletionBlock:^(NSError *error, Firebase *ref) {
                                                       }];
 }
 
-- (GFQuery *)queryAtLocation:(CLLocationCoordinate2D)location withRadius:(double)radius
+- (GFCircleQuery *)queryAtLocation:(CLLocationCoordinate2D)location withRadius:(double)radius
 {
-    return [[GFQuery alloc] initWithGeoFire:self location:location radius:radius];
+    return [[GFCircleQuery alloc] initWithGeoFire:self location:location radius:radius];
+}
+
+- (GFRegionQuery *)queryWithRegion:(MKCoordinateRegion)region
+{
+    return [[GFRegionQuery alloc] initWithGeoFire:self region:region];
 }
 
 @end

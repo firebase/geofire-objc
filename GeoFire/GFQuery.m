@@ -7,6 +7,8 @@
 //
 
 #import "GFQuery.h"
+#import "GFRegionQuery.h"
+#import "GFCircleQuery.h"
 #import "GFQuery+Private.h"
 #import "GeoFire.h"
 #import "GeoFire+Private.h"
@@ -35,10 +37,134 @@
 
 @end
 
+@interface GFCircleQuery ()
+
+@property (nonatomic, strong) CLLocation *centerLocation;
+
+@end
+
+@implementation GFCircleQuery
+
+@synthesize radius = _radius;
+
+- (id)initWithGeoFire:(GeoFire *)geoFire
+             location:(CLLocationCoordinate2D)location
+               radius:(double)radius
+{
+    self = [super initWithGeoFire:geoFire];
+    if (self != nil) {
+        if (!CLLocationCoordinate2DIsValid(location)) {
+            [NSException raise:NSInvalidArgumentException
+                        format:@"Not a valid geo location: [%f,%f]", location.latitude, location.longitude];
+        }
+        self->_centerLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
+        self->_radius = radius;
+    }
+    return self;
+}
+
+- (void)setCenter:(CLLocationCoordinate2D)center
+{
+    @synchronized(self) {
+        if (!CLLocationCoordinate2DIsValid(center)) {
+            [NSException raise:NSInvalidArgumentException
+                        format:@"Not a valid geo location: [%f,%f]", center.latitude, center.longitude];
+        }
+        self->_centerLocation = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
+        [self searchCriteriaDidChange];
+    }
+}
+
+- (CLLocationCoordinate2D)center
+{
+    @synchronized(self) {
+        return self.centerLocation.coordinate;
+    }
+}
+
+- (void)setRadius:(double)radius
+{
+    @synchronized(self) {
+        self->_radius = radius;
+        [self searchCriteriaDidChange];
+    }
+}
+
+- (double)radius
+{
+    @synchronized(self) {
+        return self->_radius;
+    }
+}
+
+- (BOOL)locationIsInQuery:(CLLocation *)location
+{
+    return [location distanceFromLocation:self.centerLocation] <= self.radius;
+}
+
+- (NSSet *)queriesForCurrentCriteria
+{
+    return [GFGeoHashQuery queriesForLocation:self.centerLocation.coordinate radius:self.radius];
+}
+
+@end
+
+@interface GFRegionQuery ()
+
+@end
+
+@implementation GFRegionQuery
+
+@synthesize region = _region;
+
+- (id)initWithGeoFire:(GeoFire *)geoFire
+               region:(MKCoordinateRegion)region;
+{
+    self = [super initWithGeoFire:geoFire];
+    if (self != nil) {
+        self->_region = region;
+    }
+    return self;
+}
+
+- (void)setRegion:(MKCoordinateRegion)region
+{
+    @synchronized(self) {
+        self->_region = region;
+        [self searchCriteriaDidChange];
+    }
+}
+
+- (MKCoordinateRegion)region
+{
+    @synchronized(self) {
+        return self->_region;
+    }
+}
+
+- (BOOL)locationIsInQuery:(CLLocation *)location
+{
+    MKCoordinateRegion region = self.region;
+    CLLocationDegrees north = region.center.latitude + region.span.latitudeDelta/2;
+    CLLocationDegrees south = region.center.latitude - region.span.latitudeDelta/2;
+    CLLocationDegrees west = region.center.longitude - region.span.longitudeDelta/2;
+    CLLocationDegrees east = region.center.longitude + region.span.longitudeDelta/2;
+
+    CLLocationCoordinate2D coordinate = location.coordinate;
+    return (coordinate.latitude <= north && coordinate.latitude >= south &&
+            coordinate.longitude >= west && coordinate.longitude <= east);
+}
+
+- (NSSet *)queriesForCurrentCriteria
+{
+    return [GFGeoHashQuery queriesForRegion:self.region];
+}
+
+@end
+
 
 @interface GFQuery ()
 
-@property (nonatomic, strong) CLLocation *centerLocation;
 @property (nonatomic, strong) NSMutableDictionary *locationInfos;
 @property (nonatomic, strong) GeoFire *geoFire;
 @property (nonatomic, strong) NSSet *queries;
@@ -54,19 +180,11 @@
 @implementation GFQuery
 
 - (id)initWithGeoFire:(GeoFire *)geoFire
-             location:(CLLocationCoordinate2D)location
-               radius:(double)radius
 {
     self = [super init];
     if (self != nil) {
         self->_geoFire = geoFire;
-        if (!CLLocationCoordinate2DIsValid(location)) {
-            [NSException raise:NSInvalidArgumentException
-                        format:@"Not a valid geo location: [%f,%f]", location.latitude, location.longitude];
-        }
-        self->_centerLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
-        self->_radius = radius;
-        self.currentHandle = 1;
+        self->_currentHandle = 1;
         [self reset];
     }
     return self;
@@ -76,11 +194,6 @@
 {
     return [[[self.geoFire.firebase childByAppendingPath:@"l"] queryStartingAtPriority:query.startValue]
             queryEndingAtPriority:query.endValue];
-}
-
-- (BOOL)locationIsInQuery:(CLLocation *)location
-{
-    return [location distanceFromLocation:self.centerLocation] <= self.radius;
 }
 
 - (void)updateLocationInfo:(CLLocation *)location forKey:(NSString *)key
@@ -157,21 +270,42 @@
         GFQueryLocationInfo *info = self.locationInfos[snapshot.name];
         if (info) {
             [self.locationInfos removeObjectForKey:snapshot.name];
-            [self.keyExitedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
-                                                                         GFQueryResultBlock block,
-                                                                         BOOL *stop) {
-                dispatch_async(self.geoFire.callbackQueue, ^{
-                    block(snapshot.name, nil);
-                });
-            }];
+            if (info.isInQuery) {
+                [self.keyExitedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
+                                                                             GFQueryResultBlock block,
+                                                                             BOOL *stop) {
+                    dispatch_async(self.geoFire.callbackQueue, ^{
+                        block(snapshot.name, nil);
+                    });
+                }];
+            }
         }
+    }
+}
+
+- (BOOL)locationIsInQuery:(CLLocation *)location
+{
+    [NSException raise:NSInternalInconsistencyException format:@"GFQuery is abstract, please implement locationIsInQuery:"];
+    return NO;
+}
+
+- (NSSet *)queriesForCurrentCriteria
+{
+    [NSException raise:NSInternalInconsistencyException format:@"GFQuery is abstract, please implement queriesForCurrentCriteria"];
+    return NO;
+}
+
+- (void)searchCriteriaDidChange
+{
+    if (self.queries != nil) {
+        [self updateQueries];
     }
 }
 
 - (void)updateQueries
 {
     NSSet *oldQueries = self.queries;
-    NSSet *newQueries = [GFGeoHashQuery queriesForLocation:self.centerLocation.coordinate radius:self.radius];
+    NSSet *newQueries = [self queriesForCurrentCriteria];
     NSMutableSet *toDelete = [NSMutableSet setWithSet:oldQueries];
     [toDelete minusSet:newQueries];
     NSMutableSet *toAdd = [NSMutableSet setWithSet:newQueries];
@@ -318,37 +452,6 @@
             [self updateQueries];
         }
         return firebaseHandle;
-    }
-}
-
-- (void)setCenter:(CLLocationCoordinate2D)center
-{
-    @synchronized(self) {
-        if (!CLLocationCoordinate2DIsValid(center)) {
-            [NSException raise:NSInvalidArgumentException
-                        format:@"Not a valid geo location: [%f,%f]", center.latitude, center.longitude];
-        }
-        self.centerLocation = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
-        if (self.queries != nil) {
-            [self updateQueries];
-        }
-    }
-}
-
-- (CLLocationCoordinate2D)center
-{
-    @synchronized(self) {
-        return self.centerLocation.coordinate;
-    }
-}
-
-- (void)setRadius:(double)radius
-{
-    @synchronized(self) {
-        self->_radius = radius;
-        if (self.queries != nil) {
-            [self updateQueries];
-        }
     }
 }
 

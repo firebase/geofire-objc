@@ -29,8 +29,11 @@
 #import <Foundation/Foundation.h>
 #import <Firebase/Firebase.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 #import "GFQuery.h"
+#import "GFCircleQuery.h"
+#import "GFRegionQuery.h"
 
 typedef void (^GFCompletionBlock) (NSError *error);
 typedef void (^GFLocationBlock) (CLLocation *location);
@@ -124,9 +127,17 @@ withCompletionBlock:(GFCompletionBlock)block;
  * keys that enter, move, and exit the search radius.
  * @param location The location at which the query is centered
  * @param radius The radius of the geo query
- * @return The GFQuery object that can be used to for geo queries.
+ * @return The GFCircleQuery object that can be used to for geo queries.
  */
-- (GFQuery *)queryAtLocation:(CLLocationCoordinate2D)location
-                  withRadius:(double)radius;
+- (GFCircleQuery *)queryAtLocation:(CLLocationCoordinate2D)location
+                        withRadius:(double)radius;
+
+/**
+ * Creates a new GeoFire query for a given region. The GFQuery object can be used to query
+ * keys that enter, move, and exit the search region.
+ * @param region The region which this query searches
+ * @return The GFRegionQuery object that can be used to for geo queries.
+ */
+- (GFRegionQuery *)queryWithRegion:(MKCoordinateRegion)region;
 
 @end
