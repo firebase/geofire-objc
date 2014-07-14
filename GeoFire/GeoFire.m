@@ -66,6 +66,15 @@ withCompletionBlock:(GFCompletionBlock)block
 
 - (Firebase *)firebaseForLocationKey:(NSString *)key
 {
+    static NSCharacterSet *illegalCharacters;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        illegalCharacters = [NSCharacterSet characterSetWithCharactersInString:@".#$][/"];
+    });
+    if ([key rangeOfCharacterFromSet:illegalCharacters].location != NSNotFound) {
+        [NSException raise:NSInvalidArgumentException
+                    format:@"Not a valid GeoFire key: \"%@\". Characters .#$][/ not allowed in key!", key];
+    }
     return [self.firebase childByAppendingPath:key];
 }
 
