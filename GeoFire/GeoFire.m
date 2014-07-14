@@ -50,31 +50,44 @@
     [self setLocation:location forKey:key withCompletionBlock:nil];
 }
 
-- (void)setLocation:(CLLocationCoordinate2D)location
+- (void)setLocation:(CLLocationCoordinate2D)coordinate
              forKey:(NSString *)key
 withCompletionBlock:(GFCompletionBlock)block
 {
-
-    NSNumber *lat = [NSNumber numberWithDouble:location.latitude];
-    NSNumber *lng = [NSNumber numberWithDouble:location.longitude];
-    NSString *geoHash = [GFGeoHash newWithLocation:location].geoHashValue;
-    NSDictionary *value = @{ @"0": lat, @"1": lng };
-    [self setLocationValue:value withGeoHash:geoHash forKey:key withBlock:block];
+    if (!CLLocationCoordinate2DIsValid(coordinate)) {
+        [NSException raise:NSInvalidArgumentException
+                    format:@"Not a valid coordinate: [%f, %f]", coordinate.latitude, coordinate.longitude];
+    }
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+    [self setLocationValue:location
+                    forKey:key
+                 withBlock:block];
 }
 
 - (Firebase *)firebaseForLocationKey:(NSString *)key
 {
-    return [self.firebase childByAppendingPath:[NSString stringWithFormat:@"l/%@", key]];
+    return [self.firebase childByAppendingPath:key];
 }
 
-- (void)setLocationValue:(id)value
-             withGeoHash:(NSString *)geoHash
+- (void)setLocationValue:(CLLocation *)location
                   forKey:(NSString *)key
                withBlock:(GFCompletionBlock)block
 {
+    NSDictionary *value;
+    NSString *priority;
+    if (location != nil) {
+        NSNumber *lat = [NSNumber numberWithDouble:location.coordinate.latitude];
+        NSNumber *lng = [NSNumber numberWithDouble:location.coordinate.longitude];
+        NSString *geoHash = [GFGeoHash newWithLocation:location.coordinate].geoHashValue;
+        value = @{ @"l": @[ lat, lng ], @"g": geoHash };
+        priority = geoHash;
+    } else {
+        value = nil;
+        priority = nil;
+    }
     [[self firebaseForLocationKey:key] setValue:value
-        andPriority:geoHash
-withCompletionBlock:^(NSError *error, Firebase *ref) {
+                                    andPriority:priority
+                            withCompletionBlock:^(NSError *error, Firebase *ref) {
         if (block != nil) {
             dispatch_async(self.callbackQueue, ^{
                 block(error);
@@ -90,39 +103,27 @@ withCompletionBlock:^(NSError *error, Firebase *ref) {
 
 - (void)removeKey:(NSString *)key withCompletionBlock:(GFCompletionBlock)block
 {
-    [self setLocationValue:nil withGeoHash:nil forKey:key withBlock:block];
+    [self setLocationValue:nil forKey:key withBlock:block];
 }
 
 + (CLLocation *)locationFromValue:(id)value
 {
-    CLLocation *location = nil;
-    if ([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]) {
-        id latNum, lngNum;
-        if ([value isKindOfClass:[NSDictionary class]]) {
-            latNum = [value objectForKey:@"0"];
-            lngNum = [value objectForKey:@"1"];
-        } else if ([value isKindOfClass:[NSArray class]] && [value count] == 2) {
-            latNum = [value objectAtIndex:0];
-            lngNum = [value objectAtIndex:1];
-        } else {
-            return nil;
-        }
-        if ([latNum isKindOfClass:[NSNumber class]] &&
-            [lngNum isKindOfClass:[NSNumber class]]) {
-            CLLocationDegrees lat = [latNum doubleValue];
-            CLLocationDegrees lng = [lngNum doubleValue];
-            if (CLLocationCoordinate2DIsValid(CLLocationCoordinate2DMake(lat, lng))) {
-                location = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
+    if ([value isKindOfClass:[NSDictionary class]] && [value objectForKey:@"l"] != nil) {
+        id locObj = [value objectForKey:@"l"];
+        if ([locObj isKindOfClass:[NSArray class]] && [locObj count] == 2) {
+            id latNum = [locObj objectAtIndex:0];
+            id lngNum = [locObj objectAtIndex:1];
+            if ([latNum isKindOfClass:[NSNumber class]] &&
+                [lngNum isKindOfClass:[NSNumber class]]) {
+                CLLocationDegrees lat = [latNum doubleValue];
+                CLLocationDegrees lng = [lngNum doubleValue];
+                if (CLLocationCoordinate2DIsValid(CLLocationCoordinate2DMake(lat, lng))) {
+                    return [[CLLocation alloc] initWithLatitude:lat longitude:lng];
+                }
             }
         }
     }
-    return location;
-}
-
-+ (NSDictionary *)dictFromLocation:(CLLocation *)location
-{
-    return @{ @"0" : [NSNumber numberWithDouble:location.coordinate.latitude],
-              @"1" : [NSNumber numberWithDouble:location.coordinate.longitude] };
+    return nil;
 }
 
 - (void)observeLocationForKey:(NSString *)key withBlock:(GFLocationBlock)block

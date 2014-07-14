@@ -192,7 +192,7 @@
 
 - (FQuery *)firebaseForGeoHashQuery:(GFGeoHashQuery *)query
 {
-    return [[[self.geoFire.firebase childByAppendingPath:@"l"] queryStartingAtPriority:query.startValue]
+    return [[self.geoFire.firebase queryStartingAtPriority:query.startValue]
             queryEndingAtPriority:query.endValue];
 }
 
