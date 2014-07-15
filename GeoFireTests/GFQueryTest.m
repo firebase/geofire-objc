@@ -20,8 +20,21 @@
 #define S(x,y) MKCoordinateSpanMake(x,y)
 #define L(x,y) [[CLLocation alloc] initWithLatitude:x longitude:y]
 #define SETLOC(k,x,y) [self.geoFire setLocation:C(x,y) forKey:k]
+#define SETLOC_WAIT_COMPLETE(k,x,y) \
+do { \
+  dispatch_semaphore_t __lock = dispatch_semaphore_create(0); \
+  [self.geoFire setLocation:C(x,y) forKey:k withCompletionBlock:^(NSError *error) { \
+    if (error != nil) { \
+      XCTFail("Error occured saving: %@", error); \
+    } \
+    dispatch_semaphore_signal(__lock); \
+  }]; \
+  dispatch_semaphore_wait(__lock, dispatch_time(DISPATCH_TIME_NOW, TEST_TIMEOUT_SECONDS*NSEC_PER_SEC)); \
+} while(0)
 #define L2S(l) [NSString stringWithFormat:@"[%f, %f]", (l).coordinate.latitude, (l).coordinate.longitude]
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
 - (void)testKeyEntered
 {
     SETLOC(@"0", 0, 0);
@@ -55,25 +68,27 @@
     SETLOC(@"4", 37.0002, -121.9998);
     GFQuery *query = [self.geoFire queryAtLocation:C(37,-122) withRadius:500];
     NSMutableSet *actual = [NSMutableSet set];
-    WAIT_SIGNALS(2, ^(dispatch_semaphore_t barrier) {
-        [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
-            XCTAssertNil(location);
-            if (![actual containsObject:key]) {
-                [actual addObject:key];
+    [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
+        if (![actual containsObject:key]) {
+            [actual addObject:key];
+            if (location != nil) {
+                [actual addObject:L2S(location)];
             } else {
-                XCTFail(@"Key exited twice!");
+                [actual addObject:@"null"];
             }
-            dispatch_semaphore_signal(barrier);
-        }];
-        [self.geoFire setLocation:C(0,0) forKey:@"0"]; // not in query
-        [self.geoFire setLocation:C(0,0) forKey:@"1"]; // exited
-        [self.geoFire setLocation:C(0,0) forKey:@"2"]; // exited
-        [self.geoFire setLocation:C(2,0) forKey:@"3"]; // not in query
-        [self.geoFire setLocation:C(3,0) forKey:@"0"]; // not in query
-        [self.geoFire setLocation:C(4,0) forKey:@"1"]; // not in query
-        [self.geoFire setLocation:C(5,0) forKey:@"2"]; // not in query
-    });
-    NSSet *expected = [NSSet setWithArray:@[@"1", @"2"]];
+        } else {
+            XCTFail(@"Key exited twice!");
+        }
+    }];
+    SETLOC(@"0", 0, 0);
+    [self.geoFire removeKey:@"2"]; // exited
+    SETLOC_WAIT_COMPLETE(@"1", 0, 0);
+    SETLOC(@"3", 2, 0); // not in query
+    SETLOC(@"0", 3, 0); // not in query
+    SETLOC(@"1", 4, 0); // not in query
+    SETLOC_WAIT_COMPLETE(@"2", 5, 0); // not in query
+
+    NSSet *expected = [NSSet setWithArray:@[@"1", L2S(L(0,0)), @"2", @"null"]];
     XCTAssertEqualObjects(actual, expected);
     [query removeAllObservers];
 }
@@ -99,7 +114,7 @@
         SETLOC(@"4", 37.0002, -122.0000); // moved
         SETLOC(@"3", 37.0000, -122.0000); // entered
         SETLOC(@"3", 37.0003, -122.0003); // moved
-        SETLOC(@"2", 0, 0); // exited
+        SETLOC_WAIT_COMPLETE(@"2", 0, 0); // exited, wait for exited event
         SETLOC(@"2", 37.0000, -122.0000); // entered
         SETLOC(@"2", 37.0001, -122.0001); // moved
     });
@@ -107,6 +122,59 @@
                            @"4", L2S(L(37.0002, -122.0000)),
                            @"3", L2S(L(37.0003, -122.0003)),
                            @"2", L2S(L(37.0001, -122.0001))];
+
+
+
+    XCTAssertEqualObjects(actual, expected);
+    [query removeAllObservers];
+}
+
+- (void)testEventuallyConsistent
+{
+    SETLOC(@"1", 0.0001, 0.0001);
+    SETLOC(@"2", -0.0001, 0.0001);
+    SETLOC(@"3", 0.0001, -0.0001);
+    SETLOC(@"4", -0.0001, -0.0001);
+    GFQuery *query = [self.geoFire queryAtLocation:C(0,0) withRadius:500];
+    NSMutableDictionary *actual = [NSMutableDictionary dictionary];
+    [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
+        actual[key] = L2S(location);
+    }];
+    [query observeEventType:GFEventTypeKeyMoved withBlock:^(NSString *key, CLLocation *location) {
+        actual[key] = L2S(location);
+    }];
+    [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
+        if (location == nil) {
+            actual[key] = @"null";
+        } else {
+            actual[key] = L2S(location);
+        }
+    }];
+    SETLOC(@"1", 0.0002, 0.0001); // moved
+    SETLOC(@"1", 10, 11); // exited
+    SETLOC(@"1", 0.0002, 0.0001);
+
+    SETLOC(@"4", 0.0001, -0.0001); // moved
+    SETLOC(@"4", -0.0001, 0.0001); // moved
+    SETLOC(@"4", 10, 10); // exited
+    SETLOC(@"4", 0, 0); // entered
+    SETLOC(@"4", 0.0001, 0.0001); // moved
+
+    [self.geoFire removeKey:@"3"]; // exited
+    SETLOC(@"3", 0.0001, 0.0001); // entered
+
+    SETLOC(@"2", 0.0001, 0.0001); // moved
+    __block BOOL done = NO;
+    [self.geoFire removeKey:@"2" withCompletionBlock:^(NSError *error) {
+        done = YES;
+    }];
+
+    WAIT_FOR(done);
+
+    NSDictionary *expected = @{ @"1": L2S(L(0.0002, 0.0001)),
+                                @"2": @"null",
+                                @"3": L2S(L(0.0001, 0.0001)),
+                                @"4": L2S(L(0.0001, 0.0001)) };
 
     XCTAssertEqualObjects(actual, expected);
     [query removeAllObservers];
@@ -212,6 +280,29 @@
     WAIT_FOR(done);
 }
 
+- (void)testSubQueryMove
+{
+    SETLOC(@"0", 0.000001, 0.000001);
+    SETLOC(@"1", -0.000001, -0.000001);
+    GFQuery *query = [self.geoFire queryAtLocation:CLLocationCoordinate2DMake(0, 0) withRadius:500];
+    NSMutableArray *actual = [NSMutableArray array];
+    WAIT_SIGNALS(2, (^(dispatch_semaphore_t barrier) {
+        [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
+            XCTFail(@"Key should not exit!");
+        }];
+        [query observeEventType:GFEventTypeKeyMoved withBlock:^(NSString *key, CLLocation *location) {
+            [actual addObject:[NSString stringWithFormat:@"MOVED(%@,%@)", key, L2S(location)]];
+            dispatch_semaphore_signal(barrier);
+        }];
+        SETLOC(@"0", -0.000001, -0.000001);
+        SETLOC(@"1", 0.000001, 0.000001);
+    }));
+
+    NSArray *expected = @[@"MOVED(0,[-0.000001, -0.000001])", @"MOVED(1,[0.000001, 0.000001])"];
+    XCTAssertEqualObjects(actual, expected);
+    [query removeAllObservers];
+}
+
 - (void)testRemoveSingleObserver
 {
     SETLOC(@"0", 0, 0);
@@ -309,5 +400,6 @@
     [NSThread sleepForTimeInterval:0.1];
 }
 
+#pragma clang diagnostic pop
 
 @end

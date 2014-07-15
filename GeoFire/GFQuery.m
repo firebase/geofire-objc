@@ -196,8 +196,10 @@
             queryEndingAtPriority:query.endValue];
 }
 
-- (void)updateLocationInfo:(CLLocation *)location forKey:(NSString *)key
+- (void)updateLocationInfo:(CLLocation *)location
+                    forKey:(NSString *)key
 {
+    NSAssert(location != nil, @"Internal Error! Location must not be nil!");
     GFQueryLocationInfo *info = self.locationInfos[key];
     BOOL isNew = NO;
     if (info == nil) {
@@ -240,6 +242,16 @@
     }
 }
 
+- (BOOL)queriesContainGeoHash:(GFGeoHash *)geoHash
+{
+    for (GFGeoHashQuery *query in self.queries) {
+        if ([query containsGeoHash:geoHash]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (void)childAdded:(FDataSnapshot *)snapshot
 {
     @synchronized(self) {
@@ -267,18 +279,32 @@
 - (void)childRemoved:(FDataSnapshot *)snapshot
 {
     @synchronized(self) {
+        NSString *key = snapshot.name;
         GFQueryLocationInfo *info = self.locationInfos[snapshot.name];
-        if (info) {
-            [self.locationInfos removeObjectForKey:snapshot.name];
-            if (info.isInQuery) {
-                [self.keyExitedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
-                                                                             GFQueryResultBlock block,
-                                                                             BOOL *stop) {
-                    dispatch_async(self.geoFire.callbackQueue, ^{
-                        block(snapshot.name, nil);
-                    });
-                }];
-            }
+        if (info != nil) {
+            [[self.geoFire firebaseRefForLocationKey:snapshot.name] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+                @synchronized(self) {
+                    CLLocation *location = [GeoFire locationFromValue:snapshot.value];
+                    GFGeoHash *geoHash = (location) ? [[GFGeoHash alloc] initWithLocation:location.coordinate] : nil;
+                    // Only notify observers if key is not part of any other geohash query or this actually might not be
+                    // a key exited event, but a key moved or entered event. These events will be triggered by updates
+                    // to a different query
+                    if (![self queriesContainGeoHash:geoHash]) {
+                        GFQueryLocationInfo *info = self.locationInfos[key];
+                        [self.locationInfos removeObjectForKey:key];
+                        // Key was in query, notify about key exited
+                        if (info.isInQuery) {
+                            [self.keyExitedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
+                                                                                         GFQueryResultBlock block,
+                                                                                         BOOL *stop) {
+                                dispatch_async(self.geoFire.callbackQueue, ^{
+                                    block(key, location);
+                                });
+                            }];
+                        }
+                    }
+                }
+            }];
         }
     }
 }
@@ -345,13 +371,7 @@
     }];
     NSMutableArray *oldLocations = [NSMutableArray array];
     [self.locationInfos enumerateKeysAndObjectsUsingBlock:^(id key, GFQueryLocationInfo *info, BOOL *stop) {
-        BOOL inQuery = NO;
-        for (GFGeoHashQuery *query in self.queries) {
-            if ([query containsGeoHash:info.geoHash]) {
-                inQuery = YES;
-            }
-        }
-        if (!inQuery) {
+        if (![self queriesContainGeoHash:info.geoHash]) {
             [oldLocations addObject:key];
         }
     }];
