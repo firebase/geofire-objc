@@ -44,9 +44,9 @@ typedef void (^GFLocationBlock) (CLLocation *location);
 @interface GeoFire : NSObject
 
 /**
- * The Firebase location this GeoFire instance uses
+ * The Firebase reference this GeoFire instance uses
  */
-@property (nonatomic, strong, readonly) Firebase *firebase;
+@property (nonatomic, strong, readonly) Firebase *firebaseRef;
 
 /**
  * The dispatch queue this GeoFire object and all it's GFQueries use for callbacks
@@ -60,14 +60,7 @@ typedef void (^GFLocationBlock) (CLLocation *location);
  * @param firebase The Firebase location to attach this GeoFire instance to
  * @return The new GeoFire instance
  */
-- (id)initWithFirebase:(Firebase *)firebase;
-
-/**
- * Creates a new GeoFire instance at the given Firebase location
- * @param firebase The Firebase location to attach this GeoFire instance to
- * @return The new GeoFire instance
- */
-+ (GeoFire *)newWithFirebase:(Firebase *)firebase;
+- (id)initWithFirebaseRef:(Firebase *)firebase;
 
 /** @name Setting and Updating Locations */
 

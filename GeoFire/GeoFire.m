@@ -13,7 +13,7 @@
 
 @interface GeoFire ()
 
-@property (nonatomic, strong, readwrite) Firebase *firebase;
+@property (nonatomic, strong, readwrite) Firebase *firebaseRef;
 
 @end
 
@@ -23,26 +23,21 @@
 {
     [NSException raise:NSGenericException
                 format:@"init is not supported. Please use %@ instead",
-     NSStringFromSelector(@selector(initWithFirebase:))];
+     NSStringFromSelector(@selector(initWithFirebaseRef:))];
     return nil;
 }
 
-- (id)initWithFirebase:(Firebase *)firebase
+- (id)initWithFirebaseRef:(Firebase *)firebaseRef
 {
     self = [super init];
     if (self != nil) {
-        if (firebase == nil) {
+        if (firebaseRef == nil) {
             [NSException raise:NSInvalidArgumentException format:@"Firebase was nil!"];
         }
-        self->_firebase = firebase;
+        self->_firebaseRef = firebaseRef;
         self->_callbackQueue = dispatch_get_main_queue();
     }
     return self;
-}
-
-+ (GeoFire *)newWithFirebase:(Firebase *)firebase
-{
-    return [[GeoFire alloc] initWithFirebase:firebase];
 }
 
 - (void)setLocation:(CLLocationCoordinate2D)location forKey:(NSString *)key
@@ -64,7 +59,7 @@ withCompletionBlock:(GFCompletionBlock)block
                  withBlock:block];
 }
 
-- (Firebase *)firebaseForLocationKey:(NSString *)key
+- (Firebase *)firebaseRefForLocationKey:(NSString *)key
 {
     static NSCharacterSet *illegalCharacters;
     static dispatch_once_t onceToken;
@@ -75,7 +70,7 @@ withCompletionBlock:(GFCompletionBlock)block
         [NSException raise:NSInvalidArgumentException
                     format:@"Not a valid GeoFire key: \"%@\". Characters .#$][/ not allowed in key!", key];
     }
-    return [self.firebase childByAppendingPath:key];
+    return [self.firebaseRef childByAppendingPath:key];
 }
 
 - (void)setLocationValue:(CLLocation *)location
@@ -94,9 +89,9 @@ withCompletionBlock:(GFCompletionBlock)block
         value = nil;
         priority = nil;
     }
-    [[self firebaseForLocationKey:key] setValue:value
-                                    andPriority:priority
-                            withCompletionBlock:^(NSError *error, Firebase *ref) {
+    [[self firebaseRefForLocationKey:key] setValue:value
+                                       andPriority:priority
+                               withCompletionBlock:^(NSError *error, Firebase *ref) {
         if (block != nil) {
             dispatch_async(self.callbackQueue, ^{
                 block(error);
@@ -137,22 +132,22 @@ withCompletionBlock:(GFCompletionBlock)block
 
 - (void)observeLocationForKey:(NSString *)key withBlock:(GFLocationBlock)block
 {
-    [[self firebaseForLocationKey:key] observeEventType:FEventTypeValue
-                                              withBlock:^(FDataSnapshot *snapshot) {
-                                                  dispatch_async(self.callbackQueue, ^{
-                                                      block([GeoFire locationFromValue:snapshot.value]);
-                                                  });
-                                              }];
+    [[self firebaseRefForLocationKey:key] observeEventType:FEventTypeValue
+                                                 withBlock:^(FDataSnapshot *snapshot) {
+                                                     dispatch_async(self.callbackQueue, ^{
+                                                         block([GeoFire locationFromValue:snapshot.value]);
+                                                     });
+                                                 }];
 }
 
 - (void)observeLocationOnceForKey:(NSString *)key withBlock:(GFLocationBlock)block
 {
-    [[self firebaseForLocationKey:key] observeSingleEventOfType:FEventTypeValue
-                                                      withBlock:^(FDataSnapshot *snapshot) {
-                                                          dispatch_async(self.callbackQueue, ^{
-                                                              block([GeoFire locationFromValue:snapshot.value]);
-                                                          });
-                                                      }];
+    [[self firebaseRefForLocationKey:key] observeSingleEventOfType:FEventTypeValue
+                                                         withBlock:^(FDataSnapshot *snapshot) {
+                                                             dispatch_async(self.callbackQueue, ^{
+                                                                 block([GeoFire locationFromValue:snapshot.value]);
+                                                             });
+                                                         }];
 }
 
 - (GFCircleQuery *)queryAtLocation:(CLLocationCoordinate2D)location withRadius:(double)radius

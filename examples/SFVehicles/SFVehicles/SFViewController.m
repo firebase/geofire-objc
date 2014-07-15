@@ -44,7 +44,7 @@
 {
     self = [super initWithCoder:coder];
     if (self != nil) {
-        self.geoFire = [GeoFire newWithFirebase:[[Firebase alloc] initWithUrl:GEO_FIRE_URL]];
+        self.geoFire = [[GeoFire alloc] initWithFirebaseRef:[[Firebase alloc] initWithUrl:GEO_FIRE_URL]];
         self.vehicleAnnotations = [NSMutableDictionary dictionary];
         self.centerAnnotation = [[SFVehicleAnnotation alloc] init];
     }

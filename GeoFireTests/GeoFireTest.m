@@ -42,7 +42,7 @@
     });
 
     WAIT_SIGNALS(1, (^(dispatch_semaphore_t barrier) {
-        [self.firebase observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        [self.firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
             id expected =
             @{ @"loc1": @{ @"l": @[@0, @0], @"g": @"7zzzzzzzzz" },
                @"loc2": @{ @"l": @[@50, @50], @"g": @"v0gs3y0zh7" },

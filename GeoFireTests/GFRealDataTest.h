@@ -46,6 +46,6 @@ do { \
 @interface GFRealDataTest : XCTestCase
 
 @property (nonatomic, strong) GeoFire *geoFire;
-@property (nonatomic, strong) Firebase *firebase;
+@property (nonatomic, strong) Firebase *firebaseRef;
 
 @end

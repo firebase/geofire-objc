@@ -27,11 +27,11 @@ and to create queries.
 
 #### Creating a new GeoFire instance
 
-To create a new `GeoFire` instance you need to attach it to a Firebase location.
+To create a new `GeoFire` instance you need to attach it to a Firebase reference.
 
 ```objective-c
-Firebase *firebase = [[Firebase alloc] initWithUrl:@"https://<your-firebase>.firebaseio.com/"];
-GeoFire *geoFire = [GeoFire newWithFirebase:firebase];
+Firebase *geofireRef = [[Firebase alloc] initWithUrl:@"https://<your-firebase>.firebaseio.com/"];
+GeoFire *geoFire = [[GeoFire alloc] initWithFirebaseRef:geofireRef];
 ```
 Note that you can point to anywhere in your Firebase.
 
