@@ -33,7 +33,9 @@ To create a new `GeoFire` instance you need to attach it to a Firebase reference
 Firebase *geofireRef = [[Firebase alloc] initWithUrl:@"https://<your-firebase>.firebaseio.com/"];
 GeoFire *geoFire = [[GeoFire alloc] initWithFirebaseRef:geofireRef];
 ```
-Note that you can point to anywhere in your Firebase.
+Note that you can point your reference to anywhere in your Firebase, but don't
+forget to [setup security rules for
+GeoFire](https://github.com/firebase/geofire/blob/master/examples/securityRules/rules.json).
 
 #### Setting location data
 
@@ -67,8 +69,8 @@ To remove a location and delete the location from Firebase simply call
 #### Retrieving a location
 
 Retrieving locations happens with callbacks. Like with any Firebase reference,
-the callback is called for every update of the location. Like that, your app
-can always stay up-to-date automatically.
+the callback is called once for the initial position and then for every update
+of the location. Like that, your app can always stay up-to-date automatically.
 
 ```objective-c
 [geoFire observeLocationForKey:@"firebase-hq" withBlock:^(CLLocation *location) {
@@ -91,7 +93,7 @@ MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
 GFRegionQuery *regionQuery = [geoFire queryWithRegion:region];
 ```
 
-#### Receiving events for geo query
+#### Receiving events for geo queries
 
 There are 3 kind of events that can occur with a geo query:
 
