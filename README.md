@@ -16,9 +16,15 @@ add it to your project.  You also need to [add the Firebase
 framework](https://www.firebase.com/docs/ios-quickstart.html) and the
 CoreLocation framework to your project.
 
-*TODO: add download link*
+You can download the latest version of the [GeoFire.framework from
+GitHub](dist/GeoFire.framework.zip) or include the GeoFire XCode project in your
+project.
 
 ## API Reference
+
+*TODO: add API reference link*
+
+## Quick Start
 
 ### GeoFire
 
