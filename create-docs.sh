@@ -9,3 +9,6 @@ appledoc --project-name "GeoFire for iOS" \
 --output . \
 --search-undocumented-doc \
 ./GeoFire/API/*.h
+
+echo "Removing temporary files"
+rm -r docset-installed.txt docset
