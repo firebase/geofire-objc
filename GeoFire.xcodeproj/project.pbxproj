@@ -169,7 +169,7 @@
 				FB3B32BD196FF07000E47633 /* GFCircleQuery.h */,
 				FB3B32C1196FF27600E47633 /* GFRegionQuery.h */,
 			);
-			name = API;
+			path = API;
 			sourceTree = "<group>";
 		};
 		FB8C87ED196AF5960061AC0F /* Implementation */ = {
@@ -186,7 +186,7 @@
 				FBA35910196A978100A86282 /* GFGeoHashQuery.h */,
 				FBA35911196A978100A86282 /* GFGeoHashQuery.m */,
 			);
-			name = Implementation;
+			path = Implementation;
 			sourceTree = "<group>";
 		};
 		FBA358B319655FED00A86282 = {
