@@ -19,3 +19,8 @@ DerivedData
 
 # Third Party
 /sdk
+
+# Docs
+/html
+/docset
+/docset-installed.txt
