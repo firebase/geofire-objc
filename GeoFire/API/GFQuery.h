@@ -46,10 +46,6 @@ typedef void (^GFQueryResultBlock) (NSString *key, CLLocation *location);
 @interface GFQuery : NSObject
 
 /**
- * The region that is covered by this query
- */
-
-/**
  * The GeoFire this GFQuery object uses
  */
 @property (nonatomic, strong, readonly) GeoFire *geoFire;
