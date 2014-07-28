@@ -14,6 +14,7 @@
 @interface GeoFire ()
 
 @property (nonatomic, strong, readwrite) Firebase *firebaseRef;
+@property (nonatomic, strong, readonly) NSMutableDictionary *firebaseHandles;
 
 @end
 
@@ -35,6 +36,7 @@
             [NSException raise:NSInvalidArgumentException format:@"Firebase was nil!"];
         }
         self->_firebaseRef = firebaseRef;
+        self->_firebaseHandles = [NSMutableDictionary dictionary];
         self->_callbackQueue = dispatch_get_main_queue();
     }
     return self;
@@ -130,14 +132,17 @@ withCompletionBlock:(GFCompletionBlock)block
     return nil;
 }
 
-- (void)observeLocationForKey:(NSString *)key withBlock:(GFLocationBlock)block
+- (FirebaseHandle)observeLocationForKey:(NSString *)key withBlock:(GFLocationBlock)block
 {
-    [[self firebaseRefForLocationKey:key] observeEventType:FEventTypeValue
-                                                 withBlock:^(FDataSnapshot *snapshot) {
-                                                     dispatch_async(self.callbackQueue, ^{
-                                                         block([GeoFire locationFromValue:snapshot.value]);
-                                                     });
-                                                 }];
+    FirebaseHandle handle = [[self firebaseRefForLocationKey:key]
+                             observeEventType:FEventTypeValue
+                             withBlock:^(FDataSnapshot *snapshot) {
+                                 dispatch_async(self.callbackQueue, ^{
+                                     block([GeoFire locationFromValue:snapshot.value]);
+                                 });
+                             }];
+    [self.firebaseHandles setObject:key forKey:[NSNumber numberWithUnsignedInteger:handle]];
+    return handle;
 }
 
 - (void)observeLocationOnceForKey:(NSString *)key withBlock:(GFLocationBlock)block
@@ -148,6 +153,26 @@ withCompletionBlock:(GFCompletionBlock)block
                                                                  block([GeoFire locationFromValue:snapshot.value]);
                                                              });
                                                          }];
+}
+
+- (void)removeObserverWithHandle:(FirebaseHandle)handle
+{
+    NSNumber *handleKey = [NSNumber numberWithUnsignedInteger:handle];
+    NSString *key = [self.firebaseHandles objectForKey:handleKey];
+    if (key == nil) {
+        return;
+    }
+    [[self firebaseRefForLocationKey:key] removeObserverWithHandle:handle];
+    [self.firebaseHandles removeObjectForKey:handleKey];
+}
+
+- (void)removeAllObservers
+{
+    for (NSNumber *handleKey in self.firebaseHandles) {
+        FirebaseHandle handle = handleKey.unsignedIntegerValue;
+        [[self firebaseRefForLocationKey:self.firebaseHandles[handleKey]] removeObserverWithHandle:handle];
+    }
+    [self.firebaseHandles removeAllObjects];
 }
 
 - (GFCircleQuery *)queryAtLocation:(CLLocationCoordinate2D)location withRadius:(double)radius

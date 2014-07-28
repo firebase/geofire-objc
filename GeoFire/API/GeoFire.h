@@ -100,12 +100,27 @@ withCompletionBlock:(GFCompletionBlock)block;
 /**
  * Observes the location for a given key and calls the callback once for the initial location and subsequentially for
  * every update of the location.
- * Calls the callback with nil if no location is specified.
+ * Calls the callback with nil if no location is stored.
+ *
+ * Use removeObserverWithHandle: to stop receiving updates.
+ *
  * @param key The key to observe the location for
  * @param block The block that is called for every update of the location
+ * @return
  */
-- (void)observeLocationForKey:(NSString *)key
-                    withBlock:(GFLocationBlock)block;
+- (FirebaseHandle)observeLocationForKey:(NSString *)key
+                              withBlock:(GFLocationBlock)block;
+
+/**
+ * Removes an observer previously added with observeLocationForKey:withBlock:.
+ * @param handle The handle for which to stop receiving updates
+ */
+- (void)removeObserverWithHandle:(FirebaseHandle)handle;
+
+/**
+ * Removes all observers previously attached to this GeoFire with observeLocationForKey:withBlock:.
+ */
+- (void)removeAllObservers;
 
 /**
  * Gets the location for a given key exactly once. No updates are called for updates on the location.

@@ -95,4 +95,45 @@
     XCTAssertThrows([self.geoFire setLocation:CLLocationCoordinate2DMake(0, 181.1) forKey:@"key"]);
 }
 
+- (void)testRemoveObserver
+{
+    __block NSString *observedLocation = nil;
+    WAIT_SIGNALS(1, (^(dispatch_semaphore_t barrier) {
+        FirebaseHandle handle = [self.geoFire observeLocationForKey:@"loc1" withBlock:^(CLLocation *location) {
+            XCTAssertNil(location);
+        }];
+        [self.geoFire observeLocationForKey:@"loc1" withBlock:^(CLLocation *location) {
+            if (location != nil) {
+                observedLocation = [NSString stringWithFormat:@"[%f,%f]", location.coordinate.latitude, location.coordinate.longitude];
+                dispatch_semaphore_signal(barrier);
+            }
+        }];
+        [self.geoFire removeObserverWithHandle:handle];
+        [self.geoFire setLocation:CLLocationCoordinate2DMake(1,1) forKey:@"loc1"];
+    }));
+    XCTAssertEqualObjects(observedLocation, @"[1.000000,1.000000]");
+}
+
+- (void)testRemoveAllObservers
+{
+    WAIT_SIGNALS(1, (^(dispatch_semaphore_t barrier) {
+        [self.geoFire observeLocationForKey:@"loc1" withBlock:^(CLLocation *location) {
+            XCTAssertNil(location);
+        }];
+        [self.geoFire observeLocationForKey:@"loc1" withBlock:^(CLLocation *location) {
+            XCTAssertNil(location);
+        }];
+        [self.geoFire observeLocationForKey:@"loc2" withBlock:^(CLLocation *location) {
+            XCTAssertNil(location);
+        }];
+        [self.geoFire removeAllObservers];
+        [self.geoFire setLocation:CLLocationCoordinate2DMake(1, 1) forKey:@"loc1" withCompletionBlock:^(NSError *error) {
+            dispatch_semaphore_signal(barrier);
+        }];
+        [self.geoFire setLocation:CLLocationCoordinate2DMake(1, 1) forKey:@"loc2" withCompletionBlock:^(NSError *error) {
+            dispatch_semaphore_signal(barrier);
+        }];
+    }));
+}
+
 @end
