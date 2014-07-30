@@ -1,14 +1,19 @@
 #!/bin/bash
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 echo "Generating appledocs..."
 appledoc --project-name "GeoFire for iOS" \
 --project-company "Firebase" \
 --company-id com.firebase \
+--no-create-docset \
 --create-html \
---keep-intermediate \
---output . \
+--output "$DIR/site/" \
 --search-undocumented-doc \
-./GeoFire/API/*.h
+--exit-threshold 2 \
+"$DIR"/GeoFire/API/*.h
 
-echo "Removing temporary files"
-rm -r docset-installed.txt docset
+echo "Renaming output folder"
+rm -r "$DIR/site/docs"
+mv "$DIR/site/html" "$DIR/site/docs"

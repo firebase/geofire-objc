@@ -22,7 +22,7 @@ project.
 
 ## API Reference
 
-*TODO: add API reference link*
+A full API reference is available [here](https://geofire-ios.firebaseapp.com/docs/)
 
 ## Quick Start
 

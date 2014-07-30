@@ -24,6 +24,7 @@ DerivedData
 /html
 /docset
 /docset-installed.txt
+/site/docs
 
 # build
 /target
