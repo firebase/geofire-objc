@@ -129,7 +129,7 @@ listen to ready events.
 
 ```objective-c
 [query observeReadyWithBlock:^{
-    NSLog("All initial key entered events have been fired!");
+    NSLog(@"All initial key entered events have been fired!");
 }];
 ```
 
