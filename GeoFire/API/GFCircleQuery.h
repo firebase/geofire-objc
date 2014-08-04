@@ -15,8 +15,8 @@
 @property (atomic, readwrite) CLLocation *center;
 
 /**
- * The radius of the geo query. Update this value to update the query. Events are triggered for any keys that move
- * in or out of the search area
+ * The radius of the geo query in kilometers. Update this value to update the query. Events are triggered for any keys
+ * that move in or out of the search area
  */
 @property (atomic, readwrite) double radius;
 

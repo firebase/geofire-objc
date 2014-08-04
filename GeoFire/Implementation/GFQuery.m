@@ -101,12 +101,12 @@
 
 - (BOOL)locationIsInQuery:(CLLocation *)location
 {
-    return [location distanceFromLocation:self.centerLocation] <= self.radius;
+    return [location distanceFromLocation:self.centerLocation] <= (self.radius * 1000);
 }
 
 - (NSSet *)queriesForCurrentCriteria
 {
-    return [GFGeoHashQuery queriesForLocation:self.centerLocation.coordinate radius:self.radius];
+    return [GFGeoHashQuery queriesForLocation:self.centerLocation.coordinate radius:(self.radius * 1000)];
 }
 
 @end

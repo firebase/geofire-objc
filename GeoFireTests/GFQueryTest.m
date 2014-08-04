@@ -38,7 +38,7 @@ do { \
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500];
+    GFQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:0.5];
     NSMutableDictionary *actual = [NSMutableDictionary dictionary];
     WAIT_SIGNALS(3, ^(dispatch_semaphore_t barrier) {
         [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
@@ -62,7 +62,7 @@ do { \
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500];
+    GFQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:0.5];
     NSMutableSet *actual = [NSMutableSet set];
     [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
         if (![actual containsObject:key]) {
@@ -96,7 +96,7 @@ do { \
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500];
+    GFQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:0.5];
     NSMutableArray *actual = [NSMutableArray array];
     WAIT_SIGNALS(4, ^(dispatch_semaphore_t barrier) {
         [query observeEventType:GFEventTypeKeyMoved withBlock:^(NSString *key, CLLocation *location) {
@@ -131,7 +131,7 @@ do { \
     SETLOC(@"2", -0.0001, 0.0001);
     SETLOC(@"3", 0.0001, -0.0001);
     SETLOC(@"4", -0.0001, -0.0001);
-    GFQuery *query = [self.geoFire queryAtLocation:L(0,0) withRadius:500];
+    GFQuery *query = [self.geoFire queryAtLocation:L(0,0) withRadius:0.5];
     NSMutableDictionary *actual = [NSMutableDictionary dictionary];
     [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
         actual[key] = L2S(location);
@@ -183,7 +183,7 @@ do { \
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500];
+    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:0.5];
     __block NSMutableDictionary *actual = [NSMutableDictionary dictionary];
     [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
         if ([actual objectForKey:key] == nil) {
@@ -209,7 +209,7 @@ do { \
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500];
+    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:0.5];
     NSMutableSet *actual = [NSMutableSet set];
     __block NSUInteger count = 0;
     [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
@@ -238,7 +238,7 @@ do { \
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500];
+    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:0.5];
     __block NSUInteger count = 0;
     [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
         count++;
@@ -248,10 +248,10 @@ do { \
     }];
     WAIT_FOR(count == 3);
     query.center = L(37.0010, -122.0000);
-    query.radius = 400;
+    query.radius = 0.4;
     [NSThread sleepForTimeInterval:0.1];
     query.center = L(37.1000, -122.0000);
-    query.radius = 10000;
+    query.radius = 10;
     [NSThread sleepForTimeInterval:0.1];
     query.center = L(0,0);
     [NSThread sleepForTimeInterval:0.1];
@@ -280,7 +280,7 @@ do { \
 {
     SETLOC(@"0", 0.000001, 0.000001);
     SETLOC(@"1", -0.000001, -0.000001);
-    GFQuery *query = [self.geoFire queryAtLocation:L(0, 0) withRadius:500];
+    GFQuery *query = [self.geoFire queryAtLocation:L(0, 0) withRadius:0.5];
     NSMutableArray *actual = [NSMutableArray array];
     WAIT_SIGNALS(2, (^(dispatch_semaphore_t barrier) {
         [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
@@ -306,7 +306,7 @@ do { \
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500];
+    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:0.5];
     __block NSUInteger keyEnteredEvents = 0;
     __block NSUInteger keyExitedEvents = 0;
     __block NSUInteger keyMovedEvents = 0;
@@ -360,7 +360,7 @@ do { \
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
-    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500];
+    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:0.5];
     __block BOOL shouldIgnore = YES;
     __block NSUInteger countEntered = 0;
     [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
@@ -387,10 +387,10 @@ do { \
     SETLOC(@"1", 37.0001, -122.0001);
     SETLOC(@"0", 37.0000, -122.0000);
     query.center = L(37.0010, -122.0000);
-    query.radius = 400;
+    query.radius = 0.4;
     [NSThread sleepForTimeInterval:0.1];
     query.center = L(37.1000, -122.0000);
-    query.radius = 10000;
+    query.radius = 10;
     [NSThread sleepForTimeInterval:0.1];
     query.center = L(0,0);
     [NSThread sleepForTimeInterval:0.1];

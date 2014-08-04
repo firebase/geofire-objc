@@ -134,7 +134,7 @@ withCompletionBlock:(GFCompletionBlock)block;
  * Creates a new GeoFire query at a given location with a radius. The GFQuery object can be used to query
  * keys that enter, move, and exit the search radius.
  * @param location The location at which the query is centered
- * @param radius The radius of the geo query
+ * @param radius The radius in kilometers of the geo query
  * @return The GFCircleQuery object that can be used to for geo queries.
  */
 - (GFCircleQuery *)queryAtLocation:(CLLocation *)location

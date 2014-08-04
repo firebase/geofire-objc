@@ -94,8 +94,8 @@ Locations in an area can be queried with an `GFQuery` object. `GFQuery` objects 
 
 ```objective-c
 CLLocation *center = [[CLLocation alloc] initWithLatitude:37.7832889 longitude:-122.4056973];
-// Query locations at [37.7832889, -122.4056973] with a radius of 1000 meters
-GFCircleQuery *circleQuery = [geoFire queryAtLocation:center withRadius:1000];
+// Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
+GFCircleQuery *circleQuery = [geoFire queryAtLocation:center withRadius:0.6];
 
 // Query location by region
 MKCoordinateSpan span = MKCoordinateSpanMake(0.001, 0.001);

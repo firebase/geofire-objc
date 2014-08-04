@@ -14,7 +14,7 @@
 
 #define CENTER_LATIDUDE 37.7789
 #define CENTER_LONGITUDE -122.4017
-#define SEARCH_RADIUS 750
+#define SEARCH_RADIUS 0.750
 #define VIEW_SIZE 1500
 
 #define CIRCLE_FRACTION (3.0/4.0)
@@ -105,7 +105,7 @@
                                                             longitude:centerCoordinate.longitude];
     CLLocation *locationOnBorder = [[CLLocation alloc] initWithLatitude:coordinateOnBorder.latitude
                                                               longitude:coordinateOnBorder.longitude];
-    CLLocationDistance distance = [centerLocation distanceFromLocation:locationOnBorder]; // in meters
+    CLLocationDistance distance = [centerLocation distanceFromLocation:locationOnBorder]/1000; // in kilometers
     if (self.circleQuery != nil) {
         self.circleQuery.center = centerLocation;
         self.circleQuery.radius = distance;
