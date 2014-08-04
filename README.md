@@ -17,12 +17,12 @@ framework](https://www.firebase.com/docs/ios-quickstart.html) and the
 CoreLocation framework to your project.
 
 You can download the latest version of the [GeoFire.framework from
-GitHub](dist/GeoFire.framework.zip) or include the GeoFire XCode project in your
+GitHub](dist/GeoFire.framework.zip) or include the GeoFire Xcode project in your
 project.
 
 ## API Reference
 
-A full API reference is available [here](https://geofire-ios.firebaseapp.com/docs/)
+[A full API reference is available here](https://geofire-ios.firebaseapp.com/docs/)
 
 ## Quick Start
 
@@ -62,13 +62,13 @@ successfully saved the location
      if (error != nil) {
          NSLog(@"Saved location successfully!");
      } else {
-         NSLog(@"An error occured: %@", error);
+         NSLog(@"An error occurred: %@", error);
      }
  }];
 ```
 
 To remove a location and delete the location from Firebase simply call
-```objectice-c
+```objective-c
 [geoFire removeKey:@"firebase-hq"];
 ```
 
@@ -115,7 +115,7 @@ FirebaseHandle queryHandle = [query observeEventType:GFEventTypeKeyEntered withB
 }];
 ```
 
-To cancel one ore all callbacks for a geo query call `removeObserverWithFirebaseHandle:` or `removeAllObservers`.
+To cancel one or all callbacks for a geo query call `removeObserverWithFirebaseHandle:` or `removeAllObservers`.
 
 #### Updating the search criteria
 
