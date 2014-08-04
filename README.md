@@ -107,9 +107,9 @@ GFRegionQuery *regionQuery = [geoFire queryWithRegion:region];
 
 There are 3 kind of events that can occur with a geo query:
 
-1. **Key Entered**: The location of a key now matches the search criteria
-2. **Key Exited**: The location of a key does not match the search criteria any more
-3. **Key Moved**: The location of a key changed and the location still matches the search criteria
+1. **Key Entered**: The location of a key now matches the query criteria
+2. **Key Exited**: The location of a key does not match the query criteria any more
+3. **Key Moved**: The location of a key changed and the location still matches the query criteria
 
 To observe events for a geo query you can register a callback with `observeEventType:withBlock:`.
 
@@ -121,9 +121,33 @@ FirebaseHandle queryHandle = [query observeEventType:GFEventTypeKeyEntered withB
 
 To cancel one or all callbacks for a geo query call `removeObserverWithFirebaseHandle:` or `removeAllObservers`.
 
-#### Updating the search criteria
+#### Waiting for queries to be "ready"
 
-To update the search criteria you can use the `center` and `radius` properties on the `GFQuery` object.
+Sometimes it's necessary to know when all key entered events have been fired for
+the current data (e.g. to hide a loading animation). `GFQuery` adds a method to
+listen to ready events.
+
+```objective-c
+[query observeReadyWithBlock:^{
+    NSLog("All initial key entered events have been fired!");
+}];
+```
+
+The ready event is triggered once all initial data was loaded from the server
+and all key entered events were triggered. A ready event is triggered again each
+time the query criteria is updated. Note that key moved and key exited events
+might still occur before the ready event was triggered.
+
+To remove a single ready callback call `removeObserverWithFirebaseHandle:`. All
+callbacks for a `GFQuery` object can be removed with a call to
+`removeAllObservers`.
+
+#### Updating the query criteria
+
+To update the query criteria you can use the `center` and `radius` properties on
+the `GFQuery` object. Key exited and key entered events will be triggered for
+keys moving in and out of the old and new search area respectively. No key moved
+events will be triggered, however key moved events might occur independently.
 
 ## Contributing
 
