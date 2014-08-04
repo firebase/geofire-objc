@@ -39,6 +39,7 @@ typedef enum {
 } GFEventType;
 
 typedef void (^GFQueryResultBlock) (NSString *key, CLLocation *location);
+typedef void (^GFReadyBlock) ();
 
 /**
  * A GFQuery object handles geo queries at a Firebase location.
@@ -69,6 +70,14 @@ typedef void (^GFQueryResultBlock) (NSString *key, CLLocation *location);
  * @return A handle to remove the observer with
  */
 - (FirebaseHandle)observeEventType:(GFEventType)eventType withBlock:(GFQueryResultBlock)block;
+
+/**
+ * Adds an observer that is called once all initial child added events were triggered.
+ *
+ * @param block The block that is called for the ready event
+ * @return A handle to remove the observer with
+ */
+- (FirebaseHandle)observeReadyWithBlock:(GFReadyBlock)block;
 
 /**
  * Removes a callback with a given FirebaseHandle. After this no further updates are received for this handle

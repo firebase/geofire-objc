@@ -396,6 +396,77 @@ do { \
     [NSThread sleepForTimeInterval:0.1];
 }
 
+- (void)testReadyListener
+{
+    SETLOC(@"0", 0, 0);
+    SETLOC(@"1", 37.0000, -122.0000);
+    SETLOC(@"2", 37.0001, -122.0001);
+    SETLOC(@"3", 37.1000, -122.0000);
+    SETLOC(@"4", 37.0002, -121.9998);
+    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500];
+    __block BOOL readyEventFired = NO;
+    [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
+        if (readyEventFired) {
+            XCTFail("Entered event after ready");
+        }
+    }];
+    [query observeReadyWithBlock:^{
+        readyEventFired = YES;
+    }];
+    WAIT_FOR(readyEventFired);
+    // wait for any further events to fire
+    [NSThread sleepForTimeInterval:0.25];
+}
+
+- (void)testReadyListenerFiresAfterReady
+{
+    SETLOC(@"0", 0, 0);
+    SETLOC(@"1", 37.0000, -122.0000);
+    SETLOC(@"2", 37.0001, -122.0001);
+    SETLOC(@"3", 37.1000, -122.0000);
+    SETLOC(@"4", 37.0002, -121.9998);
+    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500];
+
+    __block BOOL readyEventFired = NO;
+    [query observeReadyWithBlock:^{
+        readyEventFired = YES;
+    }];
+    WAIT_FOR(readyEventFired);
+
+    __block BOOL secondReadyEventFired = NO;
+    [query observeReadyWithBlock:^{
+        secondReadyEventFired = YES;
+    }];
+    // wait for 10 milliseconds, should be enough for an instant fire
+    [NSThread sleepForTimeInterval:0.01];
+    XCTAssertTrue(secondReadyEventFired);
+}
+
+- (void)testReadyAfterUpdateCriteria
+{
+    SETLOC(@"0", 0, 0);
+    SETLOC(@"1", 37.0000, -122.0000);
+    SETLOC(@"2", 37.0001, -122.0001);
+    SETLOC(@"3", 37.1000, -122.0000);
+    SETLOC(@"4", 37.0002, -121.9998);
+    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500];
+
+    __block BOOL keyZeroEntered = NO;
+    [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
+        if ([key isEqualToString:@"0"]) {
+            keyZeroEntered = YES;
+        }
+    }];
+    __block int numReadyEventsFired = 0;
+    [query observeReadyWithBlock:^{
+        numReadyEventsFired++;
+    }];
+    WAIT_FOR(numReadyEventsFired == 1);
+    query.center = L(0,0);
+    WAIT_FOR(numReadyEventsFired == 2);
+    XCTAssertTrue(keyZeroEntered);
+}
+
 #pragma clang diagnostic pop
 
 @end

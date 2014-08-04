@@ -171,10 +171,12 @@
 @property (nonatomic, strong) GeoFire *geoFire;
 @property (nonatomic, strong) NSSet *queries;
 @property (nonatomic, strong) NSMutableDictionary *firebaseHandles;
+@property (nonatomic, strong) NSMutableSet *outstandingQueries;
 
 @property (nonatomic, strong) NSMutableDictionary *keyEnteredObservers;
 @property (nonatomic, strong) NSMutableDictionary *keyExitedObservers;
 @property (nonatomic, strong) NSMutableDictionary *keyMovedObservers;
+@property (nonatomic, strong) NSMutableDictionary *readyObservers;
 @property (nonatomic) NSUInteger currentHandle;
 
 @end
@@ -330,6 +332,15 @@
     }
 }
 
+- (void)checkAndFireReadyEvent
+{
+    if (self.outstandingQueries.count == 0) {
+        [self.readyObservers enumerateKeysAndObjectsUsingBlock:^(id key, GFReadyBlock block, BOOL *stop) {
+            dispatch_async(self.geoFire.callbackQueue, block);
+        }];
+    }
+}
+
 - (void)updateQueries
 {
     NSSet *oldQueries = self.queries;
@@ -349,8 +360,10 @@
         [queryFirebase removeObserverWithHandle:handle.childChangedHandle];
         [queryFirebase removeObserverWithHandle:handle.childRemovedHandle];
         [self.firebaseHandles removeObjectForKey:handle];
+        [self.outstandingQueries removeObject:query];
     }];
     [toAdd enumerateObjectsUsingBlock:^(GFGeoHashQuery *query, BOOL *stop) {
+        [self.outstandingQueries addObject:query];
         GFGeoHashQueryHandle *handle = [[GFGeoHashQueryHandle alloc] init];
         FQuery *queryFirebase = [self firebaseForGeoHashQuery:query];
         handle.childAddedHandle = [queryFirebase observeEventType:FEventTypeChildAdded
@@ -365,6 +378,13 @@
                                                           withBlock:^(FDataSnapshot *snapshot) {
                                                               [self childRemoved:snapshot];
                                                           }];
+        [queryFirebase observeSingleEventOfType:FEventTypeValue
+                                      withBlock:^(FDataSnapshot *snapshot) {
+                                          @synchronized(self) {
+                                              [self.outstandingQueries removeObject:query];
+                                              [self checkAndFireReadyEvent];
+                                          }
+                                      }];
         self.firebaseHandles[query] = handle;
     }];
     self.queries = newQueries;
@@ -395,9 +415,11 @@
     }
     self.firebaseHandles = [NSMutableDictionary dictionary];
     self.queries = nil;
+    self.outstandingQueries = [NSMutableSet set];
     self.keyEnteredObservers = [NSMutableDictionary dictionary];
     self.keyExitedObservers = [NSMutableDictionary dictionary];
     self.keyMovedObservers = [NSMutableDictionary dictionary];
+    self.readyObservers = [NSMutableDictionary dictionary];
     self.locationInfos = [NSMutableDictionary dictionary];
 }
 
@@ -415,6 +437,7 @@
         [self.keyEnteredObservers removeObjectForKey:handle];
         [self.keyExitedObservers removeObjectForKey:handle];
         [self.keyMovedObservers removeObjectForKey:handle];
+        [self.readyObservers removeObjectForKey:handle];
         if ([self totalObserverCount] == 0) {
             [self reset];
         }
@@ -423,7 +446,10 @@
 
 - (NSUInteger)totalObserverCount
 {
-    return self.keyEnteredObservers.count + self.keyExitedObservers.count + self.keyMovedObservers.count;
+    return (self.keyEnteredObservers.count +
+            self.keyExitedObservers.count +
+            self.keyMovedObservers.count +
+            self.readyObservers.count);
 }
 
 - (FirebaseHandle)observeEventType:(GFEventType)eventType withBlock:(GFQueryResultBlock)block
@@ -432,9 +458,8 @@
         if (block == nil) {
             [NSException raise:NSInvalidArgumentException format:@"Block is not allowed to be nil!"];
         }
-        FirebaseHandle firebaseHandle = self.currentHandle;
+        FirebaseHandle firebaseHandle = self.currentHandle++;
         NSNumber *numberHandle = [NSNumber numberWithUnsignedInteger:firebaseHandle];
-        self.currentHandle++;
         switch (eventType) {
             case GFEventTypeKeyEntered: {
                 [self.keyEnteredObservers setObject:[block copy]
@@ -472,6 +497,25 @@
         }
         if (self.queries == nil) {
             [self updateQueries];
+        }
+        return firebaseHandle;
+    }
+}
+
+- (FirebaseHandle)observeReadyWithBlock:(GFReadyBlock)block
+{
+    @synchronized(self) {
+        if (block == nil) {
+            [NSException raise:NSInvalidArgumentException format:@"Block is not allowed to be nil!"];
+        }
+        FirebaseHandle firebaseHandle = self.currentHandle++;
+        NSNumber *numberHandle = [NSNumber numberWithUnsignedInteger:firebaseHandle];
+        [self.readyObservers setObject:[block copy] forKey:numberHandle];
+        if (self.queries == nil) {
+            [self updateQueries];
+        }
+        if (self.outstandingQueries.count == 0) {
+            dispatch_async(self.geoFire.callbackQueue, block);
         }
         return firebaseHandle;
     }
