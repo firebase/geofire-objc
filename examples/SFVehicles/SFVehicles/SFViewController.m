@@ -107,10 +107,10 @@
                                                               longitude:coordinateOnBorder.longitude];
     CLLocationDistance distance = [centerLocation distanceFromLocation:locationOnBorder]; // in meters
     if (self.circleQuery != nil) {
-        self.circleQuery.center = centerLocation.coordinate;
+        self.circleQuery.center = centerLocation;
         self.circleQuery.radius = distance;
     } else {
-        self.circleQuery = [self.geoFire queryAtLocation:centerLocation.coordinate withRadius:distance];
+        self.circleQuery = [self.geoFire queryAtLocation:centerLocation withRadius:distance];
         [self setupListeners:self.circleQuery];
     }
     self.centerAnnotation.coordinate = centerLocation.coordinate;

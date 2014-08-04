@@ -69,7 +69,7 @@ typedef void (^GFLocationBlock) (CLLocation *location);
  * @param location The location as a geographic coordinate
  * @param key The key for which this location is saved
  */
-- (void)setLocation:(CLLocationCoordinate2D)location
+- (void)setLocation:(CLLocation *)location
              forKey:(NSString *)key;
 
 /**
@@ -79,7 +79,7 @@ typedef void (^GFLocationBlock) (CLLocation *location);
  * @param key The key for which this location is saved
  * @param block The completion block that is called once the location was successfully updated on the server
  */
-- (void)setLocation:(CLLocationCoordinate2D)location
+- (void)setLocation:(CLLocation *)location
              forKey:(NSString *)key
 withCompletionBlock:(GFCompletionBlock)block;
 
@@ -137,7 +137,7 @@ withCompletionBlock:(GFCompletionBlock)block;
  * @param radius The radius of the geo query
  * @return The GFCircleQuery object that can be used to for geo queries.
  */
-- (GFCircleQuery *)queryAtLocation:(CLLocationCoordinate2D)location
+- (GFCircleQuery *)queryAtLocation:(CLLocation *)location
                         withRadius:(double)radius;
 
 /**

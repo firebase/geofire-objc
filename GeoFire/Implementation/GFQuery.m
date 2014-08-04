@@ -48,37 +48,39 @@
 @synthesize radius = _radius;
 
 - (id)initWithGeoFire:(GeoFire *)geoFire
-             location:(CLLocationCoordinate2D)location
+             location:(CLLocation *)location
                radius:(double)radius
 {
     self = [super initWithGeoFire:geoFire];
     if (self != nil) {
-        if (!CLLocationCoordinate2DIsValid(location)) {
+        if (!CLLocationCoordinate2DIsValid(location.coordinate)) {
             [NSException raise:NSInvalidArgumentException
-                        format:@"Not a valid geo location: [%f,%f]", location.latitude, location.longitude];
+                        format:@"Not a valid geo location: [%f,%f]",
+             location.coordinate.latitude, location.coordinate.longitude];
         }
-        self->_centerLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
+        self->_centerLocation = location;
         self->_radius = radius;
     }
     return self;
 }
 
-- (void)setCenter:(CLLocationCoordinate2D)center
+- (void)setCenter:(CLLocation *)center
 {
     @synchronized(self) {
-        if (!CLLocationCoordinate2DIsValid(center)) {
+        if (!CLLocationCoordinate2DIsValid(center.coordinate)) {
             [NSException raise:NSInvalidArgumentException
-                        format:@"Not a valid geo location: [%f,%f]", center.latitude, center.longitude];
+                        format:@"Not a valid geo location: [%f,%f]",
+             center.coordinate.latitude, center.coordinate.longitude];
         }
-        self->_centerLocation = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
+        self->_centerLocation = center;
         [self searchCriteriaDidChange];
     }
 }
 
-- (CLLocationCoordinate2D)center
+- (CLLocation *)center
 {
     @synchronized(self) {
-        return self.centerLocation.coordinate;
+        return self.centerLocation;
     }
 }
 

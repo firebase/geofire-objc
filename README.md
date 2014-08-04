@@ -49,14 +49,14 @@ In GeoFire you can set and query locations by key. To set a location for a key
 simply call the `setLocation:forKey` method
 
 ```objective-c
-[geoFire setLocation:CLLocationCoordinate2DMake(37.7853889,-122.4056973)
+[geoFire setLocation:[[CLLocation alloc] initWithLatitude:37.7853889 longitude:-122.4056973]
               forKey:@"firebase-hq"];
 ```
 
 Alternatively a callback can be passed passed which is called once the server
 successfully saved the location
 ```objective-c
-[geoFire setLocation:CLLocationCoordinate2DMake(37.7853889,-122.4056973)
+[geoFire setLocation:[[CLLocation alloc] initWithLatitude:37.7853889 longitude:-122.4056973]
               forKey:@"firebase-hq"
  withCompletionBlock:^(NSError *error) {
      if (error != nil) {
@@ -80,7 +80,11 @@ of the location. Like that, your app can always stay up-to-date automatically.
 
 ```objective-c
 [geoFire observeLocationForKey:@"firebase-hq" withBlock:^(CLLocation *location) {
-    NSLog(@"New location for "firebase-hq": %@", location);
+    if (location == nil) {
+        NSLog(@"\"firebase-hq\" has no location");
+    } else {
+        NSLog(@"New location for \"firebase-hq\": %@", location);
+    }
 }];
 ```
 
@@ -89,13 +93,13 @@ of the location. Like that, your app can always stay up-to-date automatically.
 Locations in an area can be queried with an `GFQuery` object. `GFQuery` objects are created with the `GeoFire` object
 
 ```objective-c
-CLLocationCoordinate2D center = CLLocationCoordinate2DMake(37.7832889, -122.4056973);
+CLLocation *center = [[CLLocation alloc] initWithLatitude:37.7832889 longitude:-122.4056973];
 // Query locations at [37.7832889, -122.4056973] with a radius of 1000 meters
 GFCircleQuery *circleQuery = [geoFire queryAtLocation:center withRadius:1000];
 
 // Query location by region
 MKCoordinateSpan span = MKCoordinateSpanMake(0.001, 0.001);
-MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
+MKCoordinateRegion region = MKCoordinateRegionMake(center.coordinate, span);
 GFRegionQuery *regionQuery = [geoFire queryWithRegion:region];
 ```
 

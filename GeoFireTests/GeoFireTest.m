@@ -21,19 +21,19 @@
 - (void)testGeoFireSetsLocations
 {
     WAIT_SIGNALS(3, ^(dispatch_semaphore_t barrier) {
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(0, 0)
+        [self.geoFire setLocation:L(0, 0)
                            forKey:@"loc1"
               withCompletionBlock:^(NSError *error) {
                   XCTAssertNil(error);
                   dispatch_semaphore_signal(barrier);
               }];
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(50, 50)
+        [self.geoFire setLocation:L(50, 50)
                            forKey:@"loc2"
               withCompletionBlock:^(NSError *error) {
                   XCTAssertNil(error);
                   dispatch_semaphore_signal(barrier);
               }];
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(-90, -90)
+        [self.geoFire setLocation:L(-90, -90)
                            forKey:@"loc3"
               withCompletionBlock:^(NSError *error) {
                   XCTAssertNil(error);
@@ -71,13 +71,13 @@
             }
             dispatch_semaphore_signal(barrier);
         }];
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(0,0) forKey:@"loc1"]; // should fire
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(0,0) forKey:@"loc1"]; // should not fire
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(1,1) forKey:@"loc2"]; // should not fire
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(2,1) forKey:@"loc1"]; // should fire
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(0,0) forKey:@"loc1"]; // should fire
+        [self.geoFire setLocation:L(0,0) forKey:@"loc1"]; // should fire
+        [self.geoFire setLocation:L(0,0) forKey:@"loc1"]; // should not fire
+        [self.geoFire setLocation:L(1,1) forKey:@"loc2"]; // should not fire
+        [self.geoFire setLocation:L(2,1) forKey:@"loc1"]; // should fire
+        [self.geoFire setLocation:L(0,0) forKey:@"loc1"]; // should fire
         [self.geoFire removeKey:@"loc1"]; // should fire
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(0, 0) forKey:@"loc1"]; // should not fire
+        [self.geoFire setLocation:L(0, 0) forKey:@"loc1"]; // should not fire
     }));
 
     NSArray *expected = @[@"[0.000000, 0.000000]",
@@ -90,9 +90,9 @@
 
 - (void)testInvalidCoordinates
 {
-    XCTAssertThrows([self.geoFire setLocation:CLLocationCoordinate2DMake(-91, 90) forKey:@"key"]);
-    XCTAssertThrows([self.geoFire setLocation:CLLocationCoordinate2DMake(0, -180.1) forKey:@"key"]);
-    XCTAssertThrows([self.geoFire setLocation:CLLocationCoordinate2DMake(0, 181.1) forKey:@"key"]);
+    XCTAssertThrows([self.geoFire setLocation:L(-91, 90) forKey:@"key"]);
+    XCTAssertThrows([self.geoFire setLocation:L(0, -180.1) forKey:@"key"]);
+    XCTAssertThrows([self.geoFire setLocation:L(0, 181.1) forKey:@"key"]);
 }
 
 - (void)testRemoveObserver
@@ -109,7 +109,7 @@
             }
         }];
         [self.geoFire removeObserverWithHandle:handle];
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(1,1) forKey:@"loc1"];
+        [self.geoFire setLocation:L(1,1) forKey:@"loc1"];
     }));
     XCTAssertEqualObjects(observedLocation, @"[1.000000,1.000000]");
 }
@@ -127,10 +127,10 @@
             XCTAssertNil(location);
         }];
         [self.geoFire removeAllObservers];
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(1, 1) forKey:@"loc1" withCompletionBlock:^(NSError *error) {
+        [self.geoFire setLocation:L(1, 1) forKey:@"loc1" withCompletionBlock:^(NSError *error) {
             dispatch_semaphore_signal(barrier);
         }];
-        [self.geoFire setLocation:CLLocationCoordinate2DMake(1, 1) forKey:@"loc2" withCompletionBlock:^(NSError *error) {
+        [self.geoFire setLocation:L(1, 1) forKey:@"loc2" withCompletionBlock:^(NSError *error) {
             dispatch_semaphore_signal(barrier);
         }];
     }));

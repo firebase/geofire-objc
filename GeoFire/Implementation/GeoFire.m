@@ -42,20 +42,20 @@
     return self;
 }
 
-- (void)setLocation:(CLLocationCoordinate2D)location forKey:(NSString *)key
+- (void)setLocation:(CLLocation *)location forKey:(NSString *)key
 {
     [self setLocation:location forKey:key withCompletionBlock:nil];
 }
 
-- (void)setLocation:(CLLocationCoordinate2D)coordinate
+- (void)setLocation:(CLLocation *)location
              forKey:(NSString *)key
 withCompletionBlock:(GFCompletionBlock)block
 {
-    if (!CLLocationCoordinate2DIsValid(coordinate)) {
+    if (!CLLocationCoordinate2DIsValid(location.coordinate)) {
         [NSException raise:NSInvalidArgumentException
-                    format:@"Not a valid coordinate: [%f, %f]", coordinate.latitude, coordinate.longitude];
+                    format:@"Not a valid coordinate: [%f, %f]",
+         location.coordinate.latitude, location.coordinate.longitude];
     }
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
     [self setLocationValue:location
                     forKey:key
                  withBlock:block];
@@ -175,7 +175,7 @@ withCompletionBlock:(GFCompletionBlock)block
     [self.firebaseHandles removeAllObjects];
 }
 
-- (GFCircleQuery *)queryAtLocation:(CLLocationCoordinate2D)location withRadius:(double)radius
+- (GFCircleQuery *)queryAtLocation:(CLLocation *)location withRadius:(double)radius
 {
     return [[GFCircleQuery alloc] initWithGeoFire:self location:location radius:radius];
 }

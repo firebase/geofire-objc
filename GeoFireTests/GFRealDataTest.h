@@ -43,6 +43,11 @@ do { \
   } \
 } while(0);
 
+#define C(x,y) CLLocationCoordinate2DMake(x,y)
+#define S(x,y) MKCoordinateSpanMake(x,y)
+#define L(x,y) [[CLLocation alloc] initWithLatitude:x longitude:y]
+#define L2S(l) [NSString stringWithFormat:@"[%f, %f]", (l).coordinate.latitude, (l).coordinate.longitude]
+
 @interface GFRealDataTest : XCTestCase
 
 @property (nonatomic, strong) GeoFire *geoFire;
