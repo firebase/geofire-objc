@@ -53,16 +53,16 @@ simply call the `setLocation:forKey` method
               forKey:@"firebase-hq"];
 ```
 
-Alternatively a callback can be passed passed which is called once the server
+Alternatively a callback can be passed which is called once the server
 successfully saved the location
 ```objective-c
 [geoFire setLocation:[[CLLocation alloc] initWithLatitude:37.7853889 longitude:-122.4056973]
               forKey:@"firebase-hq"
  withCompletionBlock:^(NSError *error) {
      if (error != nil) {
-         NSLog(@"Saved location successfully!");
-     } else {
          NSLog(@"An error occurred: %@", error);
+     } else {
+         NSLog(@"Saved location successfully!");
      }
  }];
 ```
