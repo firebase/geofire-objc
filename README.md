@@ -9,6 +9,11 @@ just measure the distance between locations; *it selectively loads only the
 data near certain locations, keeping your applications light and responsive*,
 even with extremely large datasets.
 
+## GeoFire for iOS Beta
+
+GeoFire for iOS is still in an open beta. It will be ready for your production
+applications soon, but the API is subject to change until then.
+
 ## Downloading GeoFire for iOS
 
 In order to use GeoFire in your project, you need to download the framework and
