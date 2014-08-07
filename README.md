@@ -1,13 +1,34 @@
 # GeoFire for iOS — Realtime location queries with Firebase
 
 GeoFire is an open-source library for iOS that allows you to store and query a
-set of items based on their geographic location.
+set of keys based on their geographic location.
+
+At its heart, GeoFire simply stores locations with string keys. Its main
+benefit however, is the possibility of querying keys within a given geographic
+area - all in realtime.
 
 GeoFire uses [Firebase](https://www.firebase.com/) for data storage, allowing
-query results to be updated in realtime as they change.  GeoFire does more than
-just measure the distance between locations; *it selectively loads only the
-data near certain locations, keeping your applications light and responsive*,
-even with extremely large datasets.
+query results to be updated in realtime as they change.  GeoFire *selectively
+loads only the data near certain locations, keeping your applications light and
+responsive*, even with extremely large datasets.
+
+### Integrating GeoFire with your data
+
+GeoFire is designed as a lightweight add-on to Firebase. However, to keep things
+simple, GeoFire stores data in its own format and its own location within
+your Firebase. This allows your existing data format and security rules to
+remain unchanged and for you to add GeoFire as an easy solution for geo queries
+without modifying your existing data.
+
+#### Example
+Assume you are building an app to rate bars and you store all information for a
+bar, e.g. name, business hours and price range, at `/bars/<bar-id>`.  Later, you
+want to add the possibility for users to search for bars in their vicinity. This
+is where GeoFire comes in. You can store the location for each bar using
+GeoFire, using the bar IDs as GeoFire keys. GeoFire then allows you to easily
+query which bar IDs (the keys) are nearby. To display any additional information
+about the bars, you can load the information for each bar returned by the query
+at `/bars/<bar-id>`.
 
 ## GeoFire for iOS Beta
 
@@ -33,7 +54,7 @@ project.
 
 ### GeoFire
 
-A `GeoFire` object is used to read and write geolocation data to your Firebase
+A `GeoFire` object is used to read and write geo location data to your Firebase
 and to create queries.
 
 #### Creating a new GeoFire instance
@@ -50,7 +71,7 @@ GeoFire](https://github.com/firebase/geofire/blob/master/examples/securityRules/
 
 #### Setting location data
 
-In GeoFire you can set and query locations by key. To set a location for a key
+In GeoFire you can set and query locations by string keys. To set a location for a key
 simply call the `setLocation:forKey` method
 
 ```objective-c
@@ -79,9 +100,11 @@ To remove a location and delete the location from Firebase simply call
 
 #### Retrieving a location
 
-Retrieving locations happens with callbacks. Like with any Firebase reference,
-the callback is called once for the initial position and then for every update
-of the location. Like that, your app can always stay up-to-date automatically.
+Retrieving locations happens with callbacks. If the key is not present in
+GeoFire, the callback will be called with null. Like with any Firebase
+reference, the callback is called once for the initial location and then for
+every update of the location. Like that, your app can always stay up-to-date
+automatically.
 
 ```objective-c
 [geoFire observeLocationForKey:@"firebase-hq" withBlock:^(CLLocation *location) {
@@ -95,7 +118,10 @@ of the location. Like that, your app can always stay up-to-date automatically.
 
 ### Geo Queries
 
-Locations in an area can be queried with an `GFQuery` object. `GFQuery` objects are created with the `GeoFire` object
+GeoFire allows to query all keys within a geographic area using `GFQuery`
+objects. If locations for keys change the query will be updated in realtime (see
+"Receiving events for geo queries" below). `GFQuery` parameters can be updated
+later to change the area that is queried.
 
 ```objective-c
 CLLocation *center = [[CLLocation alloc] initWithLatitude:37.7832889 longitude:-122.4056973];
@@ -116,21 +142,27 @@ There are 3 kind of events that can occur with a geo query:
 2. **Key Exited**: The location of a key does not match the query criteria any more
 3. **Key Moved**: The location of a key changed and the location still matches the query criteria
 
+Key entered events will be fired for all keys initially matching the query. Key
+moved and key exited events are guaranteed to be preceded by a key entered
+event.
+
 To observe events for a geo query you can register a callback with `observeEventType:withBlock:`.
 
 ```objective-c
 FirebaseHandle queryHandle = [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
-    NSLog(@"Key '%@' entered the search area and is at location '%@'", location);
+    NSLog(@"Key '%@' entered the search area and is at location '%@'", key, location);
 }];
 ```
 
-To cancel one or all callbacks for a geo query call `removeObserverWithFirebaseHandle:` or `removeAllObservers`.
+To cancel one or all callbacks for a geo query call
+`removeObserverWithFirebaseHandle:` or `removeAllObservers`.
 
 #### Waiting for queries to be "ready"
 
-Sometimes it's necessary to know when all key entered events have been fired for
-the current data (e.g. to hide a loading animation). `GFQuery` adds a method to
-listen to ready events.
+Sometimes it's necessary to know when all keys matching a query have been loaded
+from the server and all the corresponding key entered events have been fired
+(e.g. to hide a loading animation). `GFQuery` offers a method to listen for
+those ready events:
 
 ```objective-c
 [query observeReadyWithBlock:^{
@@ -138,21 +170,18 @@ listen to ready events.
 }];
 ```
 
-The ready event is triggered once all initial data was loaded from the server
-and all key entered events were triggered. A ready event is triggered again each
-time the query criteria is updated. Note that key moved and key exited events
-might still occur before the ready event was triggered.
-
-To remove a single ready callback call `removeObserverWithFirebaseHandle:`. All
-callbacks for a `GFQuery` object can be removed with a call to
-`removeAllObservers`.
+Note that locations might change while loading the data and key moved and key
+exited events might therefor still occur before the ready event was fired.  If
+the query criteria is updated, the new data is loaded from the server and the
+ready event is fired again once all events for the updated query have been
+fired. This includes key exited events for keys that no longer match the query.
 
 #### Updating the query criteria
 
 To update the query criteria you can use the `center` and `radius` properties on
-the `GFQuery` object. Key exited and key entered events will be triggered for
+the `GFQuery` object. Key exited and key entered events will be fired for
 keys moving in and out of the old and new search area respectively. No key moved
-events will be triggered, however key moved events might occur independently.
+events will be fired, however, key moved events might occur independently.
 
 ## Contributing
 
