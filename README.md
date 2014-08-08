@@ -46,11 +46,11 @@ You can download the latest version of the [GeoFire.framework from
 GitHub](dist/GeoFire.framework.zip) or include the GeoFire Xcode project in your
 project.
 
-## API Reference
-
-[A full API reference is available here](https://geofire-ios.firebaseapp.com/docs/)
-
 ## Quick Start
+
+This is a quick start on how to use GeoFire's core features.  There is also a
+[full API reference available
+online](https://geofire-ios.firebaseapp.com/docs/).
 
 ### GeoFire
 
@@ -182,6 +182,10 @@ To update the query criteria you can use the `center` and `radius` properties on
 the `GFQuery` object. Key exited and key entered events will be fired for
 keys moving in and out of the old and new search area respectively. No key moved
 events will be fired, however, key moved events might occur independently.
+
+## API Reference
+
+[A full API reference is available here](https://geofire-ios.firebaseapp.com/docs/)
 
 ## Contributing
 
