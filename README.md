@@ -8,7 +8,7 @@ benefit however, is the possibility of querying keys within a given geographic
 area - all in realtime.
 
 GeoFire uses [Firebase](https://www.firebase.com/) for data storage, allowing
-query results to be updated in realtime as they change.  GeoFire *selectively
+query results to be updated in realtime as they change. GeoFire *selectively
 loads only the data near certain locations, keeping your applications light and
 responsive*, even with extremely large datasets.
 
@@ -22,7 +22,7 @@ without modifying your existing data.
 
 #### Example
 Assume you are building an app to rate bars and you store all information for a
-bar, e.g. name, business hours and price range, at `/bars/<bar-id>`.  Later, you
+bar, e.g. name, business hours and price range, at `/bars/<bar-id>`. Later, you
 want to add the possibility for users to search for bars in their vicinity. This
 is where GeoFire comes in. You can store the location for each bar using
 GeoFire, using the bar IDs as GeoFire keys. GeoFire then allows you to easily
@@ -38,7 +38,7 @@ applications soon, but the API is subject to change until then.
 ## Downloading GeoFire for iOS
 
 In order to use GeoFire in your project, you need to download the framework and
-add it to your project.  You also need to [add the Firebase
+add it to your project. You also need to [add the Firebase
 framework](https://www.firebase.com/docs/ios-quickstart.html) and the
 CoreLocation framework to your project.
 
@@ -48,7 +48,7 @@ project.
 
 ## Quick Start
 
-This is a quick start on how to use GeoFire's core features.  There is also a
+This is a quick start on how to use GeoFire's core features. There is also a
 [full API reference available
 online](https://geofire-ios.firebaseapp.com/docs/).
 
@@ -59,7 +59,7 @@ and to create queries.
 
 #### Creating a new GeoFire instance
 
-To create a new `GeoFire` instance you need to attach it to a Firebase reference.
+To create a new `GeoFire` instance you need to attach it to a Firebase reference:
 
 ```objective-c
 Firebase *geofireRef = [[Firebase alloc] initWithUrl:@"https://<your-firebase>.firebaseio.com/"];
@@ -72,7 +72,7 @@ GeoFire](https://github.com/firebase/geofire/blob/master/examples/securityRules/
 #### Setting location data
 
 In GeoFire you can set and query locations by string keys. To set a location for a key
-simply call the `setLocation:forKey` method
+simply call the `setLocation:forKey` method:
 
 ```objective-c
 [geoFire setLocation:[[CLLocation alloc] initWithLatitude:37.7853889 longitude:-122.4056973]
@@ -80,7 +80,7 @@ simply call the `setLocation:forKey` method
 ```
 
 Alternatively a callback can be passed which is called once the server
-successfully saved the location
+successfully saved the location:
 ```objective-c
 [geoFire setLocation:[[CLLocation alloc] initWithLatitude:37.7853889 longitude:-122.4056973]
               forKey:@"firebase-hq"
@@ -93,7 +93,7 @@ successfully saved the location
  }];
 ```
 
-To remove a location and delete the location from Firebase simply call
+To remove a location and delete the location from Firebase simply call:
 ```objective-c
 [geoFire removeKey:@"firebase-hq"];
 ```
@@ -101,8 +101,8 @@ To remove a location and delete the location from Firebase simply call
 #### Retrieving a location
 
 Retrieving locations happens with callbacks. If the key is not present in
-GeoFire, the callback will be called with null. Like with any Firebase
-reference, the callback is called once for the initial location and then for
+GeoFire, the callback will be called with `nil`. Like with any Firebase
+event listener, the callback is called once for the initial location and then for
 every update of the location. Like that, your app can always stay up-to-date
 automatically.
 
@@ -121,7 +121,7 @@ automatically.
 GeoFire allows to query all keys within a geographic area using `GFQuery`
 objects. If locations for keys change the query will be updated in realtime (see
 "Receiving events for geo queries" below). `GFQuery` parameters can be updated
-later to change the area that is queried.
+later to change the size and center of the area that is queried.
 
 ```objective-c
 CLLocation *center = [[CLLocation alloc] initWithLatitude:37.7832889 longitude:-122.4056973];
@@ -146,7 +146,7 @@ Key entered events will be fired for all keys initially matching the query. Key
 moved and key exited events are guaranteed to be preceded by a key entered
 event.
 
-To observe events for a geo query you can register a callback with `observeEventType:withBlock:`.
+To observe events for a geo query you can register a callback with `observeEventType:withBlock:`:
 
 ```objective-c
 FirebaseHandle queryHandle = [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
@@ -155,14 +155,14 @@ FirebaseHandle queryHandle = [query observeEventType:GFEventTypeKeyEntered withB
 ```
 
 To cancel one or all callbacks for a geo query call
-`removeObserverWithFirebaseHandle:` or `removeAllObservers`.
+`removeObserverWithFirebaseHandle:` or `removeAllObservers`, respectively.
 
 #### Waiting for queries to be "ready"
 
-Sometimes it's necessary to know when all keys matching a query have been loaded
-from the server and all the corresponding key entered events have been fired
-(e.g. to hide a loading animation). `GFQuery` offers a method to listen for
-those ready events:
+Sometimes you want to know when the data for all the initial keys has been
+loaded from the server and the corresponding events for those keys have been
+fired. For example, you may want to hide a loading animation after your data has
+fully loaded. `GFQuery` offers a method to listen for these ready events:
 
 ```objective-c
 [query observeReadyWithBlock:^{
@@ -171,7 +171,7 @@ those ready events:
 ```
 
 Note that locations might change while loading the data and key moved and key
-exited events might therefor still occur before the ready event was fired.  If
+exited events might therefore still occur before the ready event was fired. If
 the query criteria is updated, the new data is loaded from the server and the
 ready event is fired again once all events for the updated query have been
 fired. This includes key exited events for keys that no longer match the query.
@@ -180,8 +180,8 @@ fired. This includes key exited events for keys that no longer match the query.
 
 To update the query criteria you can use the `center` and `radius` properties on
 the `GFQuery` object. Key exited and key entered events will be fired for
-keys moving in and out of the old and new search area respectively. No key moved
-events will be fired, however, key moved events might occur independently.
+keys moving in and out of the old and new search area, respectively. No key moved
+events will be fired; however, key moved events might occur independently.
 
 ## API Reference
 
