@@ -79,16 +79,20 @@ To remove a location and delete the location from Firebase simply call
 
 #### Retrieving a location
 
-Retrieving locations happens with callbacks. Like with any Firebase reference,
-the callback is called once for the initial position and then for every update
-of the location. Like that, your app can always stay up-to-date automatically.
+Retrieving locations happens with callbacks. The callback is passed the location
+or `nil` if GeoFire has no location for the key. If an error occurred, the
+callback is passed the error and location will be `nil`.
 
 ```objective-c
-[geoFire observeLocationForKey:@"firebase-hq" withBlock:^(CLLocation *location) {
-    if (location == nil) {
-        NSLog(@"\"firebase-hq\" has no location");
+[geoFire getLocationForKey:@"firebase-hq" withCallback:^(CLLocation *location, NSError *error) {
+    if (error != nil) {
+        NSLog(@"An error occurred getting the location for \"firebase-hq\": %@", [error localizedDescription]);
+    } else if (location != nil) {
+        NSLog(@"Location for \"firebase-hq\" is [%f, %f]",
+              location.coordinate.latitude,
+              location.coordinate.longitude);
     } else {
-        NSLog(@"New location for \"firebase-hq\": %@", location);
+        NSLog(@"GeoFire does not contain a location for \"firebase-hq\"");
     }
 }];
 ```

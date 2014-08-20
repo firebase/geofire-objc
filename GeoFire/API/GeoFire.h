@@ -36,7 +36,7 @@
 #import "GFRegionQuery.h"
 
 typedef void (^GFCompletionBlock) (NSError *error);
-typedef void (^GFLocationBlock) (CLLocation *location);
+typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
 
 /**
  * A GeoFire instance is used to store geo data at a Firebase location
@@ -98,37 +98,15 @@ withCompletionBlock:(GFCompletionBlock)block;
 - (void)removeKey:(NSString *)key withCompletionBlock:(GFCompletionBlock)block;
 
 /**
- * Observes the location for a given key and calls the callback once for the initial location and subsequentially for
- * every update of the location.
- * Calls the callback with nil if no location is stored.
- *
- * Use removeObserverWithHandle: to stop receiving updates.
+ * Gets the current location for a key in GeoFire and calls the callback with the location or nil if there is no
+ * location for the key in GeoFire. If an error occurred, the callback will be called with the error.
  *
  * @param key The key to observe the location for
- * @param block The block that is called for every update of the location
+ * @param callback The callback that is called for the current location
  * @return
  */
-- (FirebaseHandle)observeLocationForKey:(NSString *)key
-                              withBlock:(GFLocationBlock)block;
-
-/**
- * Removes an observer previously added with observeLocationForKey:withBlock:.
- * @param handle The handle for which to stop receiving updates
- */
-- (void)removeObserverWithHandle:(FirebaseHandle)handle;
-
-/**
- * Removes all observers previously attached to this GeoFire with observeLocationForKey:withBlock:.
- */
-- (void)removeAllObservers;
-
-/**
- * Gets the location for a given key exactly once. No updates are called for updates on the location.
- * @param key The key to observe the location for
- * @param block The block that is called for once for the location
- */
- - (void)observeLocationOnceForKey:(NSString *)key
-                         withBlock:(GFLocationBlock)block;
+- (void)getLocationForKey:(NSString *)key
+             withCallback:(GFCallbackBlock)callback;
 
 /**
  * Creates a new GeoFire query at a given location with a radius. The GFQuery object can be used to query
