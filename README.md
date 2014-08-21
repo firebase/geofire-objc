@@ -20,7 +20,7 @@ your Firebase. This allows your existing data format and security rules to
 remain unchanged and for you to add GeoFire as an easy solution for geo queries
 without modifying your existing data.
 
-#### Example
+### Example
 Assume you are building an app to rate bars and you store all information for a
 bar, e.g. name, business hours and price range, at `/bars/<bar-id>`. Later, you
 want to add the possibility for users to search for bars in their vicinity. This
