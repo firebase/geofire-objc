@@ -39,24 +39,24 @@ typedef void (^GFCompletionBlock) (NSError *error);
 typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
 
 /**
- * A GeoFire instance is used to store geo data at a Firebase location
+ * A GeoFire instance is used to store geo location data at a Firebase location.
  */
 @interface GeoFire : NSObject
 
 /**
- * The Firebase reference this GeoFire instance uses
+ * The Firebase reference this GeoFire instance uses.
  */
 @property (nonatomic, strong, readonly) Firebase *firebaseRef;
 
 /**
- * The dispatch queue this GeoFire object and all it's GFQueries use for callbacks
+ * The dispatch queue this GeoFire object and all its GFQueries use for callbacks.
  */
 @property (nonatomic, strong) dispatch_queue_t callbackQueue;
 
-/** @name Creating new GeoFire's */
+/** @name Creating new GeoFire objects */
 
 /**
- * Initializes a new GeoFire instance at the given Firebase location
+ * Initializes a new GeoFire instance at the given Firebase location.
  * @param firebase The Firebase location to attach this GeoFire instance to
  * @return The new GeoFire instance
  */
@@ -65,7 +65,7 @@ typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
 /** @name Setting and Updating Locations */
 
 /**
- * Updates the location for a key
+ * Updates the location for a key.
  * @param location The location as a geographic coordinate
  * @param key The key for which this location is saved
  */
@@ -99,7 +99,8 @@ withCompletionBlock:(GFCompletionBlock)block;
 
 /**
  * Gets the current location for a key in GeoFire and calls the callback with the location or nil if there is no
- * location for the key in GeoFire. If an error occurred, the callback will be called with the error.
+ * location for the key in GeoFire. If an error occurred, the callback will be called with the error and location
+ * will be nil.
  *
  * @param key The key to observe the location for
  * @param callback The callback that is called for the current location
@@ -109,11 +110,11 @@ withCompletionBlock:(GFCompletionBlock)block;
              withCallback:(GFCallbackBlock)callback;
 
 /**
- * Creates a new GeoFire query at a given location with a radius. The GFQuery object can be used to query
+ * Creates a new GeoFire query centered at a given location with a given radius. The GFQuery object can be used to query
  * keys that enter, move, and exit the search radius.
  * @param location The location at which the query is centered
  * @param radius The radius in kilometers of the geo query
- * @return The GFCircleQuery object that can be used to for geo queries.
+ * @return The GFCircleQuery object that can be used for geo queries.
  */
 - (GFCircleQuery *)queryAtLocation:(CLLocation *)location
                         withRadius:(double)radius;
@@ -122,7 +123,7 @@ withCompletionBlock:(GFCompletionBlock)block;
  * Creates a new GeoFire query for a given region. The GFQuery object can be used to query
  * keys that enter, move, and exit the search region.
  * @param region The region which this query searches
- * @return The GFRegionQuery object that can be used to for geo queries.
+ * @return The GFRegionQuery object that can be used for geo queries.
  */
 - (GFRegionQuery *)queryWithRegion:(MKCoordinateRegion)region;
 
