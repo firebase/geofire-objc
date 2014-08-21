@@ -10,13 +10,13 @@
 
 /**
  * The center of the search area. Update this value to update the query. Events are triggered for any keys that move
- * in or out of the search area
+ * in or out of the search area.
  */
 @property (atomic, readwrite) CLLocation *center;
 
 /**
  * The radius of the geo query in kilometers. Update this value to update the query. Events are triggered for any keys
- * that move in or out of the search area
+ * that move in or out of the search area.
  */
 @property (atomic, readwrite) double radius;
 
