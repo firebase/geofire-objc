@@ -51,28 +51,33 @@ typedef void (^GFReadyBlock) ();
  */
 @property (nonatomic, strong, readonly) GeoFire *geoFire;
 
-/**
- * Add an observer for an event type.
- * The following event types are supported
- *
- *     typedef enum {
- *       GFEventTypeKeyEntered, // A key entered the search area
- *       GFEventTypeKeyExited,  // A key exited the search area
- *       GFEventTypeKeyMoved    // A key moved within the search area
- *     } GFEventType;
- *
- * The block is called for each event and key.
- *
- * Use removeObserverWithFirebaseHandle: to stop receiving callbacks.
- * 
- * @param eventType The event type to receive updates for
- * @param block The block that is called for updates
- * @return A handle to remove the observer with
- */
+/*!
+ Add an observer for an event type.
+ 
+ The following event types are supported
+
+
+     typedef enum {
+       GFEventTypeKeyEntered, // A key entered the search area
+       GFEventTypeKeyExited,  // A key exited the search area
+       GFEventTypeKeyMoved    // A key moved within the search area
+     } GFEventType;
+
+
+ The block is called for each event and key.
+
+ Use removeObserverWithFirebaseHandle: to stop receiving callbacks.
+
+ @param eventType The event type to receive updates for
+ @param block The block that is called for updates
+ @return A handle to remove the observer with
+*/
+
 - (FirebaseHandle)observeEventType:(GFEventType)eventType withBlock:(GFQueryResultBlock)block;
 
 /**
- * Adds an observer that is called once all initial child added events were triggered.
+ * Adds an observer that is called once all keys within this query have been loaded from the server and all key entered
+ * events have been fired.
  *
  * @param block The block that is called for the ready event
  * @return A handle to remove the observer with
