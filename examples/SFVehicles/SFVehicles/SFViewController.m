@@ -19,7 +19,7 @@
 
 #define CIRCLE_FRACTION (3.0/4.0)
 
-#define GEO_FIRE_URL @"https://geofire-ios.firebaseio.com/geofire"
+#define GEO_FIRE_URL @"https://publicdata-transit.firebaseio.com/_geofire"
 
 @interface SFViewController ()
 
