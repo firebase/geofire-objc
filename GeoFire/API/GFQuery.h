@@ -78,7 +78,7 @@ typedef void (^GFReadyBlock) ();
 /**
  * Adds an observer that is called once all initial GeoFire data has been loaded and the relevant events have
  * been fired for this query. Every time the query criteria is updated, this observer will be called after the
- * updated query has sent the appropriate key entered or key exited events.
+ * updated query has fired the appropriate key entered or key exited events.
  *
  * @param block The block that is called for the ready event
  * @return A handle to remove the observer with
