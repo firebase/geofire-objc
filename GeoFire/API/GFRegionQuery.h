@@ -13,7 +13,7 @@
 
 /**
  * The region to search for this query. Update this value to update the query. Events are triggered for any keys that
- * move in or out of the search area
+ * move in or out of the search area.
  */
 @property (atomic, readwrite) MKCoordinateRegion region;
 

@@ -47,14 +47,14 @@ typedef void (^GFReadyBlock) ();
 @interface GFQuery : NSObject
 
 /**
- * The GeoFire this GFQuery object uses
+ * The GeoFire this GFQuery object uses.
  */
 @property (nonatomic, strong, readonly) GeoFire *geoFire;
 
 /*!
- Add an observer for an event type.
- 
- The following event types are supported
+ Adds an observer for an event type.
+
+ The following event types are supported:
 
 
      typedef enum {
@@ -76,8 +76,9 @@ typedef void (^GFReadyBlock) ();
 - (FirebaseHandle)observeEventType:(GFEventType)eventType withBlock:(GFQueryResultBlock)block;
 
 /**
- * Adds an observer that is called once all keys within this query have been loaded from the server and all key entered
- * events have been fired.
+ * Adds an observer that is called once all initial GeoFire data has been loaded and the relevant events have
+ * been fired for this query. Every time the query criteria is updated, this observer will be called after the
+ * updated query has fired the appropriate key entered or key exited events.
  *
  * @param block The block that is called for the ready event
  * @return A handle to remove the observer with
@@ -85,14 +86,14 @@ typedef void (^GFReadyBlock) ();
 - (FirebaseHandle)observeReadyWithBlock:(GFReadyBlock)block;
 
 /**
- * Removes a callback with a given FirebaseHandle. After this no further updates are received for this handle
+ * Removes a callback with a given FirebaseHandle. After this no further updates are received for this handle.
  * @param handle The handle that was returned by observeEventType:withBlock:
  */
 - (void)removeObserverWithFirebaseHandle:(FirebaseHandle)handle;
 
 /**
  * Removes all observers for this GFQuery object. Note that with multiple GFQuery objects only this object stops
- * it's callbacks
+ * its callbacks.
  */
 - (void)removeAllObservers;
 
