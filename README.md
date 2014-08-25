@@ -40,9 +40,9 @@ add it to your project. You also need to [add the Firebase
 framework](https://www.firebase.com/docs/ios-quickstart.html?utm_source=geofire-objc)
 and the CoreLocation framework to your project.
 
-You can download the latest version of the [GeoFire.framework from
-GitHub](dist/GeoFire.framework.zip) or include the GeoFire Xcode project in your
-project.
+You can download the latest version of the [GeoFire.framework from the releases
+page](https://github.com/firebase/geofire-objc/releases) or include the GeoFire
+Xcode project from this repo in your project.
 
 ## Getting Started with Firebase
 
