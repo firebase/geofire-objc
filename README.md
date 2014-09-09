@@ -44,6 +44,16 @@ You can download the latest version of the [GeoFire.framework from the releases
 page](https://github.com/firebase/geofire-objc/releases) or include the GeoFire
 Xcode project from this repo in your project.
 
+### Using GeoFire with Swift
+
+In order to use GeoFire in a Swift project, you'll also need to setup a bridging
+header in addition to adding the Firebase, GeoFire, and CoreLocation frameworks
+to your project. To do that, [follow these instructions](https://www.firebase.com/docs/ios/guide/setup.html#section-swift), and then add the following line to your bridging header:
+
+````objective-c
+#import <GeoFire/GeoFire.h>
+````
+
 ## Getting Started with Firebase
 
 GeoFire requires Firebase in order to store location data. You can [sign up here](https://www.firebase.com/signup/?utm_source=geofire-objc) for a free account.
@@ -59,10 +69,17 @@ online](https://geofire-ios.firebaseapp.com/docs/).
 A `GeoFire` object is used to read and write geo location data to your Firebase
 and to create queries. To create a new `GeoFire` instance you need to attach it to a Firebase reference:
 
+##### Objective-C
 ```objective-c
 Firebase *geofireRef = [[Firebase alloc] initWithUrl:@"https://<your-firebase>.firebaseio.com/"];
 GeoFire *geoFire = [[GeoFire alloc] initWithFirebaseRef:geofireRef];
 ```
+
+##### Swift
+````swift
+let geofireRef = Firebase(url: "https://<your-firebase>.firebaseio.com/")
+let geoFire = GeoFire(firebaseRef: geofireRef)
+````
 
 Note that you can point your reference to anywhere in your Firebase, but don't
 forget to [setup security rules for
@@ -73,14 +90,21 @@ GeoFire](https://github.com/firebase/geofire/blob/master/examples/securityRules/
 In GeoFire you can set and query locations by string keys. To set a location for a key
 simply call the `setLocation:forKey` method:
 
+##### Objective-C
 ```objective-c
 [geoFire setLocation:[[CLLocation alloc] initWithLatitude:37.7853889 longitude:-122.4056973]
               forKey:@"firebase-hq"];
 ```
 
+##### Swift
+````swift
+geoFire.setLocation(CLLocation(latitude: 37.7853889, longitude: -122.4056973), forKey: "firebase-hq")
+````
+
 Alternatively a callback can be passed which is called once the server
 successfully saves the location:
 
+##### Objective-C
 ```objective-c
 [geoFire setLocation:[[CLLocation alloc] initWithLatitude:37.7853889 longitude:-122.4056973]
               forKey:@"firebase-hq"
@@ -93,11 +117,28 @@ successfully saves the location:
  }];
 ```
 
+##### Swift
+````swift
+geoFire.setLocation(CLLocation(latitude: 37.7853889, longitude: -122.4056973), forKey: "firebase-hq") { (error) in
+  if (error != nil) {
+    println("An error occured: \(error)")
+  } else {
+    println("Saved location successfully!")
+  }
+}
+````
+
 To remove a location and delete the location from Firebase simply call:
 
+##### Objective-C
 ```objective-c
 [geoFire removeKey:@"firebase-hq"];
 ```
+
+##### Swift
+````swift
+geoFire.removeKey("firebase-hq")
+````
 
 #### Retrieving a location
 
@@ -105,6 +146,7 @@ Retrieving locations happens with callbacks. If the key is not present in
 GeoFire, the callback will be called with `nil`. If an error occurred, the
 callback is passed the error and the location will be `nil`.
 
+##### Objective-C
 ```objective-c
 [geoFire getLocationForKey:@"firebase-hq" withCallback:^(CLLocation *location, NSError *error) {
     if (error != nil) {
@@ -119,6 +161,19 @@ callback is passed the error and the location will be `nil`.
 }];
 ```
 
+##### Swift
+````swift
+geoFire.getLocationForKey("firebase-hq", withCallback: { (location, error) in
+  if (error != nil) {
+    println("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
+  } else if (location != nil) {
+    println("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
+  } else {
+    println("GeoFire does not contain a location for \"firebase-hq\"")
+  }
+})
+````
+
 ### Geo Queries
 
 GeoFire allows you to query all keys within a geographic area using `GFQuery`
@@ -126,6 +181,7 @@ objects. As the locations for keys change, the query is updated in realtime and 
 letting you know if any relevant keys have moved. `GFQuery` parameters can be updated
 later to change the size and center of the queried area.
 
+##### Objective-C
 ```objective-c
 CLLocation *center = [[CLLocation alloc] initWithLatitude:37.7832889 longitude:-122.4056973];
 // Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
@@ -136,6 +192,18 @@ MKCoordinateSpan span = MKCoordinateSpanMake(0.001, 0.001);
 MKCoordinateRegion region = MKCoordinateRegionMake(center.coordinate, span);
 GFRegionQuery *regionQuery = [geoFire queryWithRegion:region];
 ```
+
+#### Swift
+````swift
+let center = CLLocation(latitude: 37.7832889, longitude: -122.4056973)
+// Query locations at [37.7832889, -122.4056973] with a radius of 600 meters
+var circleQuery = geoFire.queryAtLocation(center, withRadius: 0.6)
+
+// Query location by region
+let span = MKCoordinateSpanMake(0.001, 0.001)
+let region = MKCoordinateRegionMake(center.coordinate, span)
+var regionQuery = geoFire.queryWithRegion(region)
+````
 
 #### Receiving events for geo queries
 
@@ -151,11 +219,19 @@ preceded by a key entered event.
 
 To observe events for a geo query you can register a callback with `observeEventType:withBlock:`:
 
+##### Objective-C
 ```objective-c
 FirebaseHandle queryHandle = [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
     NSLog(@"Key '%@' entered the search area and is at location '%@'", key, location);
 }];
 ```
+
+##### Swift
+````swift
+var queryHandle = query.observeEventType(GFEventTypeKeyEntered, withBlock: { (key: String!, location: CLLocation!) in
+  println("Key '\(key)' entered the search area and is at location '\(location)'")
+})
+````
 
 To cancel one or all callbacks for a geo query, call
 `removeObserverWithFirebaseHandle:` or `removeAllObservers:`, respectively.
@@ -167,11 +243,19 @@ loaded from the server and the corresponding events for those keys have been
 fired. For example, you may want to hide a loading animation after your data has
 fully loaded. `GFQuery` offers a method to listen for these ready events:
 
+##### Objective-C
 ```objective-c
 [query observeReadyWithBlock:^{
     NSLog(@"All initial data has been loaded and events have been fired!");
 }];
 ```
+
+##### Swift
+````swift
+query.observeReadyWithBlock({
+  println("All initial data has been loaded and events have been fired!")
+})
+````
 
 Note that locations might change while initially loading the data and key moved and key
 exited events might therefore still occur before the ready event was fired.
