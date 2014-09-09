@@ -47,7 +47,7 @@ Xcode project from this repo in your project.
 ### Using GeoFire with Swift
 
 In order to use GeoFire in a Swift project, you'll also need to setup a bridging
-header in addition to adding the Firebase, GeoFire, and CoreLocation frameworks
+header, in addition to adding the Firebase, GeoFire, and CoreLocation frameworks
 to your project. To do that, [follow these instructions](https://www.firebase.com/docs/ios/guide/setup.html#section-swift), and then add the following line to your bridging header:
 
 ````objective-c
