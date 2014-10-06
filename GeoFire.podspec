@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.source       = { :http => "https://github.com/firebase/geofire-objc/releases/download/v1.0.0/GeoFire.framework.zip" }
   s.source_files = "GeoFire/**/*.{h,m}"
   s.docset_url   = "https://geofire-ios.firebaseapp.com/docs/"
-  s.ios.deployment_target = '6.0'
+  s.ios.deployment_target = '7.0'
   s.osx.deployment_target = '10.8'
   s.dependency  'Firebase'
   s.framework = 'CoreLocation'
