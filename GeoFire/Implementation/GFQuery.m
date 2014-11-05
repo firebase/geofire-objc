@@ -196,7 +196,8 @@
 
 - (FQuery *)firebaseForGeoHashQuery:(GFGeoHashQuery *)query
 {
-    return [[self.geoFire.firebaseRef queryStartingAtValue:query.startValue] queryEndingAtValue:query.endValue];
+    return [[[self.geoFire.firebaseRef queryOrderedByChild:@"g"] queryStartingAtValue:query.startValue]
+            queryEndingAtValue:query.endValue];
 }
 
 - (void)updateLocationInfo:(CLLocation *)location
