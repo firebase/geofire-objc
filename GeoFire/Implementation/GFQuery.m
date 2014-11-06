@@ -196,8 +196,8 @@
 
 - (FQuery *)firebaseForGeoHashQuery:(GFGeoHashQuery *)query
 {
-    return [[self.geoFire.firebaseRef queryStartingAtPriority:query.startValue]
-            queryEndingAtPriority:query.endValue];
+    return [[[self.geoFire.firebaseRef queryOrderedByChild:@"g"] queryStartingAtValue:query.startValue]
+            queryEndingAtValue:query.endValue];
 }
 
 - (void)updateLocationInfo:(CLLocation *)location
@@ -261,7 +261,7 @@
     @synchronized(self) {
         CLLocation *location = [GeoFire locationFromValue:snapshot.value];
         if (location != nil) {
-            [self updateLocationInfo:location forKey:snapshot.name];
+            [self updateLocationInfo:location forKey:snapshot.key];
         } else {
             // TODO: error?
         }
@@ -273,7 +273,7 @@
     @synchronized(self) {
         CLLocation *location = [GeoFire locationFromValue:snapshot.value];
         if (location != nil) {
-            [self updateLocationInfo:location forKey:snapshot.name];
+            [self updateLocationInfo:location forKey:snapshot.key];
         } else {
             // TODO: error?
         }
@@ -283,10 +283,10 @@
 - (void)childRemoved:(FDataSnapshot *)snapshot
 {
     @synchronized(self) {
-        NSString *key = snapshot.name;
-        GFQueryLocationInfo *info = self.locationInfos[snapshot.name];
+        NSString *key = snapshot.key;
+        GFQueryLocationInfo *info = self.locationInfos[snapshot.key];
         if (info != nil) {
-            [[self.geoFire firebaseRefForLocationKey:snapshot.name] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+            [[self.geoFire firebaseRefForLocationKey:snapshot.key] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
                 @synchronized(self) {
                     CLLocation *location = [GeoFire locationFromValue:snapshot.value];
                     GFGeoHash *geoHash = (location) ? [[GFGeoHash alloc] initWithLocation:location.coordinate] : nil;
@@ -322,7 +322,7 @@
 - (NSSet *)queriesForCurrentCriteria
 {
     [NSException raise:NSInternalInconsistencyException format:@"GFQuery is abstract, please implement queriesForCurrentCriteria"];
-    return NO;
+    return nil;
 }
 
 - (void)searchCriteriaDidChange
