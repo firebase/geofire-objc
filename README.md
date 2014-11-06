@@ -23,7 +23,7 @@ your Firebase. This allows your existing data format and security rules to
 remain unchanged and for you to add GeoFire as an easy solution for geo queries
 without modifying your existing data.
 
-### Example
+### Example Usage
 Assume you are building an app to rate bars and you store all information for a
 bar, e.g. name, business hours and price range, at `/bars/<bar-id>`. Later, you
 want to add the possibility for users to search for bars in their vicinity. This
@@ -38,7 +38,7 @@ at `/bars/<bar-id>`.
 
 ### Upgrading from GeoFire 1.0.x to 1.1.x
 
-With the release of GeoFire 1.1.0, this library now uses [the new query functionality found in
+With the release of GeoFire for iOS 1.1.0, this library now uses [the new query functionality found in
 Firebase 2.0.0](https://www.firebase.com/blog/2014-11-04-firebase-realtime-queries.html). As a
 result, you will need to upgrade to Firebase 2.x.x and add a new `.indexOn` rule to your Security
 and Firebase Rules to get the best performance. You can view [the updated rules
@@ -70,7 +70,8 @@ to your project. To do that, [follow these instructions](https://www.firebase.co
 
 ## Getting Started with Firebase
 
-GeoFire requires Firebase in order to store location data. You can [sign up here](https://www.firebase.com/signup/?utm_source=geofire-objc) for a free account.
+GeoFire requires Firebase in order to store location data. You can [sign up here for a free
+account](https://www.firebase.com/signup/?utm_source=geofire-objc).
 
 
 ## GeoFire for iOS Quickstart
