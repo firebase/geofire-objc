@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/firebase/geofire-objc"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Firebase" => "support@firebase.com" }
-  s.source       = { :http => "https://github.com/firebase/geofire-objc/releases/download/v1.1.0/GeoFire.framework.zip" }
+  s.source       = { :git => "https://github.com/firebase/geofire-objc.git", :tag => 'v1.1.0' }
   s.source_files = "GeoFire/**/*.{h,m}"
   s.docset_url   = "https://geofire-ios.firebaseapp.com/docs/"
   s.ios.deployment_target = '7.0'
@@ -13,4 +13,5 @@ Pod::Spec.new do |s|
   s.dependency  'Firebase', '~> 2.1'
   s.framework = 'CoreLocation'
   s.xcconfig     = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/Firebase"'}
+  s.requires_arc = true
 end
