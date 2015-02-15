@@ -57,6 +57,13 @@ You can download the latest version of the [GeoFire.framework from the releases
 page](https://github.com/firebase/geofire-objc/releases) or include the GeoFire
 Xcode project from this repo in your project.
 
+Alternatively, if you're using [CocoaPods](http://cocoapods.org/?q=geofire), add
+the following to your `Podfile`:
+
+```
+pod 'GeoFire', '>= 1.1'
+```
+
 ### Using GeoFire with Swift
 
 In order to use GeoFire in a Swift project, you'll also need to setup a bridging
