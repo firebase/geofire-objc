@@ -28,7 +28,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import <Firebase/Firebase.h>
+
+typedef NSUInteger FirebaseHandle;
 
 @class GeoFire;
 
