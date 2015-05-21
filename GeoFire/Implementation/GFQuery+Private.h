@@ -7,7 +7,6 @@
 //
 
 #import <CoreLocation/CoreLocation.h>
-#import <Firebase/Firebase.h>
 #import <MapKit/MapKit.h>
 
 #import "GFQuery.h"

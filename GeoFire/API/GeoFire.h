@@ -27,13 +27,14 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <Firebase/Firebase.h>
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
 #import "GFQuery.h"
 #import "GFCircleQuery.h"
 #import "GFRegionQuery.h"
+
+@class Firebase;
 
 typedef void (^GFCompletionBlock) (NSError *error);
 typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
