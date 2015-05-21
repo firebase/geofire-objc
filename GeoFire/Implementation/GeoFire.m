@@ -10,6 +10,7 @@
 #import "GeoFire+Private.h"
 #import "GFGeoHash.h"
 #import "GFQuery+Private.h"
+#import <Firebase/Firebase.h>
 
 NSString * const kGeoFireErrorDomain = @"com.firebase.geofire";
 
