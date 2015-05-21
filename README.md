@@ -7,7 +7,7 @@ At its heart, GeoFire simply stores locations with string keys. Its main
 benefit however, is the possibility of querying keys within a given geographic
 area - all in realtime.
 
-GeoFire uses [Firebase](https://www.firebase.com/?utm_source=geofire-objc) for
+GeoFire uses the [Firebase](https://www.firebase.com/?utm_source=geofire-objc) database for
 data storage, allowing query results to be updated in realtime as they change.
 GeoFire *selectively loads only the data near certain locations, keeping your
 applications light and responsive*, even with extremely large datasets.
@@ -19,7 +19,7 @@ and [JavaScript](https://github.com/firebase/geofire-js).
 
 GeoFire is designed as a lightweight add-on to Firebase. However, to keep things
 simple, GeoFire stores data in its own format and its own location within
-your Firebase. This allows your existing data format and security rules to
+your Firebase database. This allows your existing data format and security rules to
 remain unchanged and for you to add GeoFire as an easy solution for geo queries
 without modifying your existing data.
 
@@ -89,8 +89,8 @@ online](https://geofire-ios.firebaseapp.com/docs/).
 
 ### GeoFire
 
-A `GeoFire` object is used to read and write geo location data to your Firebase
-and to create queries. To create a new `GeoFire` instance you need to attach it to a Firebase reference:
+A `GeoFire` object is used to read and write geo location data to your Firebase database
+and to create queries. To create a new `GeoFire` instance you need to attach it to a Firebase database reference:
 
 ##### Objective-C
 ```objective-c
@@ -104,7 +104,7 @@ let geofireRef = Firebase(url: "https://<your-firebase>.firebaseio.com/")
 let geoFire = GeoFire(firebaseRef: geofireRef)
 ````
 
-Note that you can point your reference to anywhere in your Firebase, but don't
+Note that you can point your reference to anywhere in your Firebase database, but don't
 forget to [setup security rules for
 GeoFire](https://github.com/firebase/geofire-js/blob/master/examples/securityRules/rules.json).
 
@@ -151,7 +151,7 @@ geoFire.setLocation(CLLocation(latitude: 37.7853889, longitude: -122.4056973), f
 }
 ````
 
-To remove a location and delete the location from Firebase simply call:
+To remove a location and delete the location from your database simply call:
 
 ##### Objective-C
 ```objective-c
