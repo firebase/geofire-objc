@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.docset_url   = "https://geofire-ios.firebaseapp.com/docs/"
   s.ios.deployment_target = '7.0'
   s.osx.deployment_target = '10.8'
-  s.dependency  'Firebase', '~> 2.1'
+  s.dependency  'Firebase', '~> 2.2'
   s.framework = 'CoreLocation'
   s.xcconfig     = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/Firebase"'}
   s.requires_arc = true
