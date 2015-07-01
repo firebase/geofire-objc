@@ -467,6 +467,18 @@ do { \
     XCTAssertTrue(keyZeroEntered);
 }
 
+- (void)testReadyAfterUpdateCriteriaButNoChangedHashes
+{
+    GFCircleQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:500.00001];
+    __block int numReadyEventsFired = 0;
+    [query observeReadyWithBlock:^{
+        numReadyEventsFired++;
+    }];
+    WAIT_FOR(numReadyEventsFired == 1);
+    query.radius = 500.00002; // Should not update the actual hashes
+    WAIT_FOR(numReadyEventsFired == 2);
+}
+
 #pragma clang diagnostic pop
 
 @end

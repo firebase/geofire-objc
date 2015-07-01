@@ -330,6 +330,7 @@
 {
     if (self.queries != nil) {
         [self updateQueries];
+        [self checkAndFireReadyEvent];
     }
 }
 
