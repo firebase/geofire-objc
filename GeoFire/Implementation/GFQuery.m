@@ -330,7 +330,6 @@
 {
     if (self.queries != nil) {
         [self updateQueries];
-        [self checkAndFireReadyEvent];
     }
 }
 
@@ -400,6 +399,8 @@
         }
     }];
     [self.locationInfos removeObjectsForKeys:oldLocations];
+
+    [self checkAndFireReadyEvent];
 }
 
 - (void)reset
