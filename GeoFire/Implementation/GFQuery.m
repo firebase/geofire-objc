@@ -399,6 +399,8 @@
         }
     }];
     [self.locationInfos removeObjectsForKeys:oldLocations];
+
+    [self checkAndFireReadyEvent];
 }
 
 - (void)reset
