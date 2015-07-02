@@ -1,2 +1,1 @@
-fixed - Fixed issue with GeoFire install via Cocoapods in a Swift project.
-fixed - Fixed issue with ready event not firing when a query's center or radius is updated.
+
