@@ -300,6 +300,13 @@ events might occur independently.
 
 [A full API reference is available here](https://geofire-ios.firebaseapp.com/docs/).
 
+## Deployment
+
+- `git pull` to update the master branch
+- tag and push the tag for this release
+- `./build.sh` to build a binary
+- From your macbook that already has been granted permissions to Firebase Cocoapods, do `pod trunk push`
+- Update [firebase-versions](https://github.com/firebase/firebase-clients/blob/master/versions/firebase-versions.json) with the changelog for this release.
 
 ## Contributing
 
