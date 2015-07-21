@@ -307,6 +307,7 @@ events might occur independently.
 - `./build.sh` to build a binary
 - From your macbook that already has been granted permissions to Firebase Cocoapods, do `pod trunk push`
 - Update [firebase-versions](https://github.com/firebase/firebase-clients/blob/master/versions/firebase-versions.json) with the changelog for this release.
+- Add the compiled `target/GeoFire.framework.zip` to the release
 
 ## Contributing
 
