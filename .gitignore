@@ -17,6 +17,9 @@ DerivedData
 *.ipa
 *.xcuserstate
 
+# OSX
+.DS_Store
+
 # Third Party
 /sdk
 
