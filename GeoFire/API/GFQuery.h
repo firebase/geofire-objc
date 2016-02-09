@@ -33,11 +33,11 @@ typedef NSUInteger FirebaseHandle;
 
 @class GeoFire;
 
-typedef enum {
+typedef NS_ENUM(NSUInteger, GFEventType) {
     GFEventTypeKeyEntered,
     GFEventTypeKeyExited,
     GFEventTypeKeyMoved
-} GFEventType;
+};
 
 typedef void (^GFQueryResultBlock) (NSString *key, CLLocation *location);
 typedef void (^GFReadyBlock) ();
@@ -58,11 +58,11 @@ typedef void (^GFReadyBlock) ();
  The following event types are supported:
 
 
-     typedef enum {
+     typedef NS_ENUM(NSUInteger, GFEventType) {
        GFEventTypeKeyEntered, // A key entered the search area
        GFEventTypeKeyExited,  // A key exited the search area
        GFEventTypeKeyMoved    // A key moved within the search area
-     } GFEventType;
+     };
 
 
  The block is called for each event and key.
