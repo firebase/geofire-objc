@@ -66,12 +66,12 @@ pod 'GeoFire', '>= 1.1'
 
 ### Using GeoFire with Swift
 
-In order to use GeoFire in a Swift project, you'll also need to setup a bridging
-header, in addition to adding the Firebase, GeoFire, and CoreLocation frameworks
-to your project. To do that, [follow these instructions](https://www.firebase.com/docs/ios/guide/setup.html#section-swift), and then add the following line to your bridging header:
+GeoFire supports Swift out of the box! In order to use GeoFire and Swift from Cocoapods, add the `use_frameworks!` line to your `Podfile`, like so:
 
-````objective-c
-#import <GeoFire/GeoFire.h>
+````
+use_frameworks!
+
+pod 'GeoFire', '>= 1.1'
 ````
 
 
@@ -251,7 +251,7 @@ FirebaseHandle queryHandle = [query observeEventType:GFEventTypeKeyEntered withB
 
 ##### Swift
 ````swift
-var queryHandle = query.observeEventType(GFEventTypeKeyEntered, withBlock: { (key: String!, location: CLLocation!) in
+var queryHandle = query.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
   println("Key '\(key)' entered the search area and is at location '\(location)'")
 })
 ````
