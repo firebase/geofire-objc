@@ -66,7 +66,7 @@ pod 'GeoFire', '>= 1.1'
 
 ### Using GeoFire with Swift
 
-GeoFire supports Swift out of the box! In order to use GeoFire and Swift from Cocoapods, add the `use_frameworks!` line to your `Podfile`, like so:
+GeoFire supports Swift out of the box! In order to use GeoFire and Swift from CocoaPods, add the `use_frameworks!` line to your `Podfile`, like so:
 
 ````
 use_frameworks!
@@ -305,7 +305,7 @@ events might occur independently.
 - `git pull` to update the master branch
 - tag and push the tag for this release
 - `./build.sh` to build a binary
-- From your macbook that already has been granted permissions to Firebase Cocoapods, do `pod trunk push`
+- From your macbook that already has been granted permissions to Firebase CocoaPods, do `pod trunk push`
 - Update [firebase-versions](https://github.com/firebase/firebase-clients/blob/master/versions/firebase-versions.json) with the changelog for this release.
 - Add the compiled `target/GeoFire.framework.zip` to the release
 
