@@ -98,4 +98,11 @@ typedef void (^GFReadyBlock) ();
  */
 - (void)removeAllObservers;
 
+//private method
+
+- (id)initWithGeoFire:(GeoFire *)geoFire;
+- (BOOL)locationIsInQuery:(CLLocation *)location;
+- (void)searchCriteriaDidChange;
+- (NSSet *)queriesForCurrentCriteria;
+
 @end

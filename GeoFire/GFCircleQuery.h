@@ -20,4 +20,9 @@
  */
 @property (atomic, readwrite) double radius;
 
+//private method
+- (id)initWithGeoFire:(GeoFire *)geoFire
+             location:(CLLocation *)location
+               radius:(double)radius;
+
 @end
