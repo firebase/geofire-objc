@@ -17,4 +17,7 @@
  */
 @property (atomic, readwrite) MKCoordinateRegion region;
 
+//private method
+- (id)initWithGeoFire:(GeoFire *)geoFire region:(MKCoordinateRegion)region;
+
 @end

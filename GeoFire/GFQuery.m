@@ -9,9 +9,7 @@
 #import "GFQuery.h"
 #import "GFRegionQuery.h"
 #import "GFCircleQuery.h"
-#import "GFQuery+Private.h"
 #import "GeoFire.h"
-#import "GeoFire+Private.h"
 #import "GFGeoHashQuery.h"
 #import <Firebase/Firebase.h>
 
@@ -195,7 +193,7 @@
     return self;
 }
 
-- (FQuery *)firebaseForGeoHashQuery:(GFGeoHashQuery *)query
+- (FIRDatabaseQuery *)firebaseForGeoHashQuery:(GFGeoHashQuery *)query
 {
     return [[[self.geoFire.firebaseRef queryOrderedByChild:@"g"] queryStartingAtValue:query.startValue]
             queryEndingAtValue:query.endValue];
@@ -257,7 +255,7 @@
     return NO;
 }
 
-- (void)childAdded:(FDataSnapshot *)snapshot
+- (void)childAdded:(FIRDataSnapshot *)snapshot
 {
     @synchronized(self) {
         CLLocation *location = [GeoFire locationFromValue:snapshot.value];
@@ -269,7 +267,7 @@
     }
 }
 
-- (void)childChanged:(FDataSnapshot *)snapshot
+- (void)childChanged:(FIRDataSnapshot *)snapshot
 {
     @synchronized(self) {
         CLLocation *location = [GeoFire locationFromValue:snapshot.value];
@@ -281,13 +279,13 @@
     }
 }
 
-- (void)childRemoved:(FDataSnapshot *)snapshot
+- (void)childRemoved:(FIRDataSnapshot *)snapshot
 {
     @synchronized(self) {
         NSString *key = snapshot.key;
         GFQueryLocationInfo *info = self.locationInfos[snapshot.key];
         if (info != nil) {
-            [[self.geoFire firebaseRefForLocationKey:snapshot.key] observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+            [[self.geoFire firebaseRefForLocationKey:snapshot.key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
                 @synchronized(self) {
                     CLLocation *location = [GeoFire locationFromValue:snapshot.value];
                     GFGeoHash *geoHash = (location) ? [[GFGeoHash alloc] initWithLocation:location.coordinate] : nil;
@@ -356,7 +354,7 @@
             [NSException raise:NSInternalInconsistencyException
                         format:@"Wanted to remove a geohash query that was not registered!"];
         }
-        FQuery *queryFirebase = [self firebaseForGeoHashQuery:query];
+        FIRDatabaseQuery *queryFirebase = [self firebaseForGeoHashQuery:query];
         [queryFirebase removeObserverWithHandle:handle.childAddedHandle];
         [queryFirebase removeObserverWithHandle:handle.childChangedHandle];
         [queryFirebase removeObserverWithHandle:handle.childRemovedHandle];
@@ -366,21 +364,21 @@
     [toAdd enumerateObjectsUsingBlock:^(GFGeoHashQuery *query, BOOL *stop) {
         [self.outstandingQueries addObject:query];
         GFGeoHashQueryHandle *handle = [[GFGeoHashQueryHandle alloc] init];
-        FQuery *queryFirebase = [self firebaseForGeoHashQuery:query];
-        handle.childAddedHandle = [queryFirebase observeEventType:FEventTypeChildAdded
-                                                        withBlock:^(FDataSnapshot *snapshot) {
+        FIRDatabaseQuery *queryFirebase = [self firebaseForGeoHashQuery:query];
+        handle.childAddedHandle = [queryFirebase observeEventType:FIRDataEventTypeChildAdded
+                                                        withBlock:^(FIRDataSnapshot *snapshot) {
                                                             [self childAdded:snapshot];
                                                         }];
-        handle.childChangedHandle = [queryFirebase observeEventType:FEventTypeChildChanged
-                                                          withBlock:^(FDataSnapshot *snapshot) {
+        handle.childChangedHandle = [queryFirebase observeEventType:FIRDataEventTypeChildChanged
+                                                          withBlock:^(FIRDataSnapshot *snapshot) {
                                                               [self childChanged:snapshot];
                                                           }];
-        handle.childRemovedHandle = [queryFirebase observeEventType:FEventTypeChildRemoved
-                                                          withBlock:^(FDataSnapshot *snapshot) {
+        handle.childRemovedHandle = [queryFirebase observeEventType:FIRDataEventTypeChildMoved
+                                                          withBlock:^(FIRDataSnapshot *snapshot) {
                                                               [self childRemoved:snapshot];
                                                           }];
-        [queryFirebase observeSingleEventOfType:FEventTypeValue
-                                      withBlock:^(FDataSnapshot *snapshot) {
+        [queryFirebase observeSingleEventOfType:FIRDataEventTypeValue
+                                      withBlock:^(FIRDataSnapshot *snapshot) {
                                           @synchronized(self) {
                                               [self.outstandingQueries removeObject:query];
                                               [self checkAndFireReadyEvent];
@@ -411,7 +409,7 @@
             [NSException raise:NSInternalInconsistencyException
                         format:@"Wanted to remove a geohash query that was not registered!"];
         }
-        FQuery *queryFirebase = [self firebaseForGeoHashQuery:query];
+        FIRDatabaseQuery *queryFirebase = [self firebaseForGeoHashQuery:query];
         [queryFirebase removeObserverWithHandle:handle.childAddedHandle];
         [queryFirebase removeObserverWithHandle:handle.childChangedHandle];
         [queryFirebase removeObserverWithHandle:handle.childRemovedHandle];
