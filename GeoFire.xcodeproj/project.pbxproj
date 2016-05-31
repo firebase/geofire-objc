@@ -22,19 +22,19 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		38FC6CB01CFBE57C002AB722 /* GeoFireTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C8845196D55630061AC0F /* GeoFireTest.m */; };
+		38FC6CB71CFBF907002AB722 /* GFQueryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C884B196D93E10061AC0F /* GFQueryTest.m */; };
+		7DC1584FEAC4DC97C73C10F4 /* Pods_GeoFire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03AE4E98A62B211AFD74D12 /* Pods_GeoFire.framework */; };
+		A2231157E477872B80BF0693 /* Pods_GeoFireTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00FA7C87BED45C97268B5DC /* Pods_GeoFireTests.framework */; };
 		FB3B32BF196FF07000E47633 /* GFCircleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FB3B32BD196FF07000E47633 /* GFCircleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB3B32C4197001C500E47633 /* GFRegionQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FB3B32C1196FF27600E47633 /* GFRegionQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FB8C8830196D51040061AC0F /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C882F196D51040061AC0F /* Firebase.framework */; };
-		FB8C8831196D51040061AC0F /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C882F196D51040061AC0F /* Firebase.framework */; };
 		FB8C8832196D52200061AC0F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358E91965659A00A86282 /* CoreLocation.framework */; };
 		FB8C8834196D522F0061AC0F /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8833196D522F0061AC0F /* libicucore.dylib */; };
 		FB8C8836196D52460061AC0F /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8835196D52460061AC0F /* libc++.dylib */; };
 		FB8C8838196D52500061AC0F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8837196D52500061AC0F /* CFNetwork.framework */; };
 		FB8C883A196D52550061AC0F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8839196D52550061AC0F /* Security.framework */; };
 		FB8C883C196D525E0061AC0F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */; };
-		FB8C8846196D55630061AC0F /* GeoFireTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C8845196D55630061AC0F /* GeoFireTest.m */; };
 		FB8C8849196D561D0061AC0F /* TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C8848196D561D0061AC0F /* TestHelpers.m */; };
-		FB8C884C196D93E10061AC0F /* GFQueryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C884B196D93E10061AC0F /* GFQueryTest.m */; };
 		FB8C884F196D96180061AC0F /* GFRealDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C884E196D96180061AC0F /* GFRealDataTest.m */; };
 		FBA358C019655FED00A86282 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358BF19655FED00A86282 /* Foundation.framework */; };
 		FBA358C519655FED00A86282 /* GeoFire.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBA358C419655FED00A86282 /* GeoFire.h */; };
@@ -90,9 +90,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2D2565B6F149200E0E62011D /* Pods-GeoFireTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFireTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests.debug.xcconfig"; sourceTree = "<group>"; };
+		38FC6CB31CFBEF87002AB722 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		6928E3A4B99BA34EE043837D /* Pods-GeoFireTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFireTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests.release.xcconfig"; sourceTree = "<group>"; };
+		9CB0E2ADAFFD98593F9ED949 /* Pods-GeoFire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFire.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFire/Pods-GeoFire.release.xcconfig"; sourceTree = "<group>"; };
+		AAAB3252B26022D7E71A6ECC /* Pods-GeoFire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFire.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFire/Pods-GeoFire.debug.xcconfig"; sourceTree = "<group>"; };
+		D03AE4E98A62B211AFD74D12 /* Pods_GeoFire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeoFire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E00FA7C87BED45C97268B5DC /* Pods_GeoFireTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeoFireTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB3B32BD196FF07000E47633 /* GFCircleQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFCircleQuery.h; sourceTree = "<group>"; };
 		FB3B32C1196FF27600E47633 /* GFRegionQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GFRegionQuery.h; sourceTree = "<group>"; };
-		FB8C882F196D51040061AC0F /* Firebase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Firebase.framework; path = sdk/Firebase.framework; sourceTree = "<group>"; };
 		FB8C8833196D522F0061AC0F /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		FB8C8835196D52460061AC0F /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		FB8C8837196D52500061AC0F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -112,7 +118,6 @@
 		FBA358CC19655FED00A86282 /* GeoFireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeoFireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBA358CD19655FED00A86282 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		FBA358D019655FED00A86282 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		FBA358D719655FED00A86282 /* GeoFireTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GeoFireTests-Info.plist"; sourceTree = "<group>"; };
 		FBA358D919655FED00A86282 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FBA358E91965659A00A86282 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FBA358EB1965683400A86282 /* GFQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFQuery.h; sourceTree = "<group>"; };
@@ -135,8 +140,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBA358EA1965659A00A86282 /* CoreLocation.framework in Frameworks */,
-				FB8C8830196D51040061AC0F /* Firebase.framework in Frameworks */,
 				FBA358C019655FED00A86282 /* Foundation.framework in Frameworks */,
+				7DC1584FEAC4DC97C73C10F4 /* Pods_GeoFire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,17 +155,28 @@
 				FB8C8836196D52460061AC0F /* libc++.dylib in Frameworks */,
 				FB8C8834196D522F0061AC0F /* libicucore.dylib in Frameworks */,
 				FB8C8832196D52200061AC0F /* CoreLocation.framework in Frameworks */,
-				FB8C8831196D51040061AC0F /* Firebase.framework in Frameworks */,
 				FBA358CE19655FED00A86282 /* XCTest.framework in Frameworks */,
 				FBA358D119655FED00A86282 /* UIKit.framework in Frameworks */,
 				FBA358CF19655FED00A86282 /* Foundation.framework in Frameworks */,
 				FBA358D419655FED00A86282 /* libGeoFire.a in Frameworks */,
+				A2231157E477872B80BF0693 /* Pods_GeoFireTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DDDFCA4BE0A0B75E8AB2BFBA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AAAB3252B26022D7E71A6ECC /* Pods-GeoFire.debug.xcconfig */,
+				9CB0E2ADAFFD98593F9ED949 /* Pods-GeoFire.release.xcconfig */,
+				2D2565B6F149200E0E62011D /* Pods-GeoFireTests.debug.xcconfig */,
+				6928E3A4B99BA34EE043837D /* Pods-GeoFireTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FB8C87EC196AF5810061AC0F /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +212,7 @@
 				FBA358D519655FED00A86282 /* GeoFireTests */,
 				FBA358BE19655FED00A86282 /* Frameworks */,
 				FBA358BD19655FED00A86282 /* Products */,
+				DDDFCA4BE0A0B75E8AB2BFBA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,11 +233,12 @@
 				FB8C8837196D52500061AC0F /* CFNetwork.framework */,
 				FB8C8835196D52460061AC0F /* libc++.dylib */,
 				FB8C8833196D522F0061AC0F /* libicucore.dylib */,
-				FB8C882F196D51040061AC0F /* Firebase.framework */,
 				FBA358E91965659A00A86282 /* CoreLocation.framework */,
 				FBA358BF19655FED00A86282 /* Foundation.framework */,
 				FBA358CD19655FED00A86282 /* XCTest.framework */,
 				FBA358D019655FED00A86282 /* UIKit.framework */,
+				D03AE4E98A62B211AFD74D12 /* Pods_GeoFire.framework */,
+				E00FA7C87BED45C97268B5DC /* Pods_GeoFireTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -238,6 +256,7 @@
 		FBA358C219655FED00A86282 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				38FC6CB31CFBEF87002AB722 /* GoogleService-Info.plist */,
 				FBA358C319655FED00A86282 /* GeoFire-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -262,7 +281,6 @@
 		FBA358D619655FED00A86282 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FBA358D719655FED00A86282 /* GeoFireTests-Info.plist */,
 				FBA358D819655FED00A86282 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -293,11 +311,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBA358DF19655FED00A86282 /* Build configuration list for PBXNativeTarget "GeoFire" */;
 			buildPhases = (
+				18FEC809754FE4A40545DE31 /* 📦 Check Pods Manifest.lock */,
 				FBA358B819655FED00A86282 /* Sources */,
 				FBA358B919655FED00A86282 /* Frameworks */,
 				FBA358BA19655FED00A86282 /* CopyFiles */,
 				FBA358E51965605000A86282 /* Headers */,
 				FB8C87EE196AF7270061AC0F /* ShellScript */,
+				4083578BBF071FC5640FD7EA /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -312,9 +332,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBA358E219655FED00A86282 /* Build configuration list for PBXNativeTarget "GeoFireTests" */;
 			buildPhases = (
+				9568746515DDDE48A9F13BC4 /* 📦 Check Pods Manifest.lock */,
 				FBA358C819655FED00A86282 /* Sources */,
 				FBA358C919655FED00A86282 /* Frameworks */,
 				FBA358CA19655FED00A86282 /* Resources */,
+				CB90832AEBFB49DC81BD3BD1 /* 📦 Embed Pods Frameworks */,
+				1487F093D800F8C4FB68EB54 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -372,6 +395,81 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1487F093D800F8C4FB68EB54 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		18FEC809754FE4A40545DE31 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4083578BBF071FC5640FD7EA /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeoFire/Pods-GeoFire-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9568746515DDDE48A9F13BC4 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		CB90832AEBFB49DC81BD3BD1 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FB8C87EE196AF7270061AC0F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -417,11 +515,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB8C884C196D93E10061AC0F /* GFQueryTest.m in Sources */,
 				FBA358F51965797C00A86282 /* GFGeoHashTest.m in Sources */,
 				FB8C884F196D96180061AC0F /* GFRealDataTest.m in Sources */,
-				FB8C8846196D55630061AC0F /* GeoFireTest.m in Sources */,
 				FBA3591C196AAB6500A86282 /* GFGeoHashQueryTest.m in Sources */,
+				38FC6CB71CFBF907002AB722 /* GFQueryTest.m in Sources */,
+				38FC6CB01CFBE57C002AB722 /* GeoFireTest.m in Sources */,
 				FB8C8849196D561D0061AC0F /* TestHelpers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -539,6 +637,7 @@
 		};
 		FBA358E019655FED00A86282 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAAB3252B26022D7E71A6ECC /* Pods-GeoFire.debug.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -548,6 +647,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)/sdk",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoFire/GeoFire-Prefix.pch";
@@ -563,6 +663,7 @@
 		};
 		FBA358E119655FED00A86282 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9CB0E2ADAFFD98593F9ED949 /* Pods-GeoFire.release.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -572,6 +673,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)/sdk",
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoFire/GeoFire-Prefix.pch";
@@ -587,6 +689,7 @@
 		};
 		FBA358E319655FED00A86282 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2D2565B6F149200E0E62011D /* Pods-GeoFireTests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -614,6 +717,7 @@
 		};
 		FBA358E419655FED00A86282 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6928E3A4B99BA34EE043837D /* Pods-GeoFireTests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

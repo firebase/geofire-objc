@@ -34,7 +34,7 @@
 #import "GFCircleQuery.h"
 #import "GFRegionQuery.h"
 
-@class Firebase;
+@class FIRDatabaseReference;
 
 typedef void (^GFCompletionBlock) (NSError *error);
 typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
@@ -47,7 +47,7 @@ typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
 /**
  * The Firebase reference this GeoFire instance uses.
  */
-@property (nonatomic, strong, readonly) Firebase *firebaseRef;
+@property (nonatomic, strong, readonly) FIRDatabaseReference *firebaseRef;
 
 /**
  * The dispatch queue this GeoFire object and all its GFQueries use for callbacks.
@@ -61,7 +61,7 @@ typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
  * @param firebase The Firebase location to attach this GeoFire instance to
  * @return The new GeoFire instance
  */
-- (id)initWithFirebaseRef:(Firebase *)firebase;
+- (id)initWithFirebaseRef:(FIRDatabaseReference *)firebase;
 
 /** @name Setting and Updating Locations */
 
