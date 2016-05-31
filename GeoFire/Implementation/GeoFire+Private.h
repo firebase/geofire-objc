@@ -11,7 +11,7 @@
 
 @interface GeoFire (Private)
 
-- (Firebase *)firebaseRefForLocationKey:(NSString *)key;
+- (FIRDatabaseReference *)firebaseRefForLocationKey:(NSString *)key;
 
 + (CLLocation *)locationFromValue:(id)dict;
 + (NSDictionary *)dictFromLocation:(CLLocation *)location;
