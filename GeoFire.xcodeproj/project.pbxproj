@@ -91,7 +91,6 @@
 
 /* Begin PBXFileReference section */
 		2D2565B6F149200E0E62011D /* Pods-GeoFireTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFireTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests.debug.xcconfig"; sourceTree = "<group>"; };
-		38FC6CB31CFBEF87002AB722 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		6928E3A4B99BA34EE043837D /* Pods-GeoFireTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFireTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests.release.xcconfig"; sourceTree = "<group>"; };
 		9CB0E2ADAFFD98593F9ED949 /* Pods-GeoFire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFire.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFire/Pods-GeoFire.release.xcconfig"; sourceTree = "<group>"; };
 		AAAB3252B26022D7E71A6ECC /* Pods-GeoFire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFire.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFire/Pods-GeoFire.debug.xcconfig"; sourceTree = "<group>"; };
@@ -256,7 +255,6 @@
 		FBA358C219655FED00A86282 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				38FC6CB31CFBEF87002AB722 /* GoogleService-Info.plist */,
 				FBA358C319655FED00A86282 /* GeoFire-Prefix.pch */,
 			);
 			name = "Supporting Files";
