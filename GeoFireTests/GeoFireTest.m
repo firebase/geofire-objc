@@ -21,24 +21,25 @@
 
 - (void)testGeoFireSetsLocations
 {
-   WAIT_SIGNALS(3, ^(dispatch_semaphore_t barrier) {
+  WAIT_SIGNALS(3, ^(dispatch_semaphore_t barrier) {
+
         [self.geoFire setLocation:L(0, 0)
                            forKey:@"loc1"
               withCompletionBlock:^(NSError *error) {
                   XCTAssertNil(error);
-                  // dispatch_semaphore_signal(barrier);
+                  dispatch_semaphore_signal(barrier);
               }];
         [self.geoFire setLocation:L(50, 50)
                            forKey:@"loc2"
               withCompletionBlock:^(NSError *error) {
                   XCTAssertNil(error);
-                  // dispatch_semaphore_signal(barrier);
+                  dispatch_semaphore_signal(barrier);
               }];
         [self.geoFire setLocation:L(-90, -90)
                            forKey:@"loc3"
               withCompletionBlock:^(NSError *error) {
                   XCTAssertNil(error);
-                  // dispatch_semaphore_signal(barrier);
+                  dispatch_semaphore_signal(barrier);
               }];
     });
 
@@ -49,12 +50,15 @@
                @"loc2": @{ @"l": @[@50, @50], @"g": @"v0gs3y0zh7" },
                @"loc3": @{ @"l": @[@-90, @-90], @"g": @"1bpbpbpbpb" }
                };
+
             XCTAssertEqualObjects(snapshot.value, expected);
             XCTAssertEqualObjects([snapshot childSnapshotForPath:@"loc1"].priority, @"7zzzzzzzzz");
             XCTAssertEqualObjects([snapshot childSnapshotForPath:@"loc2"].priority, @"v0gs3y0zh7");
             XCTAssertEqualObjects([snapshot childSnapshotForPath:@"loc3"].priority, @"1bpbpbpbpb");
             dispatch_semaphore_signal(barrier);
         }];
+
+
     }));
 
 }
