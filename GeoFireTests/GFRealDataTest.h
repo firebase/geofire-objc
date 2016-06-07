@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 
 #import "GeoFire.h"
-#import <Firebase/Firebase.h>
+@import Firebase;
 
 #define TEST_TIMEOUT_SECONDS 10
 
@@ -51,6 +51,6 @@ do { \
 @interface GFRealDataTest : XCTestCase
 
 @property (nonatomic, strong) GeoFire *geoFire;
-@property (nonatomic, strong) Firebase *firebaseRef;
+@property (nonatomic, strong) FIRDatabaseReference *firebaseRef;
 
 @end

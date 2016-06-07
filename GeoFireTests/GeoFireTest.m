@@ -18,9 +18,11 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-retain-cycles"
+
 - (void)testGeoFireSetsLocations
 {
-    WAIT_SIGNALS(3, ^(dispatch_semaphore_t barrier) {
+  WAIT_SIGNALS(3, ^(dispatch_semaphore_t barrier) {
+
         [self.geoFire setLocation:L(0, 0)
                            forKey:@"loc1"
               withCompletionBlock:^(NSError *error) {
@@ -42,18 +44,21 @@
     });
 
     WAIT_SIGNALS(1, (^(dispatch_semaphore_t barrier) {
-        [self.firebaseRef observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        [self.firebaseRef observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
             id expected =
             @{ @"loc1": @{ @"l": @[@0, @0], @"g": @"7zzzzzzzzz" },
                @"loc2": @{ @"l": @[@50, @50], @"g": @"v0gs3y0zh7" },
                @"loc3": @{ @"l": @[@-90, @-90], @"g": @"1bpbpbpbpb" }
                };
+
             XCTAssertEqualObjects(snapshot.value, expected);
             XCTAssertEqualObjects([snapshot childSnapshotForPath:@"loc1"].priority, @"7zzzzzzzzz");
             XCTAssertEqualObjects([snapshot childSnapshotForPath:@"loc2"].priority, @"v0gs3y0zh7");
             XCTAssertEqualObjects([snapshot childSnapshotForPath:@"loc3"].priority, @"1bpbpbpbpb");
             dispatch_semaphore_signal(barrier);
         }];
+
+
     }));
 }
 
@@ -107,14 +112,14 @@
 - (void)testErrorOnInvalidData
 {
     NSMutableArray *actual = [NSMutableArray array];
-    Firebase *firebase1 = [self.geoFire.firebaseRef childByAppendingPath:@"loc1"];
-    Firebase *firebase2 = [self.geoFire.firebaseRef childByAppendingPath:@"loc2"];
+    FIRDatabaseReference *firebase1 = [self.geoFire.firebaseRef child:@"loc1"];
+    FIRDatabaseReference *firebase2 = [self.geoFire.firebaseRef child:@"loc2"];
     WAIT_SIGNALS(2, (^(dispatch_semaphore_t barrier) {
-        [firebase1 setValue:@"NaN" withCompletionBlock:^(NSError *error, Firebase *ref) {
+        [firebase1 setValue:@"NaN" withCompletionBlock:^(NSError *error, FIRDatabaseReference *ref) {
             XCTAssertNil(error);
             dispatch_semaphore_signal(barrier);
         }];
-        [firebase2 setValue:@{ @"l": @10, @"g": @"abc" } withCompletionBlock:^(NSError *error, Firebase *ref) {
+        [firebase2 setValue:@{ @"l": @10, @"g": @"abc" } withCompletionBlock:^(NSError *error, FIRDatabaseReference *ref) {
             XCTAssertNil(error);
             dispatch_semaphore_signal(barrier);
         }];
