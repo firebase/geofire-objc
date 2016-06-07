@@ -60,7 +60,6 @@
 
 
     }));
-
 }
 
 - (void)testGeoFireGetLocation
