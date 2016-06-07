@@ -24,8 +24,6 @@
 /* Begin PBXBuildFile section */
 		38FC6CB01CFBE57C002AB722 /* GeoFireTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C8845196D55630061AC0F /* GeoFireTest.m */; };
 		38FC6CB71CFBF907002AB722 /* GFQueryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C884B196D93E10061AC0F /* GFQueryTest.m */; };
-		7DC1584FEAC4DC97C73C10F4 /* Pods_GeoFire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03AE4E98A62B211AFD74D12 /* Pods_GeoFire.framework */; };
-		A2231157E477872B80BF0693 /* Pods_GeoFireTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E00FA7C87BED45C97268B5DC /* Pods_GeoFireTests.framework */; };
 		FB3B32BF196FF07000E47633 /* GFCircleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FB3B32BD196FF07000E47633 /* GFCircleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB3B32C4197001C500E47633 /* GFRegionQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FB3B32C1196FF27600E47633 /* GFRegionQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB8C8832196D52200061AC0F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358E91965659A00A86282 /* CoreLocation.framework */; };
@@ -90,12 +88,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2D2565B6F149200E0E62011D /* Pods-GeoFireTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFireTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6928E3A4B99BA34EE043837D /* Pods-GeoFireTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFireTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests.release.xcconfig"; sourceTree = "<group>"; };
-		9CB0E2ADAFFD98593F9ED949 /* Pods-GeoFire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFire.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFire/Pods-GeoFire.release.xcconfig"; sourceTree = "<group>"; };
-		AAAB3252B26022D7E71A6ECC /* Pods-GeoFire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFire.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFire/Pods-GeoFire.debug.xcconfig"; sourceTree = "<group>"; };
-		D03AE4E98A62B211AFD74D12 /* Pods_GeoFire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeoFire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E00FA7C87BED45C97268B5DC /* Pods_GeoFireTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeoFireTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB3B32BD196FF07000E47633 /* GFCircleQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFCircleQuery.h; sourceTree = "<group>"; };
 		FB3B32C1196FF27600E47633 /* GFRegionQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GFRegionQuery.h; sourceTree = "<group>"; };
 		FB8C8833196D522F0061AC0F /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -140,7 +132,6 @@
 			files = (
 				FBA358EA1965659A00A86282 /* CoreLocation.framework in Frameworks */,
 				FBA358C019655FED00A86282 /* Foundation.framework in Frameworks */,
-				7DC1584FEAC4DC97C73C10F4 /* Pods_GeoFire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,24 +149,12 @@
 				FBA358D119655FED00A86282 /* UIKit.framework in Frameworks */,
 				FBA358CF19655FED00A86282 /* Foundation.framework in Frameworks */,
 				FBA358D419655FED00A86282 /* libGeoFire.a in Frameworks */,
-				A2231157E477872B80BF0693 /* Pods_GeoFireTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DDDFCA4BE0A0B75E8AB2BFBA /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				AAAB3252B26022D7E71A6ECC /* Pods-GeoFire.debug.xcconfig */,
-				9CB0E2ADAFFD98593F9ED949 /* Pods-GeoFire.release.xcconfig */,
-				2D2565B6F149200E0E62011D /* Pods-GeoFireTests.debug.xcconfig */,
-				6928E3A4B99BA34EE043837D /* Pods-GeoFireTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		FB8C87EC196AF5810061AC0F /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,7 +190,6 @@
 				FBA358D519655FED00A86282 /* GeoFireTests */,
 				FBA358BE19655FED00A86282 /* Frameworks */,
 				FBA358BD19655FED00A86282 /* Products */,
-				DDDFCA4BE0A0B75E8AB2BFBA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -236,8 +214,6 @@
 				FBA358BF19655FED00A86282 /* Foundation.framework */,
 				FBA358CD19655FED00A86282 /* XCTest.framework */,
 				FBA358D019655FED00A86282 /* UIKit.framework */,
-				D03AE4E98A62B211AFD74D12 /* Pods_GeoFire.framework */,
-				E00FA7C87BED45C97268B5DC /* Pods_GeoFireTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -635,7 +611,6 @@
 		};
 		FBA358E019655FED00A86282 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AAAB3252B26022D7E71A6ECC /* Pods-GeoFire.debug.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -661,7 +636,6 @@
 		};
 		FBA358E119655FED00A86282 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9CB0E2ADAFFD98593F9ED949 /* Pods-GeoFire.release.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -687,7 +661,6 @@
 		};
 		FBA358E319655FED00A86282 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D2565B6F149200E0E62011D /* Pods-GeoFireTests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -715,7 +688,6 @@
 		};
 		FBA358E419655FED00A86282 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6928E3A4B99BA34EE043837D /* Pods-GeoFireTests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
