@@ -27,11 +27,6 @@
 		FB3B32BF196FF07000E47633 /* GFCircleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FB3B32BD196FF07000E47633 /* GFCircleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB3B32C4197001C500E47633 /* GFRegionQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FB3B32C1196FF27600E47633 /* GFRegionQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB8C8832196D52200061AC0F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358E91965659A00A86282 /* CoreLocation.framework */; };
-		FB8C8834196D522F0061AC0F /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8833196D522F0061AC0F /* libicucore.dylib */; };
-		FB8C8836196D52460061AC0F /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8835196D52460061AC0F /* libc++.dylib */; };
-		FB8C8838196D52500061AC0F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8837196D52500061AC0F /* CFNetwork.framework */; };
-		FB8C883A196D52550061AC0F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8839196D52550061AC0F /* Security.framework */; };
-		FB8C883C196D525E0061AC0F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */; };
 		FB8C8849196D561D0061AC0F /* TestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C8848196D561D0061AC0F /* TestHelpers.m */; };
 		FB8C884F196D96180061AC0F /* GFRealDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C884E196D96180061AC0F /* GFRealDataTest.m */; };
 		FBA358C019655FED00A86282 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358BF19655FED00A86282 /* Foundation.framework */; };
@@ -90,11 +85,6 @@
 /* Begin PBXFileReference section */
 		FB3B32BD196FF07000E47633 /* GFCircleQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFCircleQuery.h; sourceTree = "<group>"; };
 		FB3B32C1196FF27600E47633 /* GFRegionQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GFRegionQuery.h; sourceTree = "<group>"; };
-		FB8C8833196D522F0061AC0F /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		FB8C8835196D52460061AC0F /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		FB8C8837196D52500061AC0F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		FB8C8839196D52550061AC0F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FB8C8845196D55630061AC0F /* GeoFireTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoFireTest.m; sourceTree = "<group>"; };
 		FB8C8847196D561D0061AC0F /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHelpers.h; sourceTree = "<group>"; };
 		FB8C8848196D561D0061AC0F /* TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHelpers.m; sourceTree = "<group>"; };
@@ -139,11 +129,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB8C883C196D525E0061AC0F /* SystemConfiguration.framework in Frameworks */,
-				FB8C883A196D52550061AC0F /* Security.framework in Frameworks */,
-				FB8C8838196D52500061AC0F /* CFNetwork.framework in Frameworks */,
-				FB8C8836196D52460061AC0F /* libc++.dylib in Frameworks */,
-				FB8C8834196D522F0061AC0F /* libicucore.dylib in Frameworks */,
 				FB8C8832196D52200061AC0F /* CoreLocation.framework in Frameworks */,
 				FBA358CE19655FED00A86282 /* XCTest.framework in Frameworks */,
 				FBA358D119655FED00A86282 /* UIKit.framework in Frameworks */,
@@ -205,11 +190,6 @@
 		FBA358BE19655FED00A86282 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */,
-				FB8C8839196D52550061AC0F /* Security.framework */,
-				FB8C8837196D52500061AC0F /* CFNetwork.framework */,
-				FB8C8835196D52460061AC0F /* libc++.dylib */,
-				FB8C8833196D522F0061AC0F /* libicucore.dylib */,
 				FBA358E91965659A00A86282 /* CoreLocation.framework */,
 				FBA358BF19655FED00A86282 /* Foundation.framework */,
 				FBA358CD19655FED00A86282 /* XCTest.framework */,
