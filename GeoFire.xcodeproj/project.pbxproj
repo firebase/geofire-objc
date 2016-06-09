@@ -521,12 +521,6 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)/sdk",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
-					"$(PROJECT_DIR)/Pods/FirebaseDatabase/Frameworks",
-					"$(PROJECT_DIR)/Pods/FirebaseInstanceID/Frameworks",
-					"$(PROJECT_DIR)/Pods/GoogleInterchangeUtilities/Frameworks",
-					"$(PROJECT_DIR)/Pods/GoogleSymbolUtilities/Frameworks",
-					"$(PROJECT_DIR)/Pods/GoogleUtilities/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoFire/GeoFire-Prefix.pch";
@@ -552,12 +546,6 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)/sdk",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
-					"$(PROJECT_DIR)/Pods/FirebaseDatabase/Frameworks",
-					"$(PROJECT_DIR)/Pods/FirebaseInstanceID/Frameworks",
-					"$(PROJECT_DIR)/Pods/GoogleInterchangeUtilities/Frameworks",
-					"$(PROJECT_DIR)/Pods/GoogleSymbolUtilities/Frameworks",
-					"$(PROJECT_DIR)/Pods/GoogleUtilities/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoFire/GeoFire-Prefix.pch";
