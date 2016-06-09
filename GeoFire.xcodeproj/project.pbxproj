@@ -83,21 +83,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D87115971D093CFF00D74E95 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Pods/FirebaseAnalytics/Frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
-		D87115981D093CFF00D74E95 /* FirebaseDatabase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseDatabase.framework; path = Pods/FirebaseDatabase/Frameworks/FirebaseDatabase.framework; sourceTree = "<group>"; };
-		D87115991D093CFF00D74E95 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Pods/FirebaseInstanceID/Frameworks/FirebaseInstanceID.framework; sourceTree = "<group>"; };
-		D871159A1D093CFF00D74E95 /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = Pods/GoogleInterchangeUtilities/Frameworks/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
-		D871159B1D093CFF00D74E95 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Pods/GoogleSymbolUtilities/Frameworks/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
-		D871159C1D093CFF00D74E95 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Pods/GoogleUtilities/Frameworks/GoogleUtilities.framework; sourceTree = "<group>"; };
-		D87115A61D093D2100D74E95 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		D87115A81D093D2800D74E95 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		FB3B32BD196FF07000E47633 /* GFCircleQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFCircleQuery.h; sourceTree = "<group>"; };
 		FB3B32C1196FF27600E47633 /* GFRegionQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GFRegionQuery.h; sourceTree = "<group>"; };
-		FB8C8833196D522F0061AC0F /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
-		FB8C8835196D52460061AC0F /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		FB8C8837196D52500061AC0F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		FB8C8839196D52550061AC0F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FB8C8845196D55630061AC0F /* GeoFireTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoFireTest.m; sourceTree = "<group>"; };
 		FB8C8847196D561D0061AC0F /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHelpers.h; sourceTree = "<group>"; };
 		FB8C8848196D561D0061AC0F /* TestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestHelpers.m; sourceTree = "<group>"; };
@@ -203,19 +190,6 @@
 		FBA358BE19655FED00A86282 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D87115A81D093D2800D74E95 /* libicucore.tbd */,
-				D87115A61D093D2100D74E95 /* libc++.tbd */,
-				D87115971D093CFF00D74E95 /* FirebaseAnalytics.framework */,
-				D87115981D093CFF00D74E95 /* FirebaseDatabase.framework */,
-				D87115991D093CFF00D74E95 /* FirebaseInstanceID.framework */,
-				D871159A1D093CFF00D74E95 /* GoogleInterchangeUtilities.framework */,
-				D871159B1D093CFF00D74E95 /* GoogleSymbolUtilities.framework */,
-				D871159C1D093CFF00D74E95 /* GoogleUtilities.framework */,
-				FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */,
-				FB8C8839196D52550061AC0F /* Security.framework */,
-				FB8C8837196D52500061AC0F /* CFNetwork.framework */,
-				FB8C8835196D52460061AC0F /* libc++.dylib */,
-				FB8C8833196D522F0061AC0F /* libicucore.dylib */,
 				FBA358E91965659A00A86282 /* CoreLocation.framework */,
 				FBA358BF19655FED00A86282 /* Foundation.framework */,
 				FBA358CD19655FED00A86282 /* XCTest.framework */,
