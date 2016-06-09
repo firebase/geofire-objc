@@ -22,9 +22,17 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		22100E308B8CC5B31B5D1F94 /* libPods-GeoFireTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E248B413C49A0A36B1CB9BD7 /* libPods-GeoFireTests.a */; };
 		38FC6CB01CFBE57C002AB722 /* GeoFireTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C8845196D55630061AC0F /* GeoFireTest.m */; };
 		38FC6CB71CFBF907002AB722 /* GFQueryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C884B196D93E10061AC0F /* GFQueryTest.m */; };
+		D871159D1D093CFF00D74E95 /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87115971D093CFF00D74E95 /* FirebaseAnalytics.framework */; };
+		D871159E1D093CFF00D74E95 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87115981D093CFF00D74E95 /* FirebaseDatabase.framework */; };
+		D871159F1D093CFF00D74E95 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87115991D093CFF00D74E95 /* FirebaseInstanceID.framework */; };
+		D87115A01D093CFF00D74E95 /* GoogleInterchangeUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D871159A1D093CFF00D74E95 /* GoogleInterchangeUtilities.framework */; };
+		D87115A11D093CFF00D74E95 /* GoogleSymbolUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D871159B1D093CFF00D74E95 /* GoogleSymbolUtilities.framework */; };
+		D87115A21D093CFF00D74E95 /* GoogleUtilities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D871159C1D093CFF00D74E95 /* GoogleUtilities.framework */; };
+		D87115A31D093D0F00D74E95 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */; };
+		D87115A41D093D1500D74E95 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8839196D52550061AC0F /* Security.framework */; };
+		D87115A51D093D1B00D74E95 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8837196D52500061AC0F /* CFNetwork.framework */; };
 		FB3B32BF196FF07000E47633 /* GFCircleQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FB3B32BD196FF07000E47633 /* GFCircleQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB3B32C4197001C500E47633 /* GFRegionQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = FB3B32C1196FF27600E47633 /* GFRegionQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB8C8832196D52200061AC0F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA358E91965659A00A86282 /* CoreLocation.framework */; };
@@ -51,7 +59,6 @@
 		FBA35919196AA43100A86282 /* GFBase32Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = FBA35917196AA43100A86282 /* GFBase32Utils.h */; };
 		FBA3591A196AA43100A86282 /* GFBase32Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA35918196AA43100A86282 /* GFBase32Utils.m */; };
 		FBA3591C196AAB6500A86282 /* GFGeoHashQueryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA3591B196AAB6500A86282 /* GFGeoHashQueryTest.m */; };
-		FD2F4568F53C5396809F6217 /* libPods-GeoFire.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 804D0B19374CA22E16EB1DFF /* libPods-GeoFire.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,12 +92,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		804D0B19374CA22E16EB1DFF /* libPods-GeoFire.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GeoFire.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A90CB85FBB0DC9F8C7274CA6 /* Pods-GeoFire.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFire.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFire/Pods-GeoFire.debug.xcconfig"; sourceTree = "<group>"; };
-		B5F8837A60F2D52787C6BFE9 /* Pods-GeoFireTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFireTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests.release.xcconfig"; sourceTree = "<group>"; };
-		C66FBDA329E2835EC53F52F3 /* Pods-GeoFireTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFireTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests.debug.xcconfig"; sourceTree = "<group>"; };
-		E248B413C49A0A36B1CB9BD7 /* libPods-GeoFireTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GeoFireTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F38FC255A3542469656B7AD3 /* Pods-GeoFire.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFire.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFire/Pods-GeoFire.release.xcconfig"; sourceTree = "<group>"; };
+		D87115971D093CFF00D74E95 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Pods/FirebaseAnalytics/Frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
+		D87115981D093CFF00D74E95 /* FirebaseDatabase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseDatabase.framework; path = Pods/FirebaseDatabase/Frameworks/FirebaseDatabase.framework; sourceTree = "<group>"; };
+		D87115991D093CFF00D74E95 /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Pods/FirebaseInstanceID/Frameworks/FirebaseInstanceID.framework; sourceTree = "<group>"; };
+		D871159A1D093CFF00D74E95 /* GoogleInterchangeUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleInterchangeUtilities.framework; path = Pods/GoogleInterchangeUtilities/Frameworks/GoogleInterchangeUtilities.framework; sourceTree = "<group>"; };
+		D871159B1D093CFF00D74E95 /* GoogleSymbolUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleSymbolUtilities.framework; path = Pods/GoogleSymbolUtilities/Frameworks/GoogleSymbolUtilities.framework; sourceTree = "<group>"; };
+		D871159C1D093CFF00D74E95 /* GoogleUtilities.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleUtilities.framework; path = Pods/GoogleUtilities/Frameworks/GoogleUtilities.framework; sourceTree = "<group>"; };
+		D87115A61D093D2100D74E95 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		D87115A81D093D2800D74E95 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		FB3B32BD196FF07000E47633 /* GFCircleQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GFCircleQuery.h; sourceTree = "<group>"; };
 		FB3B32C1196FF27600E47633 /* GFRegionQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GFRegionQuery.h; sourceTree = "<group>"; };
 		FB8C8833196D522F0061AC0F /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -133,9 +142,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D87115A51D093D1B00D74E95 /* CFNetwork.framework in Frameworks */,
+				D87115A41D093D1500D74E95 /* Security.framework in Frameworks */,
+				D87115A31D093D0F00D74E95 /* SystemConfiguration.framework in Frameworks */,
+				D871159D1D093CFF00D74E95 /* FirebaseAnalytics.framework in Frameworks */,
+				D871159E1D093CFF00D74E95 /* FirebaseDatabase.framework in Frameworks */,
+				D871159F1D093CFF00D74E95 /* FirebaseInstanceID.framework in Frameworks */,
+				D87115A01D093CFF00D74E95 /* GoogleInterchangeUtilities.framework in Frameworks */,
+				D87115A11D093CFF00D74E95 /* GoogleSymbolUtilities.framework in Frameworks */,
+				D87115A21D093CFF00D74E95 /* GoogleUtilities.framework in Frameworks */,
 				FBA358EA1965659A00A86282 /* CoreLocation.framework in Frameworks */,
 				FBA358C019655FED00A86282 /* Foundation.framework in Frameworks */,
-				FD2F4568F53C5396809F6217 /* libPods-GeoFire.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,24 +165,12 @@
 				FBA358D119655FED00A86282 /* UIKit.framework in Frameworks */,
 				FBA358CF19655FED00A86282 /* Foundation.framework in Frameworks */,
 				FBA358D419655FED00A86282 /* libGeoFire.a in Frameworks */,
-				22100E308B8CC5B31B5D1F94 /* libPods-GeoFireTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		808504D89721172B0E3DE0BD /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A90CB85FBB0DC9F8C7274CA6 /* Pods-GeoFire.debug.xcconfig */,
-				F38FC255A3542469656B7AD3 /* Pods-GeoFire.release.xcconfig */,
-				C66FBDA329E2835EC53F52F3 /* Pods-GeoFireTests.debug.xcconfig */,
-				B5F8837A60F2D52787C6BFE9 /* Pods-GeoFireTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		FB8C87EC196AF5810061AC0F /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,7 +206,6 @@
 				FBA358D519655FED00A86282 /* GeoFireTests */,
 				FBA358BE19655FED00A86282 /* Frameworks */,
 				FBA358BD19655FED00A86282 /* Products */,
-				808504D89721172B0E3DE0BD /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -217,6 +221,14 @@
 		FBA358BE19655FED00A86282 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D87115A81D093D2800D74E95 /* libicucore.tbd */,
+				D87115A61D093D2100D74E95 /* libc++.tbd */,
+				D87115971D093CFF00D74E95 /* FirebaseAnalytics.framework */,
+				D87115981D093CFF00D74E95 /* FirebaseDatabase.framework */,
+				D87115991D093CFF00D74E95 /* FirebaseInstanceID.framework */,
+				D871159A1D093CFF00D74E95 /* GoogleInterchangeUtilities.framework */,
+				D871159B1D093CFF00D74E95 /* GoogleSymbolUtilities.framework */,
+				D871159C1D093CFF00D74E95 /* GoogleUtilities.framework */,
 				FB8C883B196D525E0061AC0F /* SystemConfiguration.framework */,
 				FB8C8839196D52550061AC0F /* Security.framework */,
 				FB8C8837196D52500061AC0F /* CFNetwork.framework */,
@@ -226,8 +238,6 @@
 				FBA358BF19655FED00A86282 /* Foundation.framework */,
 				FBA358CD19655FED00A86282 /* XCTest.framework */,
 				FBA358D019655FED00A86282 /* UIKit.framework */,
-				804D0B19374CA22E16EB1DFF /* libPods-GeoFire.a */,
-				E248B413C49A0A36B1CB9BD7 /* libPods-GeoFireTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -299,13 +309,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBA358DF19655FED00A86282 /* Build configuration list for PBXNativeTarget "GeoFire" */;
 			buildPhases = (
-				911030AF9037B93C89DB619F /* 📦 Check Pods Manifest.lock */,
 				FBA358B819655FED00A86282 /* Sources */,
 				FBA358B919655FED00A86282 /* Frameworks */,
 				FBA358BA19655FED00A86282 /* CopyFiles */,
 				FBA358E51965605000A86282 /* Headers */,
 				FB8C87EE196AF7270061AC0F /* ShellScript */,
-				FCBE29EB7BC932D98DA67C99 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -320,12 +328,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FBA358E219655FED00A86282 /* Build configuration list for PBXNativeTarget "GeoFireTests" */;
 			buildPhases = (
-				E71941D6C56B54865E64845E /* 📦 Check Pods Manifest.lock */,
 				FBA358C819655FED00A86282 /* Sources */,
 				FBA358C919655FED00A86282 /* Frameworks */,
 				FBA358CA19655FED00A86282 /* Resources */,
-				B28868B3E712194F23ABCD14 /* 📦 Embed Pods Frameworks */,
-				37D41A90ECEAAA260BDF844C /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -383,66 +388,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		37D41A90ECEAAA260BDF844C /* 📦 Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		911030AF9037B93C89DB619F /* 📦 Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B28868B3E712194F23ABCD14 /* 📦 Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeoFireTests/Pods-GeoFireTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E71941D6C56B54865E64845E /* 📦 Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		FB8C87EE196AF7270061AC0F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -468,21 +413,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\n# If we're already inside this script then die\nif [ -n \"$RW_MULTIPLATFORM_BUILD_IN_PROGRESS\" ]; then\n  exit 0\nfi\nexport RW_MULTIPLATFORM_BUILD_IN_PROGRESS=1\n\nRW_FRAMEWORK_NAME=${PROJECT_NAME}\nRW_INPUT_STATIC_LIB=\"lib${PROJECT_NAME}.a\"\nRW_FRAMEWORK_LOCATION=\"${BUILT_PRODUCTS_DIR}/${RW_FRAMEWORK_NAME}.framework\"\n\nfunction build_static_library {\n    # Will rebuild the static library as specified\n    #     build_static_library sdk\n    xcrun xcodebuild -project \"${PROJECT_FILE_PATH}\" \\\n    -target \"${TARGET_NAME}\" \\\n    -configuration \"${CONFIGURATION}\" \\\n    -sdk \"${1}\" \\\n    ONLY_ACTIVE_ARCH=NO \\\n    BUILD_DIR=\"${BUILD_DIR}\" \\\n    OBJROOT=\"${OBJROOT}\" \\\n    BUILD_ROOT=\"${BUILD_ROOT}\" \\\n    SYMROOT=\"${SYMROOT}\" $ACTION\n}\n\nfunction make_fat_library {\n    # Will smash 2 static libs together\n    #     make_fat_library in1 in2 out\n    xcrun lipo -create \"${1}\" \"${2}\" -output \"${3}\"\n}\n\n# 1 - Extract the platform (iphoneos/iphonesimulator) from the SDK name\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]; then\n  RW_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\n  echo \"Could not find platform name from SDK_NAME: $SDK_NAME\"\n  exit 1\nfi\n\n# 2 - Extract the version from the SDK\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]; then\n  RW_SDK_VERSION=${BASH_REMATCH[1]}\nelse\n  echo \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\n  exit 1\nfi\n\n# 3 - Determine the other platform\nif [ \"$RW_SDK_PLATFORM\" == \"iphoneos\" ]; then\n  RW_OTHER_PLATFORM=iphonesimulator\nelse\n  RW_OTHER_PLATFORM=iphoneos\nfi\n\n# 4 - Find the build directory\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$RW_SDK_PLATFORM$ ]]; then\n  RW_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${RW_OTHER_PLATFORM}\"\nelse\n  echo \"Could not find other platform build directory.\"\n  exit 1\nfi\n\n# Build the other platform.\nbuild_static_library \"${RW_OTHER_PLATFORM}${RW_SDK_VERSION}\"\n\n# If we're currently building for iphonesimulator, then need to rebuild\n#   to ensure that we get both i386 and x86_64\nif [ \"$RW_SDK_PLATFORM\" == \"iphonesimulator\" ]; then\n  build_static_library \"${SDK_NAME}\"\nfi\n\n# Join the 2 static libs into 1 and push into the .framework\nmake_fat_library \"${BUILT_PRODUCTS_DIR}/${RW_INPUT_STATIC_LIB}\" \\\n                 \"${RW_OTHER_BUILT_PRODUCTS_DIR}/${RW_INPUT_STATIC_LIB}\" \\\n                 \"${RW_FRAMEWORK_LOCATION}/Versions/A/${RW_FRAMEWORK_NAME}\"\n\n# Ensure that the framework is present in both platform's build directories\ncp -a \"${RW_FRAMEWORK_LOCATION}/Versions/A/${RW_FRAMEWORK_NAME}\" \\\n      \"${RW_OTHER_BUILT_PRODUCTS_DIR}/${RW_FRAMEWORK_NAME}.framework/Versions/A/${RW_FRAMEWORK_NAME}\"";
-		};
-		FCBE29EB7BC932D98DA67C99 /* 📦 Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "📦 Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeoFire/Pods-GeoFire-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -625,7 +555,6 @@
 		};
 		FBA358E019655FED00A86282 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A90CB85FBB0DC9F8C7274CA6 /* Pods-GeoFire.debug.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -636,12 +565,22 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)/sdk",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
+					"$(PROJECT_DIR)/Pods/FirebaseDatabase/Frameworks",
+					"$(PROJECT_DIR)/Pods/FirebaseInstanceID/Frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleInterchangeUtilities/Frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleSymbolUtilities/Frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleUtilities/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoFire/GeoFire-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"-licucore",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
@@ -651,7 +590,6 @@
 		};
 		FBA358E119655FED00A86282 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F38FC255A3542469656B7AD3 /* Pods-GeoFire.release.xcconfig */;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
@@ -662,12 +600,22 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(PROJECT_DIR)/sdk",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/FirebaseAnalytics/Frameworks",
+					"$(PROJECT_DIR)/Pods/FirebaseDatabase/Frameworks",
+					"$(PROJECT_DIR)/Pods/FirebaseInstanceID/Frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleInterchangeUtilities/Frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleSymbolUtilities/Frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleUtilities/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GeoFire/GeoFire-Prefix.pch";
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"-licucore",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(PROJECT_NAME)";
 				SKIP_INSTALL = YES;
@@ -677,7 +625,6 @@
 		};
 		FBA358E319655FED00A86282 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C66FBDA329E2835EC53F52F3 /* Pods-GeoFireTests.debug.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -705,7 +652,6 @@
 		};
 		FBA358E419655FED00A86282 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5F8837A60F2D52787C6BFE9 /* Pods-GeoFireTests.release.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
