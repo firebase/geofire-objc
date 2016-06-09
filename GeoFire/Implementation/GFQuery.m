@@ -177,6 +177,7 @@
 @property (nonatomic, strong) NSMutableDictionary *keyEnteredObservers;
 @property (nonatomic, strong) NSMutableDictionary *keyExitedObservers;
 @property (nonatomic, strong) NSMutableDictionary *keyMovedObservers;
+@property (nonatomic, strong) NSMutableDictionary *keysChangedObservers;
 @property (nonatomic, strong) NSMutableDictionary *readyObservers;
 @property (nonatomic) NSUInteger currentHandle;
 
@@ -336,6 +337,13 @@
 - (void)checkAndFireReadyEvent
 {
     if (self.outstandingQueries.count == 0) {
+        
+        [self.keysChangedObservers enumerateKeysAndObjectsUsingBlock:^(id  key, GFQueryKeysBlock block, BOOL * stop) {
+            dispatch_async(self.geoFire.callbackQueue, ^{
+                block(locationInfos);
+            });
+        }]
+        
         [self.readyObservers enumerateKeysAndObjectsUsingBlock:^(id key, GFReadyBlock block, BOOL *stop) {
             dispatch_async(self.geoFire.callbackQueue, block);
         }];
@@ -422,6 +430,7 @@
     self.keyEnteredObservers = [NSMutableDictionary dictionary];
     self.keyExitedObservers = [NSMutableDictionary dictionary];
     self.keyMovedObservers = [NSMutableDictionary dictionary];
+    self.keysChangedObservers = [NSMutableDictionary dictionary];
     self.readyObservers = [NSMutableDictionary dictionary];
     self.locationInfos = [NSMutableDictionary dictionary];
 }
@@ -440,6 +449,7 @@
         [self.keyEnteredObservers removeObjectForKey:handle];
         [self.keyExitedObservers removeObjectForKey:handle];
         [self.keyMovedObservers removeObjectForKey:handle];
+        [self.keysChangedObservers removeObjectForKey:handle];
         [self.readyObservers removeObjectForKey:handle];
         if ([self totalObserverCount] == 0) {
             [self reset];
@@ -500,6 +510,27 @@
         }
         if (self.queries == nil) {
             [self updateQueries];
+        }
+        return firebaseHandle;
+    }
+}
+
+- (FirebaseHandle)observeKeysChangedWithBlock:(GFQueryKeysBlock)block
+{
+    @synchronized(self) {
+        if (block == nil) {
+            [NSException raise:NSInvalidArgumentException format:@"Block is not allowed to be nil!"];
+        }
+        FirebaseHandle firebaseHandle = self.currentHandle++;
+        NSNumber *numberHandle = [NSNumber numberWithUnsignedInteger:firebaseHandle];
+        [self.keysChangedObservers setObject:[block copy] forKey:numberHandle];
+        if (self.queries == nil) {
+            [self updateQueries];
+        }
+        if (self.outstandingQueries.count == 0) {
+            dispatch_async(self.geoFire.callbackQueue, ^{
+                block(locationInfos);
+            });
         }
         return firebaseHandle;
     }

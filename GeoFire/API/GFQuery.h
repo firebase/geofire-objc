@@ -40,6 +40,7 @@ typedef NS_ENUM(NSUInteger, GFEventType) {
 };
 
 typedef void (^GFQueryResultBlock) (NSString *key, CLLocation *location);
+typedef void (^GFQueryKeysBlock) (NSDictionary *keysAndLocations);
 typedef void (^GFReadyBlock) ();
 
 /**
@@ -75,6 +76,16 @@ typedef void (^GFReadyBlock) ();
 */
 
 - (FirebaseHandle)observeEventType:(GFEventType)eventType withBlock:(GFQueryResultBlock)block;
+
+/**
+ * Adds an observer that is called once all initial GeoFire data has been loaded and the relevant events have
+ * been fired for this query. Every time the query criteria is updated, this observer will be called after the
+ * updated query has fired the appropriate key entered or key exited events.
+ *
+ * @param block The block that is called for the keys changed event
+ * @return A handle to remove the observer with
+ */
+- (FirebaseHandle)observeKeysChangedWithBlock:(GFQueryKeysBlock)block;
 
 /**
  * Adds an observer that is called once all initial GeoFire data has been loaded and the relevant events have
