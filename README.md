@@ -7,7 +7,7 @@ At its heart, GeoFire simply stores locations with string keys. Its main
 benefit however, is the possibility of querying keys within a given geographic
 area - all in realtime.
 
-GeoFire uses the [Firebase](https://www.firebase.google.com/?utm_source=geofire-objc) database for
+GeoFire uses the [Firebase](https://firebase.google.com/?utm_source=geofire-objc) database for
 data storage, allowing query results to be updated in realtime as they change.
 GeoFire *selectively loads only the data near certain locations, keeping your
 applications light and responsive*, even with extremely large datasets.
