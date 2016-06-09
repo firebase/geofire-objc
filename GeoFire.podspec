@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.author       = { "Firebase" => "support@firebase.com" }
   s.source       = { :git => "https://github.com/firebase/geofire-objc.git", :tag => 'v2.0.0' }
   s.source_files = "GeoFire/**/*.{h,m}"
-  s.docset_url   = "https://geofire-ios.firebaseapp.com/docs/"
+  s.documentation_url   = "https://geofire-ios.firebaseapp.com/docs/"
   s.ios.deployment_target = '7.0'
   s.ios.dependency  'Firebase', '~> 3.2'
   s.framework = 'CoreLocation'
