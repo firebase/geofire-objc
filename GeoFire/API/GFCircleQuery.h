@@ -3,7 +3,7 @@
 //  GeoFire
 //
 //  Created by Jonny Dimond on 7/11/14.
-//  Copyright (c) 2014 Firebase. All rights reserved.
+//  Copyright (c) 2016 Firebase. All rights reserved.
 //
 
 @interface GFCircleQuery : GFQuery

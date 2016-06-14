@@ -49,7 +49,7 @@ Firebase 2.0.0](https://firebase.googleblog.com/2014/11/firebase-now-with-more-q
 result, you will need to upgrade to Firebase 2.x.x and add a new `.indexOn` rule to your Security
 and Firebase Rules to get the best performance. You can view [the updated rules
 here](https://github.com/firebase/geofire-js/blob/master/examples/securityRules/rules.json)
-and [read our docs for more information about indexing your data](https://www.firebase.com/docs/security/guide/indexing-data.html).
+and [read our docs for more information about indexing your data](https://firebase.google.com/docs/database/security/indexing-data).
 
 
 ## Downloading GeoFire for iOS

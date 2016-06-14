@@ -1,8 +1,8 @@
 /*
  * Firebase GeoFire iOS Library
  *
- * Copyright © 2014 Firebase - All Rights Reserved
- * https://www.firebase.com
+ * Copyright © 2016 Firebase - All Rights Reserved
+ * https://firebase.google.com
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
