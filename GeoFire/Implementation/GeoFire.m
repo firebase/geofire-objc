@@ -6,11 +6,12 @@
 //  Copyright (c) 2014 Firebase. All rights reserved.
 //
 
+#import <FirebaseDatabase/FirebaseDatabase.h>
+
 #import "GeoFire.h"
 #import "GeoFire+Private.h"
 #import "GFGeoHash.h"
 #import "GFQuery+Private.h"
-@import FirebaseDatabase;
 
 NSString * const kGeoFireErrorDomain = @"com.firebase.geofire";
 
