@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Firebase. All rights reserved.
 //
 
+#import <FirebaseDatabase/FirebaseDatabase.h>
+
 #import "GFQuery.h"
 #import "GFRegionQuery.h"
 #import "GFCircleQuery.h"
@@ -13,7 +15,6 @@
 #import "GeoFire.h"
 #import "GeoFire+Private.h"
 #import "GFGeoHashQuery.h"
-@import FirebaseDatabase;
 
 @interface GFQueryLocationInfo : NSObject
 
