@@ -38,6 +38,8 @@ at `/bars/<bar-id>`.
 
 ### Upgrading from Geofire 1.x to 2.x
 
+**NOTE: Currently, GeoFire 2.x is not available via CocoaPods, and must be downloaded as source and included in a Firebase 3.x project. You can follow [#48](https://github.com/firebase/geofire-objc/issues/48) for the latest on the CocoaPods release.**
+
 With the [expansion of Firebase at Google I/O 2016](https://firebase.googleblog.com/2016/05/firebase-expands-to-become-unified-app-platform.html), we've added a
 number of new features to Firebase, and have changed initialization to incorporate
 them more easily. See our [setup instructions](https://firebase.google.com/docs/ios/setup) for more info on installing and initializing the Firebase 3.x.x SDK.
@@ -54,11 +56,13 @@ and [read our docs for more information about indexing your data](https://fireba
 
 ## Downloading GeoFire for iOS
 
-If you're using [CocoaPods](http://cocoapods.org/?q=geofire), add
+**NOTE: CocoaPods is only available for Firebase 2.x and Geofire 1.x. Download the code directly and include it in your project for now. You can follow [#48](https://github.com/firebase/geofire-objc/issues/48) for the latest on the CocoaPods release.**
+
+If you're using [CocoaPods](http://cocoapods.org/?q=geofire) with Firebase 2.x and GeoFire 1.x, add
 the following to your `Podfile`:
 
 ```
-pod 'GeoFire', '~> 2.0'
+pod 'GeoFire', '~> 1.1'
 ```
 
 ### Using GeoFire with Swift
@@ -68,16 +72,24 @@ GeoFire supports Swift out of the box! In order to use GeoFire and Swift from Co
 ````
 use_frameworks!
 
-pod 'GeoFire', '~> 2.0'
+pod 'GeoFire', '~> 1.1'
 ````
 
-Alternatively, you can [download the `Firebase
+To use the Firebase 3.x frameworks, you can [download the `Firebase
 Database` and `Firebase Analytics` frameworks](https://firebase.google.com/docs/ios/setup#frameworks?utm_source=geofire-objc)
-and add them and the `CoreLocation` framework to your project.
+and add them and the `CoreLocation` framework to your project; otherwise, you can use the Firebase 3.x CocoaPods, and include GeoFire as source.
 
+Either way, you must download the GeoFire source code via Github and include it in your project.
+
+```
+git clone https://github.com/firebase/geofire-objc.git
+```
+
+<!---
 You can download the latest version of the [GeoFire.framework from the releases
 page](https://github.com/firebase/geofire-objc/releases) or include the GeoFire
 Xcode project from this repo in your project.
+--->
 
 ## Getting Started with Firebase
 
