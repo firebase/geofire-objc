@@ -35,12 +35,12 @@
 #import "GFRegionQuery.h"
 
 typedef enum : NSUInteger {
-	CLLocationPropertyAltitude = 1,
-	CLLocationPropertyHorizontalAccuracy,
-	CLLocationPropertyVerticalAccuracy,
-	CLLocationPropertyCourse,
-	CLLocationPropertySpeed,
-	CLLocationPropertyTimestamp
+	CLLocationPropertyAltitude				= 1 << 0,
+	CLLocationPropertyHorizontalAccuracy	= 1 << 1,
+	CLLocationPropertyVerticalAccuracy		= 1 << 2,
+	CLLocationPropertyCourse				= 1 << 3,
+	CLLocationPropertySpeed					= 1 << 4,
+	CLLocationPropertyTimestamp				= 1 << 5,
 } CLLocationProperties;
 
 @class FIRDatabaseReference;
