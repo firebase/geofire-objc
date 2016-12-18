@@ -73,7 +73,7 @@ typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
 /**
  * Initializes a new GeoFire instance at the given Firebase location.
  * @param firebase The Firebase location to attach this GeoFire instance to
- * @param properties Additional CLLocation properties to save and load
+ * @param locationProperties Additional CLLocation properties to save and load
  * @return The new GeoFire instance
  */
 - (id)initWithFirebaseRef:(FIRDatabaseReference *)firebase locationProperties:(CLLocationProperties)locationProperties;
@@ -129,7 +129,6 @@ withCompletionBlock:(GFCompletionBlock)block;
  *
  * @param key The key to observe the location for
  * @param callback The callback that is called for the current location
- * @return
  */
 - (void)getLocationForKey:(NSString *)key
              withCallback:(GFCallbackBlock)callback;
