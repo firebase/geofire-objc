@@ -34,6 +34,15 @@
 #import "GFCircleQuery.h"
 #import "GFRegionQuery.h"
 
+typedef enum : NSUInteger {
+	CLLocationPropertyAltitude = 1,
+	CLLocationPropertyHorizontalAccuracy,
+	CLLocationPropertyVerticalAccuracy,
+	CLLocationPropertyCourse,
+	CLLocationPropertySpeed,
+	CLLocationPropertyTimestamp
+} CLLocationProperties;
+
 @class FIRDatabaseReference;
 
 typedef void (^GFCompletionBlock) (NSError *error);
@@ -53,6 +62,21 @@ typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
  * The dispatch queue this GeoFire object and all its GFQueries use for callbacks.
  */
 @property (nonatomic, strong) dispatch_queue_t callbackQueue;
+
+/**
+ * Additional CLLocation properties to save and load.
+ */
+@property (nonatomic, assign, readonly) CLLocationProperties locationProperties;
+
+/** @name Creating new GeoFire objects */
+
+/**
+ * Initializes a new GeoFire instance at the given Firebase location.
+ * @param firebase The Firebase location to attach this GeoFire instance to
+ * @param properties Additional CLLocation properties to save and load
+ * @return The new GeoFire instance
+ */
+- (id)initWithFirebaseRef:(FIRDatabaseReference *)firebase locationProperties:(CLLocationProperties)locationProperties;
 
 /** @name Creating new GeoFire objects */
 
