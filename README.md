@@ -267,7 +267,7 @@ FIRDatabaseHandle queryHandle = [query observeEventType:GFEventTypeKeyEntered wi
 
 ##### Swift
 ````swift
-var queryHandle = query.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
+var queryHandle = query.observeEventType(.KeyEntered, withBlock: { (key: String?, location: CLLocation?) in
   println("Key '\(key)' entered the search area and is at location '\(location)'")
 })
 ````
