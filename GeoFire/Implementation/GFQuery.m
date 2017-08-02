@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 Firebase. All rights reserved.
 //
 
-#import <FirebaseDatabase/FirebaseDatabase.h>
+// TODO (mpmcdonald@): Change this back to Firebase once we can properly use the "regular" pod
+@import FirebaseCommunity.FirebaseDatabase;
 
 #import "GFQuery.h"
 #import "GFRegionQuery.h"
