@@ -160,9 +160,9 @@ successfully saves the location:
 ````swift
 geoFire.setLocation(CLLocation(latitude: 37.7853889, longitude: -122.4056973), forKey: "firebase-hq") { (error) in
   if (error != nil) {
-    println("An error occured: \(error)")
+    print("An error occured: \(error)")
   } else {
-    println("Saved location successfully!")
+    print("Saved location successfully!")
   }
 }
 ````
@@ -204,11 +204,11 @@ callback is passed the error and the location will be `nil`.
 ````swift
 geoFire.getLocationForKey("firebase-hq", withCallback: { (location, error) in
   if (error != nil) {
-    println("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
+    print("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
   } else if (location != nil) {
-    println("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
+    print("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
   } else {
-    println("GeoFire does not contain a location for \"firebase-hq\"")
+    print("GeoFire does not contain a location for \"firebase-hq\"")
   }
 })
 ````
@@ -268,7 +268,7 @@ FIRDatabaseHandle queryHandle = [query observeEventType:GFEventTypeKeyEntered wi
 ##### Swift
 ````swift
 var queryHandle = query.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
-  println("Key '\(key)' entered the search area and is at location '\(location)'")
+  print("Key '\(key)' entered the search area and is at location '\(location)'")
 })
 ````
 
@@ -292,7 +292,7 @@ fully loaded. `GFQuery` offers a method to listen for these ready events:
 ##### Swift
 ````swift
 query.observeReadyWithBlock({
-  println("All initial data has been loaded and events have been fired!")
+  print("All initial data has been loaded and events have been fired!")
 })
 ````
 
