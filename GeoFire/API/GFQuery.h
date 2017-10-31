@@ -40,7 +40,7 @@ typedef NS_ENUM(NSUInteger, GFEventType) {
 };
 
 typedef void (^GFQueryResultBlock) (NSString *key, CLLocation *location);
-typedef void (^GFReadyBlock) ();
+typedef void (^GFReadyBlock) (void);
 
 /**
  * A GFQuery object handles geo queries at a Firebase location.
