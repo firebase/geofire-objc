@@ -21,6 +21,7 @@
 
 + (GFGeoHash *)newWithLocation:(CLLocationCoordinate2D)location;
 + (GFGeoHash *)newWithLocation:(CLLocationCoordinate2D)location precision:(NSUInteger)precision;
++ (GFGeoHash *)newWithOrigin:(CLLocationCoordinate2D)origin destination:(CLLocationCoordinate2D)destination precision:(NSUInteger)precision;
 
 - (id)initWithString:(NSString *)string;
 + (GFGeoHash *)newWithString:(NSString *)string;

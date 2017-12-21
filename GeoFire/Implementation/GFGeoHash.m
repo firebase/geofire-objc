@@ -82,6 +82,33 @@
     return [[GFGeoHash alloc] initWithString:string];
 }
 
++ (NSUInteger)interleaveBitsOf:(NSUInteger)x withNumber:(NSUInteger)y
+{
+    return ((x * 0x0101010101010101ULL & 0x8040201008040201ULL) * 0x0102040810204081ULL >> 49) & 0x5555 |
+           ((y * 0x0101010101010101ULL & 0x8040201008040201ULL) * 0x0102040810204081ULL >> 48) & 0xAAAA;
+}
+
++ (GFGeoHash *)newWithOrigin:(CLLocationCoordinate2D)origin destination:(CLLocationCoordinate2D)destination precision:(NSUInteger)precision
+{
+    char buffer[2 * precision + 1];
+    buffer[2 * precision] = 0;
+
+    GFGeoHash *originHash = [GFGeoHash newWithLocation:origin precision:precision];
+    GFGeoHash *destinationHash = [GFGeoHash newWithLocation:destination precision:precision];
+    const char * const originHashBuffer = originHash.geoHashValue.UTF8String;
+    const char * const destinationHashBuffer = destinationHash.geoHashValue.UTF8String;
+
+    for (NSUInteger i = 0; i < precision; i++) {
+        const NSUInteger x = [GFBase32Utils base32CharacterToValue:originHashBuffer[i]];
+        const NSUInteger y = [GFBase32Utils base32CharacterToValue:destinationHashBuffer[i]];
+        const NSUInteger z = [GFGeoHash interleaveBitsOf:x withNumber:y];
+        buffer[2 * i] = [GFBase32Utils valueToBase32Character:(z & (BIT_MASK_FOR_BASE32_CHAR << BITS_PER_BASE32_CHAR)) >> BITS_PER_BASE32_CHAR];
+        buffer[2 * i + 1] = [GFBase32Utils valueToBase32Character:z & BIT_MASK_FOR_BASE32_CHAR];
+    }
+
+    return [GFGeoHash newWithString:[NSString stringWithUTF8String:buffer]];
+}
+
 - (id)initWithString:(NSString *)hashValue
 {
     if ([GFGeoHash isValidGeoHash:hashValue]) {

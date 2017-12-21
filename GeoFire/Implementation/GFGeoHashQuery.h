@@ -20,6 +20,11 @@
 + (NSSet *)queriesForLocation:(CLLocationCoordinate2D)location radius:(double)radius;
 + (NSSet *)queriesForRegion:(MKCoordinateRegion)region;
 
++ (GFGeoHashQuery *)geoHashQueryWithGeoHash:(GFGeoHash *)geohash bits:(NSUInteger)bits;
+
++ (NSUInteger)bitsForRegion:(MKCoordinateRegion)region;
++ (double)bitsForLongitudeWithResolution:(double)resolution atLatitude:(CLLocationDegrees)latitude;
+
 - (BOOL)containsGeoHash:(GFGeoHash *)hash;
 
 - (BOOL)canJoinWith:(GFGeoHashQuery *)other;

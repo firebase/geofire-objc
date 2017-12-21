@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #define BITS_PER_BASE32_CHAR 5
+#define BIT_MASK_FOR_BASE32_CHAR 0x1f
 
 @interface GFBase32Utils : NSObject
 
