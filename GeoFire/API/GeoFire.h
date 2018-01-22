@@ -36,8 +36,10 @@
 
 @class FIRDatabaseReference;
 
-typedef void (^GFCompletionBlock) (NSError *error);
-typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
+NS_ASSUME_NONNULL_BEGIN
+
+typedef void (^GFCompletionBlock) (NSError * _Nullable error);
+typedef void (^GFCallbackBlock) (CLLocation * _Nullable location, NSError * _Nullable error);
 
 /**
  * A GeoFire instance is used to store geo location data at a Firebase location.
@@ -82,7 +84,7 @@ typedef void (^GFCallbackBlock) (CLLocation *location, NSError *error);
  */
 - (void)setLocation:(CLLocation *)location
              forKey:(NSString *)key
-withCompletionBlock:(GFCompletionBlock)block;
+withCompletionBlock:(nullable GFCompletionBlock)block;
 
 /**
  * Removes the location for a given key.
@@ -96,7 +98,7 @@ withCompletionBlock:(GFCompletionBlock)block;
  * @param key The key for which the location is removed
  * @param block The completion block that is called once the location was successfully updated on the server
  */
-- (void)removeKey:(NSString *)key withCompletionBlock:(GFCompletionBlock)block;
+- (void)removeKey:(NSString *)key withCompletionBlock:(nullable GFCompletionBlock)block;
 
 /**
  * Gets the current location for a key in GeoFire and calls the callback with the location or nil if there is no
@@ -128,3 +130,5 @@ withCompletionBlock:(GFCompletionBlock)block;
 - (GFRegionQuery *)queryWithRegion:(MKCoordinateRegion)region;
 
 @end
+
+NS_ASSUME_NONNULL_END
