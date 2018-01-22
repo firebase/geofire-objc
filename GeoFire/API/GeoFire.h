@@ -72,7 +72,7 @@ typedef void (^GFCallbackBlock) (CLLocation * _Nullable location, NSError * _Nul
  * @param location The location as a geographic coordinate
  * @param key The key for which this location is saved
  */
-- (void)setLocation:(nullable CLLocation *)location
+- (void)setLocation:(CLLocation *)location
              forKey:(NSString *)key;
 
 /**
@@ -82,7 +82,7 @@ typedef void (^GFCallbackBlock) (CLLocation * _Nullable location, NSError * _Nul
  * @param key The key for which this location is saved
  * @param block The completion block that is called once the location was successfully updated on the server
  */
-- (void)setLocation:(nullable CLLocation *)location
+- (void)setLocation:(CLLocation *)location
              forKey:(NSString *)key
 withCompletionBlock:(nullable GFCompletionBlock)block;
 
