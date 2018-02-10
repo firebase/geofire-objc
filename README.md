@@ -202,7 +202,7 @@ callback is passed the error and the location will be `nil`.
 
 ##### Swift
 ````swift
-geoFire.getLocationForKey("firebase-hq", withCallback: { (location, error) in
+geoFire.getLocationForKey("firebase-hq") { (location, error) in
   if (error != nil) {
     println("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
   } else if (location != nil) {
@@ -210,7 +210,7 @@ geoFire.getLocationForKey("firebase-hq", withCallback: { (location, error) in
   } else {
     println("GeoFire does not contain a location for \"firebase-hq\"")
   }
-})
+}
 ````
 
 ### Geo Queries
@@ -267,9 +267,9 @@ FIRDatabaseHandle queryHandle = [query observeEventType:GFEventTypeKeyEntered wi
 
 ##### Swift
 ````swift
-var queryHandle = query.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
+var queryHandle = query.observeEventType(.KeyEntered) { (key: String!, location: CLLocation!) in
   println("Key '\(key)' entered the search area and is at location '\(location)'")
-})
+}
 ````
 
 To cancel one or all callbacks for a geo query, call
@@ -291,9 +291,9 @@ fully loaded. `GFQuery` offers a method to listen for these ready events:
 
 ##### Swift
 ````swift
-query.observeReadyWithBlock({
+query.observeReadyWithBlock {
   println("All initial data has been loaded and events have been fired!")
-})
+}
 ````
 
 Note that locations might change while initially loading the data and key moved and key
