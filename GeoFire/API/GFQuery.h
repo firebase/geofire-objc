@@ -29,6 +29,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NSUInteger FirebaseHandle;
 
 @class GeoFire;
@@ -40,7 +42,7 @@ typedef NS_ENUM(NSUInteger, GFEventType) {
 };
 
 typedef void (^GFQueryResultBlock) (NSString *key, CLLocation *location);
-typedef void (^GFReadyBlock) ();
+typedef void (^GFReadyBlock) (void);
 
 /**
  * A GFQuery object handles geo queries at a Firebase location.
@@ -99,3 +101,5 @@ typedef void (^GFReadyBlock) ();
 - (void)removeAllObservers;
 
 @end
+
+NS_ASSUME_NONNULL_END
