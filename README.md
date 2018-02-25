@@ -334,6 +334,7 @@ events might occur independently.
 If you'd like to contribute to GeoFire for iOS, you'll need to run the
 following commands to get your environment set up:
 
+
 ```bash
 $ git clone https://github.com/firebase/geofire-objc.git
 $ cd geofire-objc
