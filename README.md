@@ -160,9 +160,9 @@ successfully saves the location:
 ````swift
 geoFire.setLocation(CLLocation(latitude: 37.7853889, longitude: -122.4056973), forKey: "firebase-hq") { (error) in
   if (error != nil) {
-    println("An error occured: \(error)")
+    print("An error occured: \(error)")
   } else {
-    println("Saved location successfully!")
+    print("Saved location successfully!")
   }
 }
 ````
@@ -204,11 +204,11 @@ callback is passed the error and the location will be `nil`.
 ````swift
 geoFire.getLocationForKey("firebase-hq") { (location, error) in
   if (error != nil) {
-    println("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
+    print("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
   } else if (location != nil) {
-    println("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
+    print("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
   } else {
-    println("GeoFire does not contain a location for \"firebase-hq\"")
+    print("GeoFire does not contain a location for \"firebase-hq\"")
   }
 }
 ````
@@ -267,9 +267,11 @@ FIRDatabaseHandle queryHandle = [query observeEventType:GFEventTypeKeyEntered wi
 
 ##### Swift
 ````swift
-var queryHandle = query.observeEventType(.KeyEntered) { (key: String!, location: CLLocation!) in
-  println("Key '\(key)' entered the search area and is at location '\(location)'")
-}
+
+var queryHandle = query.observeEventType(.KeyEntered, withBlock: { (key: String!, location: CLLocation!) in
+  print("Key '\(key)' entered the search area and is at location '\(location)'")
+})
+
 ````
 
 To cancel one or all callbacks for a geo query, call
@@ -291,9 +293,11 @@ fully loaded. `GFQuery` offers a method to listen for these ready events:
 
 ##### Swift
 ````swift
-query.observeReadyWithBlock {
-  println("All initial data has been loaded and events have been fired!")
-}
+
+query.observeReadyWithBlock({
+  print("All initial data has been loaded and events have been fired!")
+})
+
 ````
 
 Note that locations might change while initially loading the data and key moved and key
@@ -329,6 +333,7 @@ events might occur independently.
 
 If you'd like to contribute to GeoFire for iOS, you'll need to run the
 following commands to get your environment set up:
+
 
 ```bash
 $ git clone https://github.com/firebase/geofire-objc.git
