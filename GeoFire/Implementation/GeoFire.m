@@ -35,7 +35,7 @@ enum {
     return nil;
 }
 
-- (id)initWithFirebaseRef:(FIRDatabaseReference *)firebaseRef
+- (id)initWithFirebaseRef:(FIRDatabaseReference *)firebaseRef locationProperties:(CLLocationProperties)locationProperties
 {
     self = [super init];
     if (self != nil) {
@@ -44,8 +44,14 @@ enum {
         }
         self->_firebaseRef = firebaseRef;
         self->_callbackQueue = dispatch_get_main_queue();
+
+		self->_locationProperties = locationProperties;
     }
     return self;
+}
+
+- (id)initWithFirebaseRef:(FIRDatabaseReference *)firebase {
+	return [self initWithFirebaseRef:firebase locationProperties:0];
 }
 
 - (void)setLocation:(CLLocation *)location forKey:(NSString *)key
@@ -85,13 +91,29 @@ withCompletionBlock:(GFCompletionBlock)block
                   forKey:(NSString *)key
                withBlock:(GFCompletionBlock)block
 {
-    NSDictionary *value;
+    NSMutableDictionary *value;
     NSString *priority;
     if (location != nil) {
         NSNumber *lat = [NSNumber numberWithDouble:location.coordinate.latitude];
         NSNumber *lng = [NSNumber numberWithDouble:location.coordinate.longitude];
         NSString *geoHash = [GFGeoHash newWithLocation:location.coordinate].geoHashValue;
-        value = @{ @"l": @[ lat, lng ], @"g": geoHash };
+
+		value = [NSMutableDictionary dictionaryWithCapacity:8];
+		value[@"l"] = @[ lat, lng ];
+		value[@"g"] = geoHash;
+		if (self.locationProperties & CLLocationPropertyAltitude)
+			value[@"a"] = [NSNumber numberWithDouble:location.altitude];
+		if (self.locationProperties & CLLocationPropertyHorizontalAccuracy)
+			value[@"h"] = [NSNumber numberWithDouble:location.horizontalAccuracy];
+		if (self.locationProperties & CLLocationPropertyVerticalAccuracy)
+			value[@"v"] = [NSNumber numberWithDouble:location.verticalAccuracy];
+		if (self.locationProperties & CLLocationPropertyCourse)
+			value[@"c"] = [NSNumber numberWithDouble:location.course];
+		if (self.locationProperties & CLLocationPropertySpeed)
+			value[@"s"] = [NSNumber numberWithDouble:location.speed];
+		if (self.locationProperties & CLLocationPropertyTimestamp)
+			value[@"t"] = [NSNumber numberWithDouble:[location.timestamp timeIntervalSinceReferenceDate]];
+
         priority = geoHash;
     } else {
         value = nil;
@@ -129,8 +151,22 @@ withCompletionBlock:(GFCompletionBlock)block
                 [lngNum isKindOfClass:[NSNumber class]]) {
                 CLLocationDegrees lat = [latNum doubleValue];
                 CLLocationDegrees lng = [lngNum doubleValue];
-                if (CLLocationCoordinate2DIsValid(CLLocationCoordinate2DMake(lat, lng))) {
-                    return [[CLLocation alloc] initWithLatitude:lat longitude:lng];
+				if (CLLocationCoordinate2DIsValid(CLLocationCoordinate2DMake(lat, lng))) {
+					id a = [value objectForKey:@"a"];
+					id h = [value objectForKey:@"h"];
+					id v = [value objectForKey:@"v"];
+					id c = [value objectForKey:@"c"];
+					id s = [value objectForKey:@"s"];
+					id t = [value objectForKey:@"t"];
+
+					CLLocationDistance altitude = [a isKindOfClass:[NSNumber class]] ? [a doubleValue] : 0.0;
+					CLLocationAccuracy horizontalAccuracy = [h isKindOfClass:[NSNumber class]] ? [h doubleValue] : 0.0;
+					CLLocationAccuracy verticalAccuracy = [v isKindOfClass:[NSNumber class]] ? [v doubleValue] : -1.0;
+					CLLocationDirection course = [c isKindOfClass:[NSNumber class]] ? [c doubleValue] : -1.0;
+					CLLocationSpeed speed = [s isKindOfClass:[NSNumber class]] ? [s doubleValue] : -1.0;
+					NSDate *timestamp = [t isKindOfClass:[NSNumber class]] ? [NSDate dateWithTimeIntervalSinceReferenceDate:[t doubleValue]] : [NSDate date];
+
+                    return [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(lat, lng) altitude:altitude horizontalAccuracy:horizontalAccuracy verticalAccuracy:verticalAccuracy course:course speed:speed timestamp:timestamp];
                 }
             }
         }

@@ -22,6 +22,8 @@ ${XCODEBUILD} \
   IPHONEOS_DEPLOYMENT_TARGET=7.0 \
   ONLY_ACTIVE_ARCH=NO \
   ARCHS="armv7 armv7s arm64" \
+  ENABLE_BITCODE=YES \
+  BITCODE_GENERATION_MODE=bitcode \
   build
 
 echo "===> Building simulator binary"
