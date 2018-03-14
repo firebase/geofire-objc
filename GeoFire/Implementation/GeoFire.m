@@ -97,14 +97,16 @@ withCompletionBlock:(GFCompletionBlock)block
         value = nil;
         priority = nil;
     }
-    [[self firebaseRefForLocationKey:key] setValue:value
-                                       andPriority:priority
-                               withCompletionBlock:^(NSError *error, FIRDatabaseReference *ref) {
-        if (block != nil) {
-            dispatch_async(self.callbackQueue, ^{
-                block(error);
-            });
-        }
+    [[self firebaseRefForLocationKey:key] updateChildValues:value
+                                        withCompletionBlock:^(NSError *error, FIRDatabaseReference *ref) {
+        [[self firebaseRefForLocationKey:key] setPriority:priority
+                                      withCompletionBlock:^(NSError *error, FIRDatabaseReference *ref) {
+            if (block != nil) {
+                dispatch_async(self.callbackQueue, ^{
+                    block(error);
+                });
+            }
+      }];
     }];
 }
 
