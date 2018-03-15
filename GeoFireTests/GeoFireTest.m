@@ -52,9 +52,6 @@
                };
 
             XCTAssertEqualObjects(snapshot.value, expected);
-            XCTAssertEqualObjects([snapshot childSnapshotForPath:@"loc1"].priority, @"7zzzzzzzzz");
-            XCTAssertEqualObjects([snapshot childSnapshotForPath:@"loc2"].priority, @"v0gs3y0zh7");
-            XCTAssertEqualObjects([snapshot childSnapshotForPath:@"loc3"].priority, @"1bpbpbpbpb");
             dispatch_semaphore_signal(barrier);
         }];
 
