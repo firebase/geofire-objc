@@ -116,7 +116,7 @@ GeoFire *geoFire = [[GeoFire alloc] initWithFirebaseRef:geofireRef];
 
 ##### Swift
 ````swift
-let geofireRef = FIRDatabase.database().reference()
+let geofireRef = Database.database().reference()
 let geoFire = GeoFire(firebaseRef: geofireRef)
 ````
 
