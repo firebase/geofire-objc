@@ -22,17 +22,7 @@
 
     NSString *appname =  [TestHelpers randomAlphaNumericStringWithLength:16];
     NSLog(@"Test url %@", randomFirebaseURL);
-    FIROptions *options = [[FIROptions alloc] initWithGoogleAppID:@"googleAPI"
-                                                 bundleID:@"com.test.app"
-                                            GCMSenderID:@"testid"
-                                                   APIKey:nil
-                                                clientID:nil
-                                               trackingID:nil
-                                          androidClientID:nil
-                                              databaseURL:randomFirebaseURL
-                                            storageBucket:nil
-                                        deepLinkURLScheme:nil];
-
+    FIROptions *options = [[FIROptions alloc] initWithGoogleAppID:@"googleAPI" GCMSenderID:@"com.test.app"];
 
     [FIRApp configureWithName:appname options:options];
 
