@@ -7,6 +7,8 @@
 //
 
 #import "SFViewController.h"
+
+#import <FirebaseDatabase/FirebaseDatabase.h>
 #import <MapKit/MapKit.h>
 #import <GeoFire/GeoFire.h>
 
@@ -18,8 +20,6 @@
 #define VIEW_SIZE 1500
 
 #define CIRCLE_FRACTION (3.0/4.0)
-
-#define GEO_FIRE_URL @"https://publicdata-transit.firebaseio.com/_geofire"
 
 @interface SFViewController ()
 
@@ -44,7 +44,6 @@
 {
     self = [super initWithCoder:coder];
     if (self != nil) {
-        self.geoFire = [[GeoFire alloc] initWithFirebaseRef:[[Firebase alloc] initWithUrl:GEO_FIRE_URL]];
         self.vehicleAnnotations = [NSMutableDictionary dictionary];
         self.centerAnnotation = [[SFVehicleAnnotation alloc] init];
     }
@@ -158,6 +157,8 @@
 - (void)loadView
 {
     [super loadView];
+    FIRDatabaseReference *reference = [[FIRDatabase database] referenceWithPath:@"_geofire"];
+    self.geoFire = [[GeoFire alloc] initWithFirebaseRef:reference];
     self.circleView = [[UIView alloc] init];
     self.circleView.backgroundColor = [UIColor colorWithRed:0.7 green:0.2 blue:0.7 alpha:0.3];
     self.circleView.layer.borderColor = [UIColor colorWithWhite:0.3 alpha:0.3].CGColor;
@@ -217,15 +218,14 @@
     [self updateQuery];
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     self.isRotating = YES;
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    self.isRotating = NO;
-    [self updateQuery];
+    [coordinator animateAlongsideTransition:^(id unused){} completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+        self.isRotating = NO;
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

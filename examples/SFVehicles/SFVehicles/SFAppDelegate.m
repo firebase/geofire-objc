@@ -8,11 +8,17 @@
 
 #import "SFAppDelegate.h"
 
+#import <FirebaseCore/FirebaseCore.h>
+
 @implementation SFAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    FIROptions *options =
+        [[FIROptions alloc] initWithGoogleAppID:@"1:1069647793992:ios:91eecf4730fc920b"
+                                    GCMSenderID:@"1069647793992"];
+    options.databaseURL = @"https://publicdata-transit.firebaseio.com";
+    [FIRApp configureWithOptions:options];
     return YES;
 }
 							

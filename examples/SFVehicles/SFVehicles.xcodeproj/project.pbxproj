@@ -7,14 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FB8C87FA196AF97E0061AC0F /* libGeoFire.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FBBC440D196AF08700C0CAA5 /* libGeoFire.a */; };
 		FB8C87FE196AFDF60061AC0F /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C87FD196AFDF60061AC0F /* libicucore.dylib */; };
 		FB8C8800196AFDFF0061AC0F /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C87FF196AFDFF0061AC0F /* libc++.dylib */; };
 		FB8C8802196AFE080061AC0F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8801196AFE080061AC0F /* CFNetwork.framework */; };
 		FB8C8804196AFE0E0061AC0F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8803196AFE0E0061AC0F /* Security.framework */; };
 		FB8C8806196AFE1B0061AC0F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8805196AFE1B0061AC0F /* SystemConfiguration.framework */; };
 		FB8C8823196B24AD0061AC0F /* SFVehicleAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FB8C8822196B24AD0061AC0F /* SFVehicleAnnotation.m */; };
-		FB8C8844196D53AD0061AC0F /* Firebase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB8C8843196D53AD0061AC0F /* Firebase.framework */; };
 		FBBC43D0196AEFE500C0CAA5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBBC43CF196AEFE500C0CAA5 /* Foundation.framework */; };
 		FBBC43D2196AEFE500C0CAA5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBBC43D1196AEFE500C0CAA5 /* CoreGraphics.framework */; };
 		FBBC43D4196AEFE500C0CAA5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBBC43D3196AEFE500C0CAA5 /* UIKit.framework */; };
@@ -40,20 +38,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = FBBC43CB196AEFE500C0CAA5;
 			remoteInfo = SFVehicles;
-		};
-		FBBC440C196AF08700C0CAA5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FBBC4407196AF08700C0CAA5 /* GeoFire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FBA358BC19655FED00A86282;
-			remoteInfo = GeoFire;
-		};
-		FBBC440E196AF08700C0CAA5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FBBC4407196AF08700C0CAA5 /* GeoFire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FBA358CC19655FED00A86282;
-			remoteInfo = GeoFireTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -86,7 +70,6 @@
 		FBBC43F9196AEFE500C0CAA5 /* SFVehiclesTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SFVehiclesTests-Info.plist"; sourceTree = "<group>"; };
 		FBBC43FB196AEFE500C0CAA5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FBBC43FD196AEFE500C0CAA5 /* SFVehiclesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SFVehiclesTests.m; sourceTree = "<group>"; };
-		FBBC4407196AF08700C0CAA5 /* GeoFire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GeoFire.xcodeproj; path = ../../GeoFire.xcodeproj; sourceTree = "<group>"; };
 		FBBC4410196AF15400C0CAA5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -99,9 +82,7 @@
 				FB8C8804196AFE0E0061AC0F /* Security.framework in Frameworks */,
 				FB8C8802196AFE080061AC0F /* CFNetwork.framework in Frameworks */,
 				FB8C8800196AFDFF0061AC0F /* libc++.dylib in Frameworks */,
-				FB8C8844196D53AD0061AC0F /* Firebase.framework in Frameworks */,
 				FB8C87FE196AFDF60061AC0F /* libicucore.dylib in Frameworks */,
-				FB8C87FA196AF97E0061AC0F /* libGeoFire.a in Frameworks */,
 				FBBC4411196AF15400C0CAA5 /* MapKit.framework in Frameworks */,
 				FBBC43D2196AEFE500C0CAA5 /* CoreGraphics.framework in Frameworks */,
 				FBBC43D4196AEFE500C0CAA5 /* UIKit.framework in Frameworks */,
@@ -122,14 +103,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A513769CAE133376E2715310 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		FBBC43C3196AEFE500C0CAA5 = {
 			isa = PBXGroup;
 			children = (
-				FBBC4407196AF08700C0CAA5 /* GeoFire.xcodeproj */,
 				FBBC43D5196AEFE500C0CAA5 /* SFVehicles */,
 				FBBC43F7196AEFE500C0CAA5 /* SFVehiclesTests */,
 				FBBC43CE196AEFE500C0CAA5 /* Frameworks */,
 				FBBC43CD196AEFE500C0CAA5 /* Products */,
+				A513769CAE133376E2715310 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -206,15 +194,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		FBBC4408196AF08700C0CAA5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				FBBC440D196AF08700C0CAA5 /* libGeoFire.a */,
-				FBBC440F196AF08700C0CAA5 /* GeoFireTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -260,7 +239,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SF;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Firebase;
 				TargetAttributes = {
 					FBBC43EF196AEFE500C0CAA5 = {
@@ -270,7 +249,7 @@
 			};
 			buildConfigurationList = FBBC43C7196AEFE500C0CAA5 /* Build configuration list for PBXProject "SFVehicles" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -279,12 +258,6 @@
 			mainGroup = FBBC43C3196AEFE500C0CAA5;
 			productRefGroup = FBBC43CD196AEFE500C0CAA5 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = FBBC4408196AF08700C0CAA5 /* Products */;
-					ProjectRef = FBBC4407196AF08700C0CAA5 /* GeoFire.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				FBBC43CB196AEFE500C0CAA5 /* SFVehicles */,
@@ -292,23 +265,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		FBBC440D196AF08700C0CAA5 /* libGeoFire.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libGeoFire.a;
-			remoteRef = FBBC440C196AF08700C0CAA5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		FBBC440F196AF08700C0CAA5 /* GeoFireTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = GeoFireTests.xctest;
-			remoteRef = FBBC440E196AF08700C0CAA5 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		FBBC43CA196AEFE500C0CAA5 /* Resources */ = {
@@ -402,22 +358,37 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -430,7 +401,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -442,29 +413,43 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -477,14 +462,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/../../sdk/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SFVehicles/SFVehicles-Prefix.pch";
 				INFOPLIST_FILE = "SFVehicles/SFVehicles-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.firebase.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -495,14 +477,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/../../sdk/",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SFVehicles/SFVehicles-Prefix.pch";
 				INFOPLIST_FILE = "SFVehicles/SFVehicles-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.firebase.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -524,6 +503,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "SFVehiclesTests/SFVehiclesTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.firebase.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -542,6 +522,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SFVehicles/SFVehicles-Prefix.pch";
 				INFOPLIST_FILE = "SFVehiclesTests/SFVehiclesTests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.firebase.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
