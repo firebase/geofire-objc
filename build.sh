@@ -3,7 +3,7 @@
 set -e # Exit sub shell if anything erro
 DIR="$(cd "$(dirname "$0")"; pwd)"
 OUTPUT_DIR="${DIR}/target/"
-XCODE_PROJECT="${DIR}/GeoFire.xcodeproj"
+XCODE_WORKSPACE="${DIR}/GeoFire.xcworkspace"
 XCODEBUILD=xcodebuild
 
 echo "===> Cleaning target directory"
@@ -11,8 +11,8 @@ rm -rf $OUTPUT_DIR
 
 echo "===> Building iOS binary"
 ${XCODEBUILD} \
-  -project ${XCODE_PROJECT} \
-  -target GeoFire \
+  -workspace ${XCODE_WORKSPACE} \
+  -scheme GeoFire \
   -configuration Release \
   -sdk iphoneos \
   BUILD_DIR=${OUTPUT_DIR}/Products \
@@ -26,8 +26,8 @@ ${XCODEBUILD} \
 
 echo "===> Building simulator binary"
 ${XCODEBUILD} \
-  -project ${XCODE_PROJECT} \
-  -target GeoFire \
+  -workspace ${XCODE_WORKSPACE} \
+  -scheme GeoFire \
   -configuration Release \
   -sdk iphonesimulator \
   BUILD_DIR=${OUTPUT_DIR}/Products \
