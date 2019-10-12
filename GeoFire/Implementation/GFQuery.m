@@ -176,12 +176,19 @@
 @property (nonatomic, strong) NSMutableDictionary *firebaseHandles;
 @property (nonatomic, strong) NSMutableSet *outstandingQueries;
 
-@property (nonatomic, strong) NSMutableDictionary *withSnapshotKeyEnteredObservers;
-@property (nonatomic, strong) NSMutableDictionary *withSnapshotKeyExitedObservers;
-@property (nonatomic, strong) NSMutableDictionary *withSnapshotKeyMovedObservers;
 @property (nonatomic, strong) NSMutableDictionary *keyEnteredObservers;
 @property (nonatomic, strong) NSMutableDictionary *keyExitedObservers;
 @property (nonatomic, strong) NSMutableDictionary *keyMovedObservers;
+
+/**
+ * The group of snapshot observers initialized by calling
+ * @see GFQuery::observeEventType:withSnapshotBlock:
+ * Useful If you are storing model data and geo data in the same database location.
+ */
+@property (nonatomic, strong) NSMutableDictionary *keyEnteredSnapshotObservers;
+@property (nonatomic, strong) NSMutableDictionary *keyExitedSnapshotObservers;
+@property (nonatomic, strong) NSMutableDictionary *keyMovedSnapshotObservers;
+
 @property (nonatomic, strong) NSMutableDictionary *readyObservers;
 @property (nonatomic) NSUInteger currentHandle;
 
@@ -235,8 +242,8 @@
                 block(key, info.location);
             });
         }];
-        [self.withSnapshotKeyEnteredObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
-                                                                                  GFQueryResultBlockWithSnapshot block,
+        [self.keyEnteredSnapshotObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
+                                                                                  GFQueryResultSnapshotBlock block,
                                                                                   BOOL *stop) {
             dispatch_async(self.geoFire.callbackQueue, ^{
                 block(key, info.snapshot);
@@ -250,8 +257,8 @@
                 block(key, info.location);
             });
         }];
-        [self.withSnapshotKeyMovedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
-                                                                                  GFQueryResultBlockWithSnapshot block,
+        [self.keyMovedSnapshotObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
+                                                                                  GFQueryResultSnapshotBlock block,
                                                                                   BOOL *stop) {
             dispatch_async(self.geoFire.callbackQueue, ^{
                 block(key, info.snapshot);
@@ -265,8 +272,8 @@
                 block(key, info.location);
             });
         }];
-        [self.withSnapshotKeyExitedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
-                                                                                  GFQueryResultBlockWithSnapshot block,
+        [self.keyExitedSnapshotObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
+                                                                                  GFQueryResultSnapshotBlock block,
                                                                                   BOOL *stop) {
             dispatch_async(self.geoFire.callbackQueue, ^{
                 block(key, info.snapshot);
@@ -334,8 +341,8 @@
                                     block(key, location);
                                 });
                             }];
-                            [self.withSnapshotKeyExitedObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
-                                                                                                     GFQueryResultBlockWithSnapshot block,
+                            [self.keyExitedSnapshotObservers enumerateKeysAndObjectsUsingBlock:^(id observerKey,
+                                                                                                     GFQueryResultSnapshotBlock block,
                                                                                                      BOOL *stop) {
                                 dispatch_async(self.geoFire.callbackQueue, ^{
                                     block(key, snapshot);
@@ -457,9 +464,9 @@
     self.keyEnteredObservers = [NSMutableDictionary dictionary];
     self.keyExitedObservers = [NSMutableDictionary dictionary];
     self.keyMovedObservers = [NSMutableDictionary dictionary];
-    self.withSnapshotKeyEnteredObservers = [NSMutableDictionary dictionary];
-    self.withSnapshotKeyExitedObservers = [NSMutableDictionary dictionary];
-    self.withSnapshotKeyMovedObservers = [NSMutableDictionary dictionary];
+    self.keyEnteredSnapshotObservers = [NSMutableDictionary dictionary];
+    self.keyExitedSnapshotObservers = [NSMutableDictionary dictionary];
+    self.keyMovedSnapshotObservers = [NSMutableDictionary dictionary];
     self.readyObservers = [NSMutableDictionary dictionary];
     self.locationInfos = [NSMutableDictionary dictionary];
 }
@@ -478,9 +485,9 @@
         [self.keyEnteredObservers removeObjectForKey:handle];
         [self.keyExitedObservers removeObjectForKey:handle];
         [self.keyMovedObservers removeObjectForKey:handle];
-        [self.withSnapshotKeyEnteredObservers removeObjectForKey:handle];
-        [self.withSnapshotKeyExitedObservers removeObjectForKey:handle];
-        [self.withSnapshotKeyMovedObservers removeObjectForKey:handle];
+        [self.keyEnteredSnapshotObservers removeObjectForKey:handle];
+        [self.keyExitedSnapshotObservers removeObjectForKey:handle];
+        [self.keyMovedSnapshotObservers removeObjectForKey:handle];
         [self.readyObservers removeObjectForKey:handle];
         if ([self totalObserverCount] == 0) {
             [self reset];
@@ -490,9 +497,9 @@
 
 - (NSUInteger)totalObserverCount
 {
-    return (self.withSnapshotKeyEnteredObservers.count +
-            self.withSnapshotKeyExitedObservers.count +
-            self.withSnapshotKeyMovedObservers.count +
+    return (self.keyEnteredSnapshotObservers.count +
+            self.keyExitedSnapshotObservers.count +
+            self.keyMovedSnapshotObservers.count +
             self.keyEnteredObservers.count +
             self.keyExitedObservers.count +
             self.keyMovedObservers.count +
@@ -549,7 +556,7 @@
     }
 }
 
-- (FirebaseHandle)observeEventType:(GFEventType)eventType withBlockWithSnapshot:(GFQueryResultBlockWithSnapshot)block
+- (FirebaseHandle)observeEventType:(GFEventType)eventType withSnapshotBlock:(GFQueryResultSnapshotBlock)block
 {
     @synchronized(self) {
         if (block == nil) {
@@ -559,7 +566,7 @@
         NSNumber *numberHandle = [NSNumber numberWithUnsignedInteger:firebaseHandle];
         switch (eventType) {
             case GFEventTypeKeyEntered: {
-                [self.withSnapshotKeyEnteredObservers setObject:[block copy]
+                [self.keyEnteredSnapshotObservers setObject:[block copy]
                                                          forKey:numberHandle];
                 self.currentHandle++;
                 dispatch_async(self.geoFire.callbackQueue, ^{
@@ -576,13 +583,13 @@
                 break;
             }
             case GFEventTypeKeyExited: {
-                [self.withSnapshotKeyExitedObservers setObject:[block copy]
+                [self.keyExitedSnapshotObservers setObject:[block copy]
                                                         forKey:numberHandle];
                 self.currentHandle++;
                 break;
             }
             case GFEventTypeKeyMoved: {
-                [self.withSnapshotKeyMovedObservers setObject:[block copy]
+                [self.keyMovedSnapshotObservers setObject:[block copy]
                                                        forKey:numberHandle];
                 self.currentHandle++;
                 break;
