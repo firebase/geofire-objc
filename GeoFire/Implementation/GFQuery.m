@@ -183,7 +183,7 @@
 /**
  * The group of snapshot observers initialized by calling
  * @see GFQuery::observeEventType:withSnapshotBlock:
- * Useful If you are storing model data and geo data in the same database location.
+ * Useful when you are storing model data and geo data in the same database location.
  */
 @property (nonatomic, strong) NSMutableDictionary *keyEnteredSnapshotObservers;
 @property (nonatomic, strong) NSMutableDictionary *keyExitedSnapshotObservers;

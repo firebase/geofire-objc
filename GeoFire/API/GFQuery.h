@@ -81,7 +81,7 @@ typedef void (^GFReadyBlock) (void);
 - (FirebaseHandle)observeEventType:(GFEventType)eventType withBlock:(GFQueryResultBlock)block;
 
 /*!
- Adds an snapshot observer for an event type.
+ Adds a snapshot observer for an event type.
  
  If you are storing model data and geo data in the same database location,
  you may want access to the FIRDataSnapshot as part of geo events.
