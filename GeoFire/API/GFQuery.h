@@ -28,6 +28,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <FirebaseDatabase/FirebaseDatabase.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -42,6 +43,7 @@ typedef NS_ENUM(NSUInteger, GFEventType) {
 };
 
 typedef void (^GFQueryResultBlock) (NSString *key, CLLocation *location);
+typedef void (^GFQueryResultSnapshotBlock) (NSString *key, FIRDataSnapshot *snapshot);
 typedef void (^GFReadyBlock) (void);
 
 /**
@@ -77,6 +79,33 @@ typedef void (^GFReadyBlock) (void);
 */
 
 - (FirebaseHandle)observeEventType:(GFEventType)eventType withBlock:(GFQueryResultBlock)block;
+
+/*!
+ Adds a snapshot observer for an event type.
+ 
+ If you are storing model data and geo data in the same database location,
+ you may want access to the FIRDataSnapshot as part of geo events.
+ In this case, use a snapshot observers rather than a key observers.
+ These snapshot observers have all of the same events as the key observers.
+ 
+ The following event types are supported:
+ 
+ typedef NS_ENUM(NSUInteger, GFEventType) {
+ GFEventTypeKeyEntered, // A key entered the search area
+ GFEventTypeKeyExited,  // A key exited the search area
+ GFEventTypeKeyMoved    // A key moved within the search area
+ };
+ 
+ The block is called for each event and snapshot.
+ 
+ Use removeObserverWithFirebaseHandle: to stop receiving callbacks.
+ 
+ @param eventType The event type to receive updates for
+ @param block The block that is called for updates
+ @return A handle to remove the observer with
+ */
+
+- (FirebaseHandle)observeEventType:(GFEventType)eventType withSnapshotBlock:(GFQueryResultSnapshotBlock)block;
 
 /**
  * Adds an observer that is called once all initial GeoFire data has been loaded and the relevant events have
