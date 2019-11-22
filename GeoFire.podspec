@@ -1,11 +1,11 @@
 Pod::Spec.new do |s|
   s.name         = "GeoFire"
-  s.version      = "3.0.0"
+  s.version      = "4.0.0"
   s.summary      = "Realtime location queries with Firebase."
   s.homepage     = "https://github.com/firebase/geofire-objc"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = "Firebase"
-  s.source       = { :git => "https://github.com/firebase/geofire-objc.git" }
+  s.source       = { :git => "https://github.com/firebase/geofire-objc.git", :tag => "v" + s.version }
   s.source_files = "GeoFire/**/*.{h,m}"
   s.documentation_url   = "https://geofire-ios.firebaseapp.com/docs/"
   s.ios.deployment_target = '8.0'
