@@ -61,7 +61,7 @@ If you're using [CocoaPods](http://cocoapods.org/?q=geofire), add the following
 to your `Podfile`:
 
 ```ruby
-pod 'GeoFire', '~> 3.0'
+pod 'GeoFire', '~> 4.0'
 ```
 
 ### Using GeoFire with Swift
@@ -71,7 +71,7 @@ GeoFire supports Swift out of the box! In order to use GeoFire and Swift from Co
 ```ruby
 use_frameworks!
 
-pod 'GeoFire', '~> 3.0'
+pod 'GeoFire', '~> 4.0'
 ```
 
 ## Getting Started with Firebase
