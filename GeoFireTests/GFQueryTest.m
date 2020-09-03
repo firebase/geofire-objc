@@ -38,20 +38,27 @@ do { \
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
+
+    XCTestExpectation *expectation =
+        [[XCTestExpectation alloc] initWithDescription:@"Query callback"];
+
     GFQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:0.5];
     NSMutableDictionary *actual = [NSMutableDictionary dictionary];
-    WAIT_SIGNALS(3, ^(dispatch_semaphore_t barrier) {
-        [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
-            if ([actual objectForKey:key] == nil) {
-                actual[key] = L2S(location);
-            } else {
-                XCTFail(@"Key entered twice!");
-            }
-            dispatch_semaphore_signal(barrier);
-        }];
-    });
-    NSDictionary *expected = @{ @"1": L2S(L(37,-122)), @"2": L2S(L(37.0001, -122.0001)), @"4": L2S(L(37.0002, -121.9998)) };
-    XCTAssertEqualObjects(actual, expected);
+
+    [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
+        if ([actual objectForKey:key] == nil) {
+            NSDictionary *expected = @{ @"1": L2S(L(37,-122)),
+                                        @"2": L2S(L(37.0001, -122.0001)),
+                                        @"4": L2S(L(37.0002, -121.9998)) };
+            actual[key] = L2S(location);
+            XCTAssertEqualObjects(actual, expected);
+        } else {
+            XCTFail(@"Key entered twice!");
+        }
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectations:@[ expectation ] timeout:TEST_TIMEOUT_SECONDS];
     [query removeAllObservers];
 }
 
@@ -62,6 +69,8 @@ do { \
     SETLOC(@"2", 37.0001, -122.0001);
     SETLOC(@"3", 37.1000, -122.0000);
     SETLOC(@"4", 37.0002, -121.9998);
+    XCTestExpectation *expectation =
+        [[XCTestExpectation alloc] initWithDescription:@"Query callback"];
     GFQuery *query = [self.geoFire queryAtLocation:L(37,-122) withRadius:0.5];
     NSMutableSet *actual = [NSMutableSet set];
     [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
@@ -75,6 +84,7 @@ do { \
         } else {
             XCTFail(@"Key exited twice!");
         }
+        [expectation fulfill];
     }];
     SETLOC(@"0", 0, 0);
     [self.geoFire removeKey:@"2"]; // exited
@@ -86,6 +96,7 @@ do { \
 
     NSSet *expected = [NSSet setWithArray:@[@"1", L2S(L(0,0)), @"2", @"null"]];
     XCTAssertEqualObjects(actual, expected);
+    [self waitForExpectations:@[ expectation ] timeout:TEST_TIMEOUT_SECONDS];
     [query removeAllObservers];
 }
 
@@ -127,6 +138,8 @@ do { \
 
 - (void)testEventuallyConsistent
 {
+    XCTestExpectation *expectation =
+        [[XCTestExpectation alloc] initWithDescription:@"Query callback"];
     SETLOC(@"1", 0.0001, 0.0001);
     SETLOC(@"2", -0.0001, 0.0001);
     SETLOC(@"3", 0.0001, -0.0001);
@@ -160,12 +173,11 @@ do { \
     SETLOC(@"3", 0.0001, 0.0001); // entered
 
     SETLOC(@"2", 0.0001, 0.0001); // moved
-    __block BOOL done = NO;
     [self.geoFire removeKey:@"2" withCompletionBlock:^(NSError *error) {
-        done = YES;
+        [expectation fulfill];
     }];
 
-    WAIT_FOR(done);
+    [self waitForExpectations:@[ expectation ] timeout:TEST_TIMEOUT_SECONDS];
 
     NSDictionary *expected = @{ @"1": L2S(L(0.0002, 0.0001)),
                                 @"2": @"null",
@@ -178,6 +190,11 @@ do { \
 
 - (void)testUpdateTriggersKeyEntered
 {
+    __block BOOL expectation1Fulfilled = NO;
+    XCTestExpectation *expectation1 =
+        [[XCTestExpectation alloc] initWithDescription:@"All expected locations present"];
+    XCTestExpectation *expectation2 =
+        [[XCTestExpectation alloc] initWithDescription:@"Expected locations present after move"];
     SETLOC(@"0", 0, 0);
     SETLOC(@"1", 37.0000, -122.0000);
     SETLOC(@"2", 37.0001, -122.0001);
@@ -188,14 +205,21 @@ do { \
     [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
         if ([actual objectForKey:key] == nil) {
             actual[key] = L2S(location);
+            if (actual.count == 3) {
+                [expectation1 fulfill];
+                expectation1Fulfilled = YES;
+            }
+            if (actual.count == 1 && expectation1Fulfilled) {
+                [expectation2 fulfill];
+            }
         } else {
             XCTFail(@"Key entered twice!");
         }
     }];
-    WAIT_FOR(actual.count == 3);
+    [self waitForExpectations:@[ expectation1 ] timeout:TEST_TIMEOUT_SECONDS];
     actual = [NSMutableDictionary dictionary];
     query.center = L(37.1000, -122.0000);
-    WAIT_FOR(actual.count == 1);
+    [self waitForExpectations:@[ expectation2 ] timeout:TEST_TIMEOUT_SECONDS];
 
     NSDictionary *expected = @{ @"3": L2S(L(37.1000,-122.0000)) };
     XCTAssertEqualObjects(actual, expected);
@@ -204,6 +228,8 @@ do { \
 
 - (void)testUpdateTriggersKeyExited
 {
+    XCTestExpectation *expectation =
+        [[XCTestExpectation alloc] initWithDescription:@"All expected locations present"];
     SETLOC(@"0", 0, 0);
     SETLOC(@"1", 37.0000, -122.0000);
     SETLOC(@"2", 37.0001, -122.0001);
@@ -219,12 +245,15 @@ do { \
     [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
         if (![actual containsObject:key]) {
             [actual addObject:key];
+            if (actual.count == 3) {
+                [expectation fulfill];
+            }
         } else {
             XCTFail(@"Key exited twice!");
         }
     }];
     query.center = L(37.1000, -122.0000);
-    WAIT_FOR(actual.count == 3);
+    [self waitForExpectations:@[ expectation ] timeout:TEST_TIMEOUT_SECONDS];
 
     NSSet *expected = [NSSet setWithArray:@[@"1", @"2", @"4"]];
     XCTAssertEqualObjects(actual, expected);
@@ -261,6 +290,8 @@ do { \
 
 - (void)testNoExitedEventForLocationsOutsideOfQuery
 {
+    XCTestExpectation *expectation =
+        [[XCTestExpectation alloc] initWithDescription:@"DB operation completed"];
     SETLOC(@"0", 37.0010001, -122.0010001);
     GFRegionQuery *query = [self.geoFire queryWithRegion:MKCoordinateRegionMake(C(37,-122), S(0.002, 0.002))];
     [query observeEventType:GFEventTypeKeyEntered withBlock:^(NSString *key, CLLocation *location) {
@@ -269,31 +300,33 @@ do { \
     [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
         XCTFail(@"Key outside of query exited");
     }];
-    __block BOOL done = NO;
     [self.geoFire removeKey:@"0" withCompletionBlock:^(NSError *error) {
-        done = YES;
+        [expectation fulfill];
     }];
-    WAIT_FOR(done);
+    [self waitForExpectations:@[ expectation ] timeout:TEST_TIMEOUT_SECONDS];
 }
 
 - (void)testSubQueryMove
 {
+    XCTestExpectation *expectation =
+        [[XCTestExpectation alloc] initWithDescription:@"DB operation completed"];
+    expectation.expectedFulfillmentCount = 2;
     SETLOC(@"0", 0.000001, 0.000001);
     SETLOC(@"1", -0.000001, -0.000001);
     GFQuery *query = [self.geoFire queryAtLocation:L(0, 0) withRadius:0.5];
     NSMutableArray *actual = [NSMutableArray array];
-    WAIT_SIGNALS(2, (^(dispatch_semaphore_t barrier) {
-        [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
-            XCTFail(@"Key should not exit!");
-        }];
-        [query observeEventType:GFEventTypeKeyMoved withBlock:^(NSString *key, CLLocation *location) {
-            [actual addObject:[NSString stringWithFormat:@"MOVED(%@,%@)", key, L2S(location)]];
-            dispatch_semaphore_signal(barrier);
-        }];
-        SETLOC(@"0", -0.000001, -0.000001);
-        SETLOC(@"1", 0.000001, 0.000001);
-    }));
 
+    [query observeEventType:GFEventTypeKeyExited withBlock:^(NSString *key, CLLocation *location) {
+        XCTFail(@"Key should not exit!");
+    }];
+    [query observeEventType:GFEventTypeKeyMoved withBlock:^(NSString *key, CLLocation *location) {
+        [actual addObject:[NSString stringWithFormat:@"MOVED(%@,%@)", key, L2S(location)]];
+        [expectation fulfill];
+    }];
+    SETLOC(@"0", -0.000001, -0.000001);
+    SETLOC(@"1", 0.000001, 0.000001);
+
+    [self waitForExpectations:@[ expectation ] timeout:TEST_TIMEOUT_SECONDS];
     NSArray *expected = @[@"MOVED(0,[-0.000001, -0.000001])", @"MOVED(1,[0.000001, 0.000001])"];
     XCTAssertEqualObjects(actual, expected);
     [query removeAllObservers];

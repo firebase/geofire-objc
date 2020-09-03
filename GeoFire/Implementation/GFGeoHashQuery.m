@@ -116,8 +116,8 @@
 
 + (NSUInteger)bitsForRegion:(MKCoordinateRegion)region
 {
-    NSUInteger bitsLatitude = MAX(0, (int)floor(log2(180/(region.span.latitudeDelta/2))))*2;
-    NSUInteger bitsLongitude = MAX(1, (int)floor(log2(360/(region.span.longitudeDelta/2))))*2-1;
+    NSUInteger bitsLatitude = MAX(0, (NSUInteger)floor(log2(180/(region.span.latitudeDelta/2))))*2;
+    NSUInteger bitsLongitude = MAX(1, (NSUInteger)floor(log2(360/(region.span.longitudeDelta/2))))*2-1;
     return MIN(bitsLatitude, MIN(bitsLongitude, MAXIMUM_BITS_PRECISION));
 }
 

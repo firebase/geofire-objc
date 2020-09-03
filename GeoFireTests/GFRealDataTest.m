@@ -10,6 +10,9 @@
 
 #import "TestHelpers.h"
 
+#import <FirebaseCore/FirebaseCore.h>
+#import <FirebaseDatabase/FirebaseDatabase.h>
+
 @import Firebase;
 
 @implementation GFRealDataTest
@@ -17,28 +20,21 @@
 - (void)setUp
 {
     [super setUp];
-    NSString *randomFirebaseURL = [NSString stringWithFormat:@"https://%@.firebaseio-demo.com",
-                                   [TestHelpers randomAlphaNumericStringWithLength:16]];
+    static dispatch_queue_t backgroundQueue = NULL;
 
-    NSString *appname =  [TestHelpers randomAlphaNumericStringWithLength:16];
-    NSLog(@"Test url %@", randomFirebaseURL);
-    FIROptions *options = [[FIROptions alloc] initWithGoogleAppID:@"googleAPI"
-                                                 bundleID:@"com.test.app"
-                                            GCMSenderID:@"testid"
-                                                   APIKey:nil
-                                                clientID:nil
-                                               trackingID:nil
-                                          androidClientID:nil
-                                              databaseURL:randomFirebaseURL
-                                            storageBucket:nil
-                                        deepLinkURLScheme:nil];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        FIROptions *options = [[FIROptions alloc] initWithGoogleAppID:@"1:1069647793992:ios:91eecf4730fc920b"
+                                                          GCMSenderID:@"1069647793992"];
+        options.databaseURL = @"https://testapp-5d356.firebaseio.com";
 
+        [FIRApp configureWithOptions:options];
 
-    [FIRApp configureWithName:appname options:options];
+        backgroundQueue = dispatch_queue_create("com.firebase.geofire.test", DISPATCH_QUEUE_SERIAL);
+        [[FIRDatabase database] setCallbackQueue:backgroundQueue];
+    });
 
-    dispatch_queue_t backgroundQueue = dispatch_queue_create("com.firebase.test", NULL);
-    [[FIRDatabase databaseForApp:[FIRApp appNamed:appname]]  setCallbackQueue:backgroundQueue];
-    self.firebaseRef = [[FIRDatabase databaseForApp:[FIRApp appNamed:appname]] reference];
+    self.firebaseRef = [[FIRDatabase database] referenceWithPath:@"_test"];
     self.geoFire = [[GeoFire alloc] initWithFirebaseRef:self.firebaseRef];
     self.geoFire.callbackQueue = backgroundQueue;
 }

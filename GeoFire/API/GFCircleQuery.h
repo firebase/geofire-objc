@@ -6,6 +6,8 @@
 //  Copyright (c) 2016 Firebase. All rights reserved.
 //
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface GFCircleQuery : GFQuery
 
 /**
@@ -21,3 +23,5 @@
 @property (atomic, readwrite) double radius;
 
 @end
+
+NS_ASSUME_NONNULL_END
