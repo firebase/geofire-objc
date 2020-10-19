@@ -13,4 +13,9 @@ Pod::Spec.new do |s|
   s.frameworks   = 'CoreLocation', 'FirebaseDatabase'
   s.requires_arc = true
   s.static_framework = true
+
+  s.subspec 'Utils' do |utils|
+    utils.source_files = "GeoFire/Utils/**/*.{h,m}"
+    utils.framework    = "CoreLocation"
+  end
 end
