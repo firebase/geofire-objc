@@ -24,9 +24,9 @@
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        FIROptions *options = [[FIROptions alloc] initWithGoogleAppID:@"1:1069647793992:ios:91eecf4730fc920b"
-                                                          GCMSenderID:@"1069647793992"];
-        options.databaseURL = @"https://testapp-5d356.firebaseio.com";
+        FIROptions *options = [[FIROptions alloc] initWithGoogleAppID:@"1:761131032820:ios:25f2f16c3fb701c9153ea1"
+                                                          GCMSenderID:@"761131032820"];
+        options.databaseURL = @"https://geofire-gh-tests.firebaseio.com";
 
         [FIRApp configureWithOptions:options];
 
