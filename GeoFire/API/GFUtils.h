@@ -41,8 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)geoHashForLocation:(CLLocationCoordinate2D)location
                    withPrecision:(NSInteger)precision;
 
-+ (double)distanceFrom:(CLLocation *)locationA
-                    to:(CLLocation *)locationB;
++ (double)distanceFromLocation:(CLLocation *)locationA
+                    toLocation:(CLLocation *)locationB;
 
 + (NSArray *)queryBoundsForLocation:(CLLocationCoordinate2D)location withRadius:(double)radius;
 

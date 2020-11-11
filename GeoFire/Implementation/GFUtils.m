@@ -46,8 +46,8 @@
     return [geoHash geoHashValue];
 }
 
-+ (double)distanceFrom:(CLLocation *)locationA
-                    to:(CLLocation *)locationB
++ (double)distanceFromLocation:(CLLocation *)locationA
+                    toLocation:(CLLocation *)locationB
 {
     return [locationA distanceFromLocation:locationB];
 }
@@ -57,7 +57,7 @@
     NSMutableArray *result = [[NSMutableArray alloc] init];
     NSSet *queries = [GFGeoHashQuery queriesForLocation:location radius:radius];
     for (GFGeoHashQuery *q in queries) {
-        GFGeoQueryBounds *bounds = [GFGeoQueryBounds newWithStartValue:q.startValue endValue:q.endValue];
+        GFGeoQueryBounds *bounds = [GFGeoQueryBounds boundsWithStartValue:q.startValue endValue:q.endValue];
         [result addObject:bounds];
     }
     return result;

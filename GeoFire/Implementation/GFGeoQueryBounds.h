@@ -39,8 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSString *startValue;
 @property (nonatomic, strong, readonly) NSString *endValue;
 
-- (id)initWithStartValue:(NSString *)startValue endValue:(NSString *)endValue;
-+ (GFGeoQueryBounds *)newWithStartValue:(NSString *)startValue endValue:(NSString *)endValue;
+- (instancetype)initWithStartValue:(NSString *)startValue endValue:(NSString *)endValue;
++ (GFGeoQueryBounds *)boundsWithStartValue:(NSString *)startValue endValue:(NSString *)endValue;
 
 @end
 

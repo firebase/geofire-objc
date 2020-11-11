@@ -38,7 +38,7 @@
 
 @implementation GFGeoQueryBounds
 
-- (id)initWithStartValue:(NSString *)startValue endValue:(NSString *)endValue
+- (instancetype)initWithStartValue:(NSString *)startValue endValue:(NSString *)endValue
 {
     self = [super init];
     if (self != nil) {
@@ -48,7 +48,7 @@
     return self;
 }
 
-+ (GFGeoQueryBounds *)newWithStartValue:(NSString *)startValue endValue:(NSString *)endValue
++ (GFGeoQueryBounds *)boundsWithStartValue:(NSString *)startValue endValue:(NSString *)endValue
 {
     return [[GFGeoQueryBounds alloc] initWithStartValue:startValue endValue:endValue];
 }
