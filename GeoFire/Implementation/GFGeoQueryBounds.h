@@ -32,6 +32,8 @@
 
 #import "GFGeoHash.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface GFGeoQueryBounds : NSObject<NSCopying>
 
 @property (nonatomic, strong, readonly) NSString *startValue;
@@ -41,3 +43,5 @@
 + (GFGeoQueryBounds *)newWithStartValue:(NSString *)startValue endValue:(NSString *)endValue;
 
 @end
+
+NS_ASSUME_NONNULL_END

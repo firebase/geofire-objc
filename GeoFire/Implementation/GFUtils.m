@@ -40,7 +40,7 @@
 }
 
 + (NSString *)geoHashForLocation:(CLLocationCoordinate2D)location
-                   withPrecision:(int)precision
+                   withPrecision:(NSInteger)precision
 {
     GFGeoHash *geoHash = [GFGeoHash newWithLocation:location precision:precision];
     return [geoHash geoHashValue];

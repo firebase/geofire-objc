@@ -42,8 +42,8 @@
 {
     self = [super init];
     if (self != nil) {
-        self->_startValue = startValue;
-        self->_endValue = endValue;
+        _startValue = startValue;
+        _endValue = endValue;
     }
     return self;
 }

@@ -29,6 +29,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Utility methods for storing locations.
  */
@@ -37,7 +39,7 @@
 + (NSString *)geoHashForLocation:(CLLocationCoordinate2D)location;
 
 + (NSString *)geoHashForLocation:(CLLocationCoordinate2D)location
-                   withPrecision:(int)precision;
+                   withPrecision:(NSInteger)precision;
 
 + (double)distanceFrom:(CLLocation *)locationA
                     to:(CLLocation *)locationB;
@@ -45,3 +47,5 @@
 + (NSArray *)queryBoundsForLocation:(CLLocationCoordinate2D)location withRadius:(double)radius;
 
 @end
+
+NS_ASSUME_NONNULL_END
