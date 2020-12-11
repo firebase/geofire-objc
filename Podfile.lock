@@ -39,7 +39,7 @@ DEPENDENCIES:
   - Firebase/Database
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Firebase
     - FirebaseAuthInterop
     - FirebaseCore
@@ -65,6 +65,6 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
 
-PODFILE CHECKSUM: 5764e84fc094ff48bb35c6f7f81c00c66a32d4be
+PODFILE CHECKSUM: 81dc90d946848a097857bf0e272ba79a95ed7f33
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.0

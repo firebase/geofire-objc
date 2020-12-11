@@ -1,49 +1,68 @@
 PODS:
-  - Firebase/CoreOnly (6.3.0):
-    - FirebaseCore (= 6.0.3)
-  - Firebase/Database (6.3.0):
+  - Firebase/CoreOnly (6.34.0):
+    - FirebaseCore (= 6.10.4)
+  - Firebase/Database (6.34.0):
     - Firebase/CoreOnly
-    - FirebaseDatabase (~> 6.0.0)
-  - FirebaseAuthInterop (1.0.0)
-  - FirebaseCore (6.0.3):
-    - GoogleUtilities/Environment (~> 6.0)
-    - GoogleUtilities/Logger (~> 6.0)
-  - FirebaseDatabase (6.0.0):
-    - FirebaseAuthInterop (~> 1.0)
-    - FirebaseCore (~> 6.0)
-    - leveldb-library (~> 1.18)
-  - GeoFire (3.0.0):
+    - FirebaseDatabase (~> 6.6.0)
+  - FirebaseCore (6.10.4):
+    - FirebaseCoreDiagnostics (~> 1.6)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+  - FirebaseCoreDiagnostics (1.7.0):
+    - GoogleDataTransport (~> 7.4)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+    - nanopb (~> 1.30906.0)
+  - FirebaseDatabase (6.6.0):
+    - FirebaseCore (~> 6.10)
+    - leveldb-library (~> 1.22)
+  - GeoFire (4.0.1):
     - Firebase/Database (~> 6.0)
-  - GoogleUtilities/Environment (6.2.0)
-  - GoogleUtilities/Logger (6.2.0):
+  - GoogleDataTransport (7.5.1):
+    - nanopb (~> 1.30906.0)
+  - GoogleUtilities/Environment (6.7.2):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/Logger (6.7.2):
     - GoogleUtilities/Environment
-  - leveldb-library (1.20)
+  - leveldb-library (1.22)
+  - nanopb (1.30906.0):
+    - nanopb/decode (= 1.30906.0)
+    - nanopb/encode (= 1.30906.0)
+  - nanopb/decode (1.30906.0)
+  - nanopb/encode (1.30906.0)
+  - PromisesObjC (1.2.10)
 
 DEPENDENCIES:
   - GeoFire (from `../../`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Firebase
-    - FirebaseAuthInterop
     - FirebaseCore
+    - FirebaseCoreDiagnostics
     - FirebaseDatabase
+    - GoogleDataTransport
     - GoogleUtilities
     - leveldb-library
+    - nanopb
+    - PromisesObjC
 
 EXTERNAL SOURCES:
   GeoFire:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  Firebase: 8432d732974498afd5987e9001a05f90f1a3d625
-  FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
-  FirebaseCore: 68f8a7f50cdae542715d4e86afa37c4067217dcb
-  FirebaseDatabase: f48e067716864be2b855cf716b927ef375d6cfa0
-  GeoFire: 031e3501c42205339a58b38c05a39cb082aa9f30
-  GoogleUtilities: 996e0db07153674fd1b54b220fda3a3dc3547cba
-  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
+  FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
+  FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
+  FirebaseDatabase: 13a865a4b85897462b930eb683bda8f52583713f
+  GeoFire: 67b5276c561434b4e4c7ea567c2c4d64e711339c
+  GoogleDataTransport: f56af7caa4ed338dc8e138a5d7c5973e66440833
+  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
+  leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
+  nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
+  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
 
-PODFILE CHECKSUM: 546dd437c562345d6b610a364a0766677ec12a16
+PODFILE CHECKSUM: b1d763669d96a182a391b9fb7e3324758667cb42
 
-COCOAPODS: 1.7.1
+COCOAPODS: 1.10.0

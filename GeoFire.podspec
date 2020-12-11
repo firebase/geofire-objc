@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "GeoFire"
-  s.version      = "4.0.1"
+  s.version      = "4.0.2"
   s.summary      = "Realtime location queries with Firebase."
   s.homepage     = "https://github.com/firebase/geofire-objc"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
@@ -13,4 +13,15 @@ Pod::Spec.new do |s|
   s.frameworks   = 'CoreLocation', 'FirebaseDatabase'
   s.requires_arc = true
   s.static_framework = true
+
+  s.subspec 'Utils' do |utils|
+    utils.source_files = [
+      "GeoFire/**/GFUtils*.[mh]",
+      "GeoFire/**/GFGeoQueryBounds*.[mh]",
+      "GeoFire/**/GFGeoHashQuery*.[mh]",
+      "GeoFire/**/GFGeoHash*.[mh]",
+      "GeoFire/**/GFBase32Utils*.[mh]",
+    ]
+    utils.frameworks = 'CoreLocation'
+  end
 end
