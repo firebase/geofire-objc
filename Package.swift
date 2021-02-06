@@ -18,7 +18,7 @@ let package = Package(
         .target(
             name: "GeoFire",
             dependencies: [],
-            path: "GeoFire"
+            path: "GeoFire/implementation"
         ),
         .testTarget(
             name: "GeoFireTests",
