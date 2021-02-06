@@ -1,17 +1,25 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.1
 import PackageDescription
 
 let package = Package(
-    name: "geofire_objc",
+    name: "geofire-objc",
     platforms: [
-        .iOS(.v14)
+        .iOS(.v14),
     ],
     products: [
-        .library(name: "geofire_objc", targets: ["geofire_objc"])
+        .library(
+            name: "GeoFire",
+            targets: ["GeoFire"]),
+    ],
+    dependencies: [
+        // no dependencies
     ],
     targets: [
         .target(
             name: "GeoFire",
-            path: "GeoFire",
+            dependencies: []),
+        .testTarget(
+            name: "GeoFireTests",
+            dependencies: ["GeoFire"]),
     ]
 )
