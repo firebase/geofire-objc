@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/firebase/geofire-objc.git", :tag => 'v' + s.version.to_s }
   s.source_files = "GeoFire/**/*.{h,m}"
   s.documentation_url   = "https://geofire-ios.firebaseapp.com/docs/"
-  s.ios.deployment_target = '8.0'
-  s.ios.dependency  'Firebase/Database', '~> 6.0'
+  s.ios.deployment_target = '10.0'
+  s.ios.dependency  'Firebase/Database', '~> 7.8.0'
   s.frameworks   = 'CoreLocation', 'FirebaseDatabase'
   s.requires_arc = true
   s.static_framework = true
