@@ -60,7 +60,7 @@
         GFGeoQueryBounds *bounds = [GFGeoQueryBounds boundsWithStartValue:q.startValue endValue:q.endValue];
         [result addObject:bounds];
     }
-    return result;
+    return [result copy];
 }
 
 @end

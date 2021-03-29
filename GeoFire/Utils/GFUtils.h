@@ -31,6 +31,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class GFGeoQueryBounds;
+
 /**
  * Utility methods for storing locations.
  */
@@ -44,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (double)distanceFromLocation:(CLLocation *)locationA
                     toLocation:(CLLocation *)locationB;
 
-+ (NSArray *)queryBoundsForLocation:(CLLocationCoordinate2D)location withRadius:(double)radius;
++ (NSArray<GFGeoQueryBounds *> *)queryBoundsForLocation:(CLLocationCoordinate2D)location withRadius:(double)radius;
 
 @end
 
