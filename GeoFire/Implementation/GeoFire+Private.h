@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Firebase. All rights reserved.
 //
 
-#import <GeoFire/GeoFire.h>
+#import "GeoFire.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface GeoFire (Private)
