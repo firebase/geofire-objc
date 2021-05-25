@@ -38,14 +38,28 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface GFUtils : NSObject
 
+/**
+ * Returns a geohash for a given location with a default precision of 10.
+ */
 + (NSString *)geoHashForLocation:(CLLocationCoordinate2D)location;
 
+/**
+ * Returns a geohash for a given location
+ */
 + (NSString *)geoHashForLocation:(CLLocationCoordinate2D)location
                    withPrecision:(NSInteger)precision;
 
-+ (double)distanceFromLocation:(CLLocation *)locationA
-                    toLocation:(CLLocation *)locationB;
+/**
+ * Returns the distance between two locations in meters.
+ */
++ (CLLocationDistance)distanceFromLocation:(CLLocation *)locationA
+                                toLocation:(CLLocation *)locationB;
 
+/**
+ * Returns an array of bounds for a given coordinate and radius.
+ * @param location The geographical center of the query-bounded area.
+ * @param radius The radius in kilometers.
+ */
 + (NSArray<GFGeoQueryBounds *> *)queryBoundsForLocation:(CLLocationCoordinate2D)location withRadius:(double)radius;
 
 @end
