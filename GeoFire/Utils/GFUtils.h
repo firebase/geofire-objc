@@ -58,9 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Returns an array of bounds for a given coordinate and radius.
  * @param location The geographical center of the query-bounded area.
- * @param radius The radius in kilometers.
+ * @param radius The radius in meters.
  */
-+ (NSArray<GFGeoQueryBounds *> *)queryBoundsForLocation:(CLLocationCoordinate2D)location withRadius:(double)radius;
++ (NSArray<GFGeoQueryBounds *> *)queryBoundsForLocation:(CLLocationCoordinate2D)location withRadius:(CLLocationDistance)radius;
 
 @end
 
