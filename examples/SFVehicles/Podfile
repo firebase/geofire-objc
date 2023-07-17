@@ -1,5 +1,4 @@
-source 'https://cdn.cocoapods.org/'
-platform :ios, '8.0'
+platform :ios, '14.0'
 
 target 'SFVehicles' do
   use_frameworks!
