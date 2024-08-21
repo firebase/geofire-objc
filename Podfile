@@ -1,5 +1,5 @@
 source 'https://cdn.cocoapods.org/'
-platform :ios, '10.0'
+platform :ios, '14.0'
 use_frameworks!
 
 target 'GeoFire' do

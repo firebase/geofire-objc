@@ -1,31 +1,41 @@
 PODS:
-  - Firebase/CoreOnly (10.12.0):
-    - FirebaseCore (= 10.12.0)
-  - Firebase/Database (10.12.0):
+  - Firebase/CoreOnly (11.1.0):
+    - FirebaseCore (= 11.1.0)
+  - Firebase/Database (11.1.0):
     - Firebase/CoreOnly
-    - FirebaseDatabase (~> 10.12.0)
-  - FirebaseCore (10.12.0):
-    - FirebaseCoreInternal (~> 10.0)
-    - GoogleUtilities/Environment (~> 7.8)
-    - GoogleUtilities/Logger (~> 7.8)
-  - FirebaseCoreInternal (10.12.0):
-    - "GoogleUtilities/NSData+zlib (~> 7.8)"
-  - FirebaseDatabase (10.12.0):
-    - FirebaseCore (~> 10.0)
+    - FirebaseDatabase (~> 11.1.0)
+  - FirebaseAppCheckInterop (11.1.0)
+  - FirebaseCore (11.1.0):
+    - FirebaseCoreInternal (~> 11.0)
+    - GoogleUtilities/Environment (~> 8.0)
+    - GoogleUtilities/Logger (~> 8.0)
+  - FirebaseCoreInternal (11.1.0):
+    - "GoogleUtilities/NSData+zlib (~> 8.0)"
+  - FirebaseDatabase (11.1.0):
+    - FirebaseAppCheckInterop (~> 11.0)
+    - FirebaseCore (~> 11.0)
+    - FirebaseSharedSwift (~> 11.0)
+    - GoogleUtilities/UserDefaults (~> 8.0)
     - leveldb-library (~> 1.22)
-  - GeoFire (4.4.0):
-    - GeoFire/Database (= 4.4.0)
-  - GeoFire/Database (4.4.0):
+  - FirebaseSharedSwift (11.1.0)
+  - GeoFire (5.0.0):
+    - GeoFire/Database (= 5.0.0)
+  - GeoFire/Database (5.0.0):
     - Firebase/Database (< 12.0.0, > 7.0.0)
     - GeoFire/Utils
-  - GeoFire/Utils (4.4.0)
-  - GoogleUtilities/Environment (7.11.1):
-    - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.11.1):
+  - GeoFire/Utils (5.0.0)
+  - GoogleUtilities/Environment (8.0.2):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Logger (8.0.2):
     - GoogleUtilities/Environment
-  - "GoogleUtilities/NSData+zlib (7.11.1)"
-  - leveldb-library (1.22.2)
-  - PromisesObjC (2.2.0)
+    - GoogleUtilities/Privacy
+  - "GoogleUtilities/NSData+zlib (8.0.2)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (8.0.2)
+  - GoogleUtilities/UserDefaults (8.0.2):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - leveldb-library (1.22.5)
 
 DEPENDENCIES:
   - GeoFire (from `../../`)
@@ -33,27 +43,29 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Firebase
+    - FirebaseAppCheckInterop
     - FirebaseCore
     - FirebaseCoreInternal
     - FirebaseDatabase
+    - FirebaseSharedSwift
     - GoogleUtilities
     - leveldb-library
-    - PromisesObjC
 
 EXTERNAL SOURCES:
   GeoFire:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  Firebase: 07150e75d142fb9399f6777fa56a187b17f833a0
-  FirebaseCore: f86a1394906b97ac445ae49c92552a9425831bed
-  FirebaseCoreInternal: 950500ad8a08963657f6d8c67b579740c06d6aa1
-  FirebaseDatabase: 6d998d7ef2c1723b3e798a85e61a7dc0504b1ea0
-  GeoFire: bfcf7b1ff8b4287bd851d119c8a3810b7b2fd17c
-  GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
-  leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
-  PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
+  Firebase: fdb3bd378401f26a7adfcf446b0a630f8c20c0e8
+  FirebaseAppCheckInterop: e59b52f2c0e188e6ba77b9e3f6acead2117f2abf
+  FirebaseCore: 6e2a2782e234b14d48e880ed369ac55cda87fed7
+  FirebaseCoreInternal: adefedc9a88dbe393c4884640a73ec9e8e790f8c
+  FirebaseDatabase: 97244835d8566e28a001f74b6d5c12e4aed622a3
+  FirebaseSharedSwift: 260a35e08943ec810d820a70bc0359136351d0c5
+  GeoFire: a579ffdcdcf6fe74ef9efd7f887d4082598d6d1f
+  GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
+  leveldb-library: e8eadf9008a61f9e1dde3978c086d2b6d9b9dc28
 
-PODFILE CHECKSUM: 9cdbb6e5df071d56d4f101aec3a0135ca2e9956b
+PODFILE CHECKSUM: a6ee8eae42cf0d0b26cadc991b4f001c56751e7d
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.15.2
