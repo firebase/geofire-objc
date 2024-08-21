@@ -9,6 +9,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
   s.requires_arc = true
   s.default_subspec = 'Database'
+  s.swift_version = "5.0"
 
   s.subspec 'Database' do |db|
     db.ios.dependency 'Firebase/Database', '> 7.0.0', '< 12.0.0'
